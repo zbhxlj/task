@@ -1,0 +1,3 @@
+gcc -c lex.cpp 
+gcc -c main.cpp
+gcc -o main lex.o main.o

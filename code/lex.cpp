@@ -1,119 +1,65 @@
-#include<vector>
-#include<string>
-#include<fstream>
+#include "lex.h"
+#include<unordered_map>
 #include<unordered_set>
-#include<iostream>
-enum class tokenType 
-{
-                Nul,
-                Unknown,
-                Identifier,
 
-                String,                         // 'a'-'z''A'-'Z'  
-                Integer,                        // 0123 0x123 123 
-                Long,                        // 0123L 0X123L 123L
-                Float,                       // 1.23  1.23E0 1.23e0
-
-                KeyWord,                        // int  long  float  if  else ...
-
-                Pl,                             // +
-                Minus,                          // -
-                Multi,                          // *
-                Divid,                          // /
-
-                Ls,                             // <
-                LsEq,                           // <=
-                Eq,                             // ==
-                GtEq,                           // >=
-                Gt,                             // >
-                NtEq,                           // !=
-                
-                And,                            // &&
-                Or,                             // ||
-                Assign,                         // =
-
-                OpenBracket,                    // (
-                CloseBracket,                   // )
-
-                Lp,                             // {
-                Rp,                             // }
-                Semi,                           // ;
-                Comma,                          // ,
-                Quota,                          // "
-                SingleQuota,                    // '
-                
-                LeftArray,                      // [
-                RightArray,                     // ]
-
-                Sharp,                          // #
-                };
-
-
-struct token{
-    using list = vector<token>;
-
-    tokenType               type = tokenType::Nul;
-    string                  value;
-    int                     row = -1;
-    int                     column = -1; 
-    bool                    isKeyWord = false;
-
-    void clear(){
-        type = tokenType::Nul;
-        value.clear();
-        row = rowNum;
-        column = columnNum;
-        isKeyWord = false;
-    }
-};
-
-
-enum class State{
-    Begin,                                      // 0
-    InString,                                   // 1
-    InInt,                                      // 2
-    InFloat,                                    // 3
-    InLong,                                     // 4
-    InAssign,                                   // 5
-    InEqualIgnored,                             // 6
-    InLess,                                     // 7
-    InLessEqIgnored,                            // 8
-    InGtr,                                      // 9
-    InGtrEqIgnored,                             // 10
-    InNotEq,                                    // 11
-    InNotEqIgnored,                             // 12
-    In0Prefix,                                  // 13
-    In0Int,                                     // 14
-    In0LongIgored,                              // 15
-    In0xPrefix,                                 // 16
-    In0xInt,                                    // 17
-    In0xLongIgnored,                            // 18       
-    InArithmeticIgnored,                        // 19
-    InBracketIgnored,                           // 20
-    InDelimiterIgnored,                         // 21
-    InSharpIgnored,                             // 22
-    InAnd,                                      // 23
-    InAndIgnored,                               // 24
-    InOr,                                       // 25
-    InOrIgnored,                                // 26
-};
-
-
-using std::vector;
-using std::string;
-using std::unordered_set;
-using std::cerr;
 using std::endl;
+using std::cerr;
+using std::unordered_map;
+using std::unordered_set;
 
 unordered_set<string> keyWords;                     // 关键字
 token::list tokenText;                              // 分词结果
 
-int rowNum = 1; 
-int columnNum = 0;
+int rowNum = 1;                                     //行数
+int columnNum = 0;                                  //列数
+unordered_map<tokenType, string> typeName;          // 分词的类型, 便于打印
+
+
+void token::clear(){
+    type = tokenType::Nul;
+        value.clear();
+        row = rowNum;
+        column = columnNum;
+        isKeyWord = false;
+}
 
 void init(){
     keyWords = {"if", "else", "while", "for", "return", "break",
                  "continue", "char", "int", "long","float"};
+    typeName = {
+        {tokenType::Nul, "Nul"},
+        {tokenType::Unknown, "Unknown"},
+        {tokenType::Identifier, "Identifier"},
+        {tokenType::String, "String"},
+        {tokenType::Integer, "Integer"},
+        {tokenType::Long, "Long"},
+        {tokenType::Float, "Float"},
+        {tokenType::KeyWord, "KeyWord"},
+        {tokenType::Pl, "Plus Mark"},
+        {tokenType::Minus, "Minus"},
+        {tokenType::Multi, "Multiply"},
+        {tokenType::Divid, "Division"},
+        {tokenType::Ls, "Less"},
+        {tokenType::LsEq, "LessOrEqual"},
+        {tokenType::Eq, "Equal"},
+        {tokenType::GtEq, "GreaterEqual"},
+        {tokenType::Gt, "GreaterOrEqual"},
+        {tokenType::NtEq, "NotEqual"},
+        {tokenType::And, "And"}, 
+        {tokenType::Or, "Or"},
+        {tokenType::Assign, "Assign"},
+        {tokenType::OpenBracket, "OpenBracket"},
+        {tokenType::CloseBracket, "CloseBracket"},
+        {tokenType::Lp, "LeftParenthes"},
+        {tokenType::Rp, "RightParenthes"},
+        {tokenType::Semi, "Semicolon"},
+        {tokenType::Comma, "Comma"}, 
+        {tokenType::Quota, "Quotation"},
+        {tokenType::SingleQuota, "SingleQuotation"},
+        {tokenType::LeftArray, "LeftArray"},
+        {tokenType::RightArray, "RightArray"},
+        {tokenType::Sharp, "Sharp"}
+    };
 }
 
 
@@ -151,6 +97,7 @@ void init(){
 
 
 int lex(const char* reading){
+    init();
     int Err = 0;
     State state = State::Begin;
     token curToken;
@@ -384,11 +331,15 @@ int lex(const char* reading){
             case 'a' ... 'z' :
             case 'A' ... 'Z' :
             case '0' ... '9' :
+            case '.' :
                 curToken.value += *reading;
                 break;
             
             default:
                 reading--;
+                if(keyWords.count(curToken.value) > 0) 
+                    curToken.type = tokenType::KeyWord;
+                else curToken.type = tokenType::Identifier;
                 tokenText.push_back(curToken);
                 state = State::Begin;
                 break;
@@ -663,6 +614,9 @@ int lex(const char* reading){
             break;
         }
         reading++;
+    }
+    for(const auto& x: tokenText){
+        cerr << "x.type: " << typeName[x.type] << " " << "x.value" << x.value << endl;
     }
     return Err;
 }
