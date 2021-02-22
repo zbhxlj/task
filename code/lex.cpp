@@ -5,20 +5,12 @@
 
 using std::endl;
 using std::cerr;
+using std::cout;
 using std::ifstream;
 using std::stringstream;
 using std::string;
 
 
-token::token() = default;
-token::token(const token& rhs) = default;
-
-void token::clear(){
-    type = tokenType::Nul;
-    value.clear();
-    row = column = -1;
-    isKeyWord = false;
-}
 
 tokenParser::tokenParser(const char* filename): fileName(filename) {
     keyWordsList = {"if", "else", "while", "for", "return", "break",
@@ -107,15 +99,16 @@ void tokenParser::Parse(){
     const char* reading = codeString.c_str(); 
 
     State state = State::Begin;
-    token curToken;
+    shared_ptr<token> curToken(nullptr);
    
     while(*reading){
+        // cout << *reading << endl;
         columnNum++;
         switch (state)
         {
         case State::Begin:
         {
-            curToken.clear();
+            curToken.reset(new token());
             switch (*reading)
             {
             case ' ':
@@ -127,204 +120,204 @@ void tokenParser::Parse(){
             
             case 'a' ... 'z' :
             case 'A' ... 'Z' :
-                curToken.type = tokenType::String;
-                curToken.value += *reading;
-                curToken.row = rowNum;
-                curToken.column = columnNum;
+                curToken->type = tokenType::String;
+                curToken->value += *reading;
+                curToken->row = rowNum;
+                curToken->column = columnNum;
                 state = State::InString;
                 break;
 
             case '1' ... '9' :
-                curToken.type = tokenType::Integer;
-                curToken.value += *reading;
-                curToken.row = rowNum;
-                curToken.column = columnNum;
+                curToken->type = tokenType::Integer;
+                curToken->value += *reading;
+                curToken->row = rowNum;
+                curToken->column = columnNum;
                 state = State:: InInt;
                 break;
 
             case '=' :
-                curToken.type = tokenType::Assign;
-                curToken.value += *reading;
-                curToken.row = rowNum;
-                curToken.column = columnNum;
+                curToken->type = tokenType::Assign;
+                curToken->value += *reading;
+                curToken->row = rowNum;
+                curToken->column = columnNum;
                 state = State::InAssign;
                 break;
             case '<' :
-                curToken.type = tokenType::Ls;
-                curToken.value += *reading;
-                curToken.row = rowNum;
-                curToken.column = columnNum;
+                curToken->type = tokenType::Ls;
+                curToken->value += *reading;
+                curToken->row = rowNum;
+                curToken->column = columnNum;
                 state = State::InLess;
                 break;
             case '>' :
-                curToken.type = tokenType::Gt;
-                curToken.value += *reading;
-                curToken.row = rowNum;
-                curToken.column = columnNum;
+                curToken->type = tokenType::Gt;
+                curToken->value += *reading;
+                curToken->row = rowNum;
+                curToken->column = columnNum;
                 state = State::InGtr;
                 break;
             case '!' :
-                curToken.type = tokenType::NtEq;
-                curToken.value += *reading;
-                curToken.row = rowNum;
-                curToken.column = columnNum;
+                curToken->type = tokenType::NtEq;
+                curToken->value += *reading;
+                curToken->row = rowNum;
+                curToken->column = columnNum;
                 state = State::InNotEq;
                 break;
             
             case '0' :
-                curToken.type = tokenType::Integer;
-                curToken.value += *reading;
-                curToken.row = rowNum;
-                curToken.column = columnNum;
+                curToken->type = tokenType::Integer;
+                curToken->value += *reading;
+                curToken->row = rowNum;
+                curToken->column = columnNum;
                 state = State::In0Prefix;
                 break;
             
             case '+' :
-                curToken.type = tokenType::Pl;
-                curToken.value += *reading;
-                curToken.row = rowNum;
-                curToken.column = columnNum;
+                curToken->type = tokenType::Pl;
+                curToken->value += *reading;
+                curToken->row = rowNum;
+                curToken->column = columnNum;
                 tokenText.push_back(curToken);
                 state = State::Begin;
                 break;
             case '-' :
-                curToken.type = tokenType::Minus;
-                curToken.value += *reading;
-                curToken.row = rowNum;
-                curToken.column = columnNum;
+                curToken->type = tokenType::Minus;
+                curToken->value += *reading;
+                curToken->row = rowNum;
+                curToken->column = columnNum;
                 tokenText.push_back(curToken);
                 state = State::Begin;
                 break;
             case '*' :
-                curToken.type = tokenType::Multi;
-                curToken.value += *reading;
-                curToken.row = rowNum;
-                curToken.column = columnNum;
+                curToken->type = tokenType::Multi;
+                curToken->value += *reading;
+                curToken->row = rowNum;
+                curToken->column = columnNum;
                 tokenText.push_back(curToken);
                 state = State::Begin;
                 break;
             case '/' :
-                curToken.type = tokenType::Divid;
-                curToken.value += *reading;
-                curToken.row = rowNum;
-                curToken.column = columnNum;
+                curToken->type = tokenType::Divid;
+                curToken->value += *reading;
+                curToken->row = rowNum;
+                curToken->column = columnNum;
                 tokenText.push_back(curToken);
                 state = State::Begin;
                 break;
             
             case '(' :
-                curToken.type = tokenType::OpenBracket;
-                curToken.value += *reading;
-                curToken.row = rowNum;
-                curToken.column = columnNum;
+                curToken->type = tokenType::OpenBracket;
+                curToken->value += *reading;
+                curToken->row = rowNum;
+                curToken->column = columnNum;
                 tokenText.push_back(curToken);
                 state = State::Begin;
                 break;
             case ')' :
-                curToken.type = tokenType::CloseBracket;
-                curToken.value += *reading;
-                curToken.row = rowNum;
-                curToken.column = columnNum;
+                curToken->type = tokenType::CloseBracket;
+                curToken->value += *reading;
+                curToken->row = rowNum;
+                curToken->column = columnNum;
                 tokenText.push_back(curToken);
                 state = State::Begin;
                 break;
             case '[' :
-                curToken.type = tokenType::LeftArray;
-                curToken.value += *reading;
-                curToken.row = rowNum;
-                curToken.column = columnNum;
+                curToken->type = tokenType::LeftArray;
+                curToken->value += *reading;
+                curToken->row = rowNum;
+                curToken->column = columnNum;
                 tokenText.push_back(curToken);
                 state = State::Begin;
                 break;
             case ']' :
-                curToken.type = tokenType::RightArray;
-                curToken.value += *reading;
-                curToken.row = rowNum;
-                curToken.column = columnNum;
+                curToken->type = tokenType::RightArray;
+                curToken->value += *reading;
+                curToken->row = rowNum;
+                curToken->column = columnNum;
                 tokenText.push_back(curToken);
                 state = State::Begin;
                 break;
             case '{' :
-                curToken.type = tokenType::Lp;
-                curToken.value += *reading;
-                curToken.row = rowNum;
-                curToken.column = columnNum;
+                curToken->type = tokenType::Lp;
+                curToken->value += *reading;
+                curToken->row = rowNum;
+                curToken->column = columnNum;
                 tokenText.push_back(curToken);
                 state = State::Begin;
                 break;
             case '}' :
-                curToken.type = tokenType::Rp;
-                curToken.value += *reading;
-                curToken.row = rowNum;
-                curToken.column = columnNum;
+                curToken->type = tokenType::Rp;
+                curToken->value += *reading;
+                curToken->row = rowNum;
+                curToken->column = columnNum;
                 tokenText.push_back(curToken);
                 state = State::Begin;
                 break;
             
             case ',' :
-                curToken.type = tokenType::Comma;
-                curToken.value += *reading;
-                curToken.row = rowNum;
-                curToken.column = columnNum;
+                curToken->type = tokenType::Comma;
+                curToken->value += *reading;
+                curToken->row = rowNum;
+                curToken->column = columnNum;
                 tokenText.push_back(curToken);
                 state = State::Begin;
                 break;
             case ';' :
-                curToken.type = tokenType::Semi;
-                curToken.value += *reading;
-                curToken.row = rowNum;
-                curToken.column = columnNum;
+                curToken->type = tokenType::Semi;
+                curToken->value += *reading;
+                curToken->row = rowNum;
+                curToken->column = columnNum;
                 tokenText.push_back(curToken);
                 state = State::Begin;
                 break;
             case '\'' :
-                curToken.type = tokenType::SingleQuota;
-                curToken.value += *reading;
-                curToken.row = rowNum;
-                curToken.column = columnNum;
+                curToken->type = tokenType::SingleQuota;
+                curToken->value += *reading;
+                curToken->row = rowNum;
+                curToken->column = columnNum;
                 tokenText.push_back(curToken);
                 state = State::Begin;
                 break;
             case '\"' : 
-                curToken.type = tokenType::Quota;
-                curToken.value += *reading;
-                curToken.row = rowNum;
-                curToken.column = columnNum;
+                curToken->type = tokenType::Quota;
+                curToken->value += *reading;
+                curToken->row = rowNum;
+                curToken->column = columnNum;
                 tokenText.push_back(curToken);
                 state = State::Begin;
                 break;
 
             case '#' :
-                curToken.type = tokenType::Sharp;
-                curToken.value += *reading;
-                curToken.row = rowNum;
-                curToken.column = columnNum;
+                curToken->type = tokenType::Sharp;
+                curToken->value += *reading;
+                curToken->row = rowNum;
+                curToken->column = columnNum;
                 tokenText.push_back(curToken);
                 state = State::Begin;
                 break;
 
             case '&' :
-                curToken.type = tokenType::And;
-                curToken.value += *reading;
-                curToken.row = rowNum;
-                curToken.column = columnNum;
+                curToken->type = tokenType::And;
+                curToken->value += *reading;
+                curToken->row = rowNum;
+                curToken->column = columnNum;
                 state = State::InAnd;
                 break;
             case '|' :
-                curToken.type = tokenType::Or;
-                curToken.value += *reading;
-                curToken.row = rowNum;
-                curToken.column = columnNum;
+                curToken->type = tokenType::Or;
+                curToken->value += *reading;
+                curToken->row = rowNum;
+                curToken->column = columnNum;
                 state = State::InOr;
                 break;
 
             default:
                 cerr << "Error: Unexpected Character in state::Begin!" << endl;
                 hasUnknownType = true;
-                curToken.type = tokenType::Unknown;
-                curToken.value += *reading;
-                curToken.row = rowNum;
-                curToken.column = columnNum;
+                curToken->type = tokenType::Unknown;
+                curToken->value += *reading;
+                curToken->row = rowNum;
+                curToken->column = columnNum;
                 tokenText.push_back(curToken);
                 state = State::Begin;
                 break;
@@ -340,14 +333,14 @@ void tokenParser::Parse(){
             case 'A' ... 'Z' :
             case '0' ... '9' :
             case '.' :
-                curToken.value += *reading;
+                curToken->value += *reading;
                 break;
             
             default:
                 reading--;
-                if(keyWordsList.count(curToken.value) > 0) 
-                    curToken.type = tokenType::KeyWord;
-                else curToken.type = tokenType::Identifier;
+                if(keyWordsList.count(curToken->value) > 0) 
+                    curToken->type = tokenType::KeyWord;
+                else curToken->type = tokenType::Identifier;
                 tokenText.push_back(curToken);
                 state = State::Begin;
                 break;
@@ -360,18 +353,18 @@ void tokenParser::Parse(){
             switch (*reading)
             {
             case '0' ... '9':
-                curToken.value += *reading;
+                curToken->value += *reading;
                 break;
             
             case '.' :
-                curToken.type = tokenType::Float;
-                curToken.value += *reading;
+                curToken->type = tokenType::Float;
+                curToken->value += *reading;
                 state = State::InFloat;
                 break;
 
             case 'L' :
             case 'l' :
-                curToken.type = tokenType::Long;
+                curToken->type = tokenType::Long;
                 tokenText.push_back(curToken);
                 state = State::Begin;
                 break;
@@ -390,7 +383,7 @@ void tokenParser::Parse(){
             switch (*reading)
             {
             case '0' ... '9':
-                curToken.value += *reading;
+                curToken->value += *reading;
                 break;
             
             default:
@@ -407,8 +400,8 @@ void tokenParser::Parse(){
             switch (*reading)
             {
             case '=':
-                curToken.type = tokenType::Eq;
-                curToken.value += *reading;
+                curToken->type = tokenType::Eq;
+                curToken->value += *reading;
                 tokenText.push_back(curToken);
                 state = State::Begin;
                 break;
@@ -427,8 +420,8 @@ void tokenParser::Parse(){
             switch (*reading)
             {
             case '=' :
-                curToken.type = tokenType::LsEq;
-                curToken.value += *reading;
+                curToken->type = tokenType::LsEq;
+                curToken->value += *reading;
                 tokenText.push_back(curToken);
                 state = State::Begin;
                 break;
@@ -447,8 +440,8 @@ void tokenParser::Parse(){
             switch (*reading)
             {
             case '=' :
-                curToken.type = tokenType::GtEq;
-                curToken.value += *reading;
+                curToken->type = tokenType::GtEq;
+                curToken->value += *reading;
                 tokenText.push_back(curToken);
                 state = State::Begin;
                 break;
@@ -468,7 +461,7 @@ void tokenParser::Parse(){
             switch (*reading)
             {
             case '=' :
-                curToken.value += *reading;
+                curToken->value += *reading;
                 tokenText.push_back(curToken);
                 state = State::Begin;
                 break;
@@ -476,7 +469,7 @@ void tokenParser::Parse(){
             default:
                 cerr << "Unexpected character int State::InNotEq !" << endl;
                 hasUnknownType = true;
-                curToken.type = tokenType::Unknown;
+                curToken->type = tokenType::Unknown;
                 reading--;
                 tokenText.push_back(curToken);
                 state = State::Begin;
@@ -490,27 +483,27 @@ void tokenParser::Parse(){
             switch (*reading)
             {
             case '0' ... '7':
-                curToken.type = tokenType::Integer;
-                curToken.value += *reading;
+                curToken->type = tokenType::Integer;
+                curToken->value += *reading;
                 state = State::In0Int;
                 break;
             
             case 'x' :
             case 'X' :
-                curToken.type = tokenType::Integer;
-                curToken.value += *reading;
+                curToken->type = tokenType::Integer;
+                curToken->value += *reading;
                 state = State::In0xPrefix;
                 break;
             
             case '8' ... '9' :
-                curToken.type = tokenType::Unknown;
-                curToken.value += *reading;
+                curToken->type = tokenType::Unknown;
+                curToken->value += *reading;
                 tokenText.push_back(curToken);
                 state = State::Begin;
                 break;
 
             default:
-                curToken.type = tokenType::Integer;
+                curToken->type = tokenType::Integer;
                 reading--;
                 tokenText.push_back(curToken);
                 state = State::Begin;
@@ -524,11 +517,11 @@ void tokenParser::Parse(){
             switch (*reading)
             {
             case '0' ... '7':
-                curToken.value += *reading;
+                curToken->value += *reading;
                 break;
             case 'l' :
             case 'L' :
-                curToken.type = tokenType::Long;
+                curToken->type = tokenType::Long;
                 tokenText.push_back(curToken);
                 state = State::Begin;
                 break;
@@ -547,12 +540,12 @@ void tokenParser::Parse(){
             {
             case '0' ... '9' :
             case 'a' ... 'f' :
-                curToken.value += *reading;
+                curToken->value += *reading;
                 state = State::In0xInt;
                 break;
             
             default:
-                curToken.type = tokenType::String;
+                curToken->type = tokenType::String;
                 reading--;
                 tokenText.push_back(curToken);
                 state = State::Begin;
@@ -567,11 +560,11 @@ void tokenParser::Parse(){
             {
             case '0' ... '9' :
             case 'a' ... 'f' :
-                curToken.value += *reading;
+                curToken->value += *reading;
                 break;
             case 'l' :
             case 'L' : 
-                curToken.type = tokenType::Long;
+                curToken->type = tokenType::Long;
                 tokenText.push_back(curToken);
                 state = State::Begin;
                 break;
@@ -589,14 +582,14 @@ void tokenParser::Parse(){
             switch (*reading)
             {
             case '&' :
-                curToken.value += *reading;
+                curToken->value += *reading;
                 tokenText.push_back(curToken);
                 state = State::Begin;
                 break;
             default:
                 cerr << "Unexpected character in State::InAnd!" << endl;
                 hasUnknownType = true;
-                curToken.type = tokenType::Unknown;
+                curToken->type = tokenType::Unknown;
                 tokenText.push_back(curToken);
                 state = State::Begin;
                 break;
@@ -609,14 +602,14 @@ void tokenParser::Parse(){
             switch (*reading)
             {
             case '|' :
-                curToken.value += *reading;
+                curToken->value += *reading;
                 tokenText.push_back(curToken);
                 state = State::Begin;
                 break;
             default:
                 cerr << "Unexpected character in State::InOr!" << endl;
                 hasUnknownType = true;
-                curToken.type = tokenType::Unknown;
+                curToken->type = tokenType::Unknown;
                 tokenText.push_back(curToken);
                 state = State::Begin;
                 break;
@@ -629,8 +622,14 @@ void tokenParser::Parse(){
             break;
         }
         reading++;
+        cout << *reading  << " " << reading << endl;
     }
-    for(const auto& x: tokenText){
-        cerr << "x.type: " << mapFromEnumClassToString[x.type] << " " << "x.value" << x.value << endl;
+}
+
+void tokenParser::Print(){
+     for(const auto& x: tokenText){
+        cout << "x.type: " << mapFromEnumClassToString[x->type] << " " << "x.value" << x->value << endl;
     }
+
+    cout << "tokenParser::Print" << endl;
 }
