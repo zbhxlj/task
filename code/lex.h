@@ -1,12 +1,15 @@
 #include<string>
 #include<vector>
-#include<iostream>
+#include<unordered_map>
+#include<unordered_set>
+#include<memory>
 
-using std::vector;
+
 using std::string;
-
-void init();
-int lex(const char* reading);
+using std::vector;
+using std::unordered_map;
+using std::unordered_set;
+using std::unique_ptr;
 
 enum class tokenType 
 {
@@ -53,19 +56,6 @@ enum class tokenType
                 Sharp,                          // #
                 };
 
-struct token{
-    using list = vector<token>;
-
-    tokenType               type = tokenType::Nul;
-    string                  value;
-    int                     row = -1;
-    int                     column = -1; 
-    bool                    isKeyWord = false;
-
-    void clear();
-};
-
-
 enum class State{
     Begin,                                      // 0
     InString,                                   // 1
@@ -95,4 +85,38 @@ enum class State{
     InOr,                                       // 25
     InOrIgnored,                                // 26
 };
+
+struct tokenParser;                             //forward declaration
+
+struct token{
+
+    unique_ptr<tokenParser>                     parser;
+    tokenType                                   type = tokenType::Nul;
+    string                                      value;
+    int                                         row = -1;
+    int                                         column = -1; 
+    bool                                        isKeyWord = false;
+
+    token(tokenParser* Parser);
+};
+
+struct tokenParser {
+
+    const char*                                 fileName = nullptr;
+
+    bool                                        hasUnknownType = false;                               
+    int                                         rowNum  = 1;                                   
+    int                                         columnNum = 0;                                  
+    unordered_set<string>                       keyWordsList;                     
+    vector<unique_ptr<token>>                   tokenText;                              
+    unordered_map<tokenType, string>            mapFromEnumClassToString;  
+
+    tokenParser();
+    void Parse();        
+};
+
+
+
+
+
 
