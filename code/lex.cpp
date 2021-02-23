@@ -5,15 +5,14 @@
 
 using std::endl;
 using std::cerr;
+using std::cout;
 using std::ifstream;
 using std::stringstream;
 using std::string;
-using std::make_unique;
-
-token::token(tokenParser* Parser) : parser(make_unique<tokenParser>(Parser)) {}
 
 
-tokenParser::tokenParser() {
+
+tokenParser::tokenParser(const char* filename): fileName(filename) {
     keyWordsList = {"if", "else", "while", "for", "return", "break",
                  "continue", "char", "int", "long","float"};
     
@@ -52,8 +51,6 @@ tokenParser::tokenParser() {
         {tokenType::Sharp, "Sharp"}
     };
 }
-
-
 
 
 /**
@@ -102,15 +99,16 @@ void tokenParser::Parse(){
     const char* reading = codeString.c_str(); 
 
     State state = State::Begin;
-    unique_ptr<token> curToken(nullptr);
+    shared_ptr<token> curToken(nullptr);
    
     while(*reading){
+        // cout << *reading << endl;
         columnNum++;
         switch (state)
         {
         case State::Begin:
         {
-            curToken.reset(new token(this));
+            curToken.reset(new token());
             switch (*reading)
             {
             case ' ':
@@ -624,8 +622,14 @@ void tokenParser::Parse(){
             break;
         }
         reading++;
+        cout << *reading  << " " << reading << endl;
     }
-    for(const auto& x: tokenText){
-        cerr << "x.type: " << mapFromEnumClassToString[x->type] << " " << "x.value" << x->value << endl;
+}
+
+void tokenParser::Print(){
+     for(const auto& x: tokenText){
+        cout << "x.type: " << mapFromEnumClassToString[x->type] << " " << "x.value" << x->value << endl;
     }
+
+    cout << "tokenParser::Print" << endl;
 }

@@ -4,12 +4,11 @@
 #include<unordered_set>
 #include<memory>
 
-
 using std::string;
 using std::vector;
 using std::unordered_map;
 using std::unordered_set;
-using std::unique_ptr;
+using std::shared_ptr;
 
 enum class tokenType 
 {
@@ -90,14 +89,12 @@ struct tokenParser;                             //forward declaration
 
 struct token{
 
-    unique_ptr<tokenParser>                     parser;
     tokenType                                   type = tokenType::Nul;
     string                                      value;
     int                                         row = -1;
     int                                         column = -1; 
     bool                                        isKeyWord = false;
 
-    token(tokenParser* Parser);
 };
 
 struct tokenParser {
@@ -108,11 +105,12 @@ struct tokenParser {
     int                                         rowNum  = 1;                                   
     int                                         columnNum = 0;                                  
     unordered_set<string>                       keyWordsList;                     
-    vector<unique_ptr<token>>                   tokenText;                              
+    vector<shared_ptr<token>>                   tokenText;                              
     unordered_map<tokenType, string>            mapFromEnumClassToString;  
 
-    tokenParser();
-    void Parse();        
+    tokenParser(const char* filename);
+    void Parse();     
+    void Print();   
 };
 
 
