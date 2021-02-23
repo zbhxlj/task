@@ -1,13 +1,10 @@
 #include "lex.h"
 #include<iostream>
-#include<fstream>
-#include<sstream>
+#include<cstdio>
 
 using std::endl;
 using std::cerr;
 using std::cout;
-using std::ifstream;
-using std::stringstream;
 using std::string;
 
 
@@ -87,22 +84,18 @@ tokenParser::tokenParser(const char* filename): fileName(filename) {
 
 
 void tokenParser::Parse(){
-    ifstream codeFile;
-    codeFile.open(fileName);
 
-    stringstream codeStream;
-    codeStream << codeFile.rdbuf();
+    FILE* fp = fopen(fileName, "r");
+    char ch;
+    string input;
+    while((ch = fgetc(fp)) != EOF) input += ch;
 
-    string codeString;
-    codeStream >> codeString;
-
-    const char* reading = codeString.c_str(); 
+    const char* reading = input.c_str();
 
     State state = State::Begin;
     shared_ptr<token> curToken(nullptr);
-   
+
     while(*reading){
-        // cout << *reading << endl;
         columnNum++;
         switch (state)
         {
@@ -622,14 +615,11 @@ void tokenParser::Parse(){
             break;
         }
         reading++;
-        cout << *reading  << " " << reading << endl;
     }
 }
 
-void tokenParser::Print(){
+void tokenParser::PrintTokenText(){
      for(const auto& x: tokenText){
-        cout << "x.type: " << mapFromEnumClassToString[x->type] << " " << "x.value" << x->value << endl;
+        cout << "x.type: " << mapFromEnumClassToString[x->type] << " " << "x.value" << " " << x->value << endl;
     }
-
-    cout << "tokenParser::Print" << endl;
 }
