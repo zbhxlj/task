@@ -1,4 +1,4 @@
-#include "lex.h"
+#include "../library/lex.h"
 #include<iostream>
 #include<cstdio>
 
