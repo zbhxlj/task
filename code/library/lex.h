@@ -1,3 +1,6 @@
+#ifndef LEXICALANALYZER_H
+#define LEXICALANALYZER_H
+
 #include<string>
 #include<vector>
 #include<unordered_map>
@@ -15,6 +18,7 @@ enum class tokenType
                 Nul,
                 Error,
                 Identifier,
+                End,                            // #
 
                 String,                         // " xxx " 
                 Char,                           // ' x '
@@ -119,8 +123,4 @@ struct tokenParser {
     void PrintTokenText();   
 };
 
-
-
-
-
-
+#endif

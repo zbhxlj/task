@@ -702,6 +702,9 @@ void tokenParser::Parse(){
         }
         reading++;
     }
+    curToken.reset(new token());
+    curToken->type = tokenType::End;
+    tokenText.push_back(curToken);
 }
 
 void tokenParser::PrintTokenText(){
