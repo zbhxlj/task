@@ -30,7 +30,7 @@ enum class SyntaxUnitType{
     ArgumentSequence,                           // Q    实参序列
     TypeName,                                   // R    类型说明符
     Array,                                      // R'   
-    Identifier,                                 // h    标识符
+    Terminator,                                 //      终结符
     Nul,                                        //      占位符
 };
 
