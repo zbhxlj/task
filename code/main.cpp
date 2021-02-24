@@ -8,7 +8,8 @@ using std::endl;
 int main(int argc, char* argv[]){
     tokenParser test1(argv[1]);
     test1.Parse();    
-    cout << "OK" << endl;
-    test1.Print();
+    test1.PrintTokenText();
+
+
     return 0;
 }

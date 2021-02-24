@@ -110,7 +110,7 @@ struct tokenParser {
 
     tokenParser(const char* filename);
     void Parse();     
-    void Print();   
+    void PrintTokenText();   
 };
 
 
