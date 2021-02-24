@@ -13,13 +13,14 @@ using std::shared_ptr;
 enum class tokenType 
 {
                 Nul,
-                Unknown,
+                Error,
                 Identifier,
 
-                String,                         // 'a'-'z''A'-'Z'  
+                String,                         // " xxx " 
+                Char,                           // ' x '
                 Integer,                        // 0123 0x123 123 
-                Long,                        // 0123L 0X123L 123L
-                Float,                       // 1.23  1.23E0 1.23e0
+                Long,                           // 0123L 0X123L 123L
+                Float,                          // 1.23  1.23E0 1.23e0
 
                 KeyWord,                        // int  long  float  if  else ...
 
@@ -57,7 +58,7 @@ enum class tokenType
 
 enum class State{
     Begin,                                      // 0
-    InString,                                   // 1
+    InIdentifier,                               // 1
     InInt,                                      // 2
     InFloat,                                    // 3
     InLong,                                     // 4
@@ -78,11 +79,16 @@ enum class State{
     InArithmeticIgnored,                        // 19
     InBracketIgnored,                           // 20
     InDelimiterIgnored,                         // 21
-    InSharpIgnored,                             // 22
-    InAnd,                                      // 23
-    InAndIgnored,                               // 24
-    InOr,                                       // 25
-    InOrIgnored,                                // 26
+    InDoubleQuota,                              // 22
+    InString,                                   // 23
+    InStringIgnored,                            // 24
+    InAnd,                                      // 25
+    InAndIgnored,                               // 26
+    InOr,                                       // 27
+    InOrIgnored,                                // 28
+    InSingleQuota,                              // 29
+    InChar,                                     // 30
+    InCharIgnored,                              // 31
 };
 
 struct tokenParser;                             //forward declaration
@@ -101,7 +107,7 @@ struct tokenParser {
 
     const char*                                 fileName = nullptr;
 
-    bool                                        hasUnknownType = false;                               
+    bool                                        hasError = false;                               
     int                                         rowNum  = 1;                                   
     int                                         columnNum = 0;                                  
     unordered_set<string>                       keyWordsList;                     

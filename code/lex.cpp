@@ -15,9 +15,10 @@ tokenParser::tokenParser(const char* filename): fileName(filename) {
     
     mapFromEnumClassToString = {
         {tokenType::Nul, "Nul"},
-        {tokenType::Unknown, "Unknown"},
+        {tokenType::Error, "Error"},
         {tokenType::Identifier, "Identifier"},
         {tokenType::String, "String"},
+        {tokenType::Char, "Char"},
         {tokenType::Integer, "Integer"},
         {tokenType::Long, "Long"},
         {tokenType::Float, "Float"},
@@ -79,7 +80,7 @@ tokenParser::tokenParser(const char* filename): fileName(filename) {
  * }
  * 
  * @param const char* fileName
- * @return hasUnknowType indicating whether there is Unknown Type
+ * @return hasUnknowType indicating whether there is Error Type
  */
 
 
@@ -113,11 +114,11 @@ void tokenParser::Parse(){
             
             case 'a' ... 'z' :
             case 'A' ... 'Z' :
-                curToken->type = tokenType::String;
+                curToken->type = tokenType::Identifier;
                 curToken->value += *reading;
                 curToken->row = rowNum;
                 curToken->column = columnNum;
-                state = State::InString;
+                state = State::InIdentifier;
                 break;
 
             case '1' ... '9' :
@@ -264,20 +265,18 @@ void tokenParser::Parse(){
                 state = State::Begin;
                 break;
             case '\'' :
-                curToken->type = tokenType::SingleQuota;
+                curToken->type = tokenType::Char;
                 curToken->value += *reading;
                 curToken->row = rowNum;
                 curToken->column = columnNum;
-                tokenText.push_back(curToken);
-                state = State::Begin;
+                state = State::InSingleQuota;
                 break;
             case '\"' : 
-                curToken->type = tokenType::Quota;
+                curToken->type = tokenType::String;
                 curToken->value += *reading;
                 curToken->row = rowNum;
                 curToken->column = columnNum;
-                tokenText.push_back(curToken);
-                state = State::Begin;
+                state = State::InDoubleQuota;
                 break;
 
             case '#' :
@@ -306,8 +305,8 @@ void tokenParser::Parse(){
 
             default:
                 cerr << "Error: Unexpected Character in state::Begin!" << endl;
-                hasUnknownType = true;
-                curToken->type = tokenType::Unknown;
+                hasError = true;
+                curToken->type = tokenType::Error;
                 curToken->value += *reading;
                 curToken->row = rowNum;
                 curToken->column = columnNum;
@@ -318,14 +317,13 @@ void tokenParser::Parse(){
             break;
         }
 
-        case State::InString :
+        case State::InIdentifier :
         {
             switch (*reading)
             {
             case 'a' ... 'z' :
             case 'A' ... 'Z' :
             case '0' ... '9' :
-            case '.' :
                 curToken->value += *reading;
                 break;
             
@@ -357,6 +355,7 @@ void tokenParser::Parse(){
 
             case 'L' :
             case 'l' :
+                curToken->value += *reading;
                 curToken->type = tokenType::Long;
                 tokenText.push_back(curToken);
                 state = State::Begin;
@@ -461,8 +460,8 @@ void tokenParser::Parse(){
             
             default:
                 cerr << "Unexpected character int State::InNotEq !" << endl;
-                hasUnknownType = true;
-                curToken->type = tokenType::Unknown;
+                hasError = true;
+                curToken->type = tokenType::Error;
                 reading--;
                 tokenText.push_back(curToken);
                 state = State::Begin;
@@ -489,7 +488,7 @@ void tokenParser::Parse(){
                 break;
             
             case '8' ... '9' :
-                curToken->type = tokenType::Unknown;
+                curToken->type = tokenType::Error;
                 curToken->value += *reading;
                 tokenText.push_back(curToken);
                 state = State::Begin;
@@ -514,6 +513,7 @@ void tokenParser::Parse(){
                 break;
             case 'l' :
             case 'L' :
+                curToken->value += *reading;
                 curToken->type = tokenType::Long;
                 tokenText.push_back(curToken);
                 state = State::Begin;
@@ -538,7 +538,9 @@ void tokenParser::Parse(){
                 break;
             
             default:
-                curToken->type = tokenType::String;
+                cerr << "Unexpected character in State::In0xPrefix!" << endl;
+                hasError = true;
+                curToken->type = tokenType::Error;
                 reading--;
                 tokenText.push_back(curToken);
                 state = State::Begin;
@@ -557,6 +559,7 @@ void tokenParser::Parse(){
                 break;
             case 'l' :
             case 'L' : 
+                curToken->value += *reading;
                 curToken->type = tokenType::Long;
                 tokenText.push_back(curToken);
                 state = State::Begin;
@@ -565,6 +568,42 @@ void tokenParser::Parse(){
                 reading--;
                 tokenText.push_back(curToken);
                 state = State::Begin;
+                break;
+            }
+            break;
+        }
+
+        case State::InDoubleQuota :
+        {
+            switch (*reading)
+            {
+            case '\"' : 
+                curToken ->value += *reading;
+                tokenText.push_back(curToken);
+                state = State::Begin;
+                break;
+            
+            default:
+                curToken -> value += *reading;
+                state = State::InString;
+                break;
+            }
+            break;
+        }
+
+        case State::InString :
+        {   
+            switch (*reading)
+            {
+            case '\"' : 
+                curToken ->value += *reading;
+                tokenText.push_back(curToken);
+                state = State::Begin;
+                break;
+
+            
+            default:
+                curToken -> value += *reading;
                 break;
             }
             break;
@@ -581,8 +620,8 @@ void tokenParser::Parse(){
                 break;
             default:
                 cerr << "Unexpected character in State::InAnd!" << endl;
-                hasUnknownType = true;
-                curToken->type = tokenType::Unknown;
+                hasError = true;
+                curToken->type = tokenType::Error;
                 tokenText.push_back(curToken);
                 state = State::Begin;
                 break;
@@ -601,8 +640,55 @@ void tokenParser::Parse(){
                 break;
             default:
                 cerr << "Unexpected character in State::InOr!" << endl;
-                hasUnknownType = true;
-                curToken->type = tokenType::Unknown;
+                hasError = true;
+                curToken->type = tokenType::Error;
+                tokenText.push_back(curToken);
+                state = State::Begin;
+                break;
+            }
+            break;
+        }
+
+        case State::InSingleQuota :
+        {
+            switch (*reading)
+            {
+            case '\'':
+                cerr << "There must be a character !" << endl;
+                curToken -> type = tokenType::Error;
+                hasError = true;
+                curToken -> value  += *reading;
+                tokenText.push_back(curToken);
+                state = State::Begin;
+                break;
+            
+            default:
+                curToken -> value += *reading;
+                state = State::InChar;
+                break;
+            }
+            break;
+        }
+
+        case State::InChar :
+        {
+            switch (*reading)
+            {
+            case '\'':
+                curToken -> value  += *reading;
+                tokenText.push_back(curToken);
+                state = State::Begin;
+                break;
+            
+            default:
+                cerr << "There is more than one character!" << endl;
+                curToken -> type = tokenType::Error;
+                hasError = true;
+                while(*reading != '\''){
+                    curToken -> value  += *reading;
+                    reading++;
+                }
+                curToken -> value  += *reading;
                 tokenText.push_back(curToken);
                 state = State::Begin;
                 break;
