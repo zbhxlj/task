@@ -21,12 +21,22 @@ enum class tokenType
                 End,                            // #
 
                 String,                         // " xxx " 
-                Char,                           // ' x '
-                Integer,                        // 0123 0x123 123 
-                Long,                           // 0123L 0X123L 123L
-                Float,                          // 1.23  1.23E0 1.23e0
+                Char_C,                         // ' x '
+                Int_C,                      // 0123 0x123 123 
+                Long_C,                         // 0123L 0X123L 123L
+                Float_C,                        // 1.23  1.23E0 1.23e0
 
-                KeyWord,                        // int  long  float  if  else ...
+                If,                             // if
+                Else,                           // else
+                While,                          // while
+                For,                            // for
+                Return,                         // return
+                Break,                          // break
+                Continue,                       // continue
+                Char,                           // char
+                Int,                            // int
+                Long,                           // long
+                Float,                          // float
 
                 Pl,                             // +
                 Minus,                          // -
@@ -117,6 +127,7 @@ struct tokenParser {
     unordered_set<string>                       keyWordsList;                     
     vector<shared_ptr<token>>                   tokenText;                              
     unordered_map<tokenType, string>            mapFromEnumClassToString;  
+    unordered_map<string, tokenType>            mapFromKeyWordToTokenType;
 
     tokenParser(const char* filename);
     void Parse();     

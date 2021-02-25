@@ -12,17 +12,41 @@ using std::string;
 tokenParser::tokenParser(const char* filename): fileName(filename) {
     keyWordsList = {"if", "else", "while", "for", "return", "break",
                  "continue", "char", "int", "long","float"};
+
+    mapFromKeyWordToTokenType = {
+        {"if", tokenType::If},
+        {"else", tokenType::Else},
+        {"while", tokenType::While},
+        {"for", tokenType::For},
+        {"return", tokenType::Return},
+        {"break", tokenType::Break},
+        {"continue", tokenType::Continue},
+        {"char", tokenType::Char},
+        {"int", tokenType::Int},
+        {"long", tokenType::Long},
+        {"float", tokenType::Float}
+    };
     
     mapFromEnumClassToString = {
         {tokenType::Nul, "Nul"},
         {tokenType::Error, "Error"},
         {tokenType::Identifier, "Identifier"},
         {tokenType::String, "String"},
+        {tokenType::Char_C, "Char_C"},
+        {tokenType::Int_C, "Int_C"},
+        {tokenType::Long_C, "Long_C"},
+        {tokenType::Float_C, "Float_C"},
+        {tokenType::If, "If"},
+        {tokenType::Else, "Else"},
+        {tokenType::While, "While"},
+        {tokenType::For, "For"},
+        {tokenType::Return, "Return"},
+        {tokenType::Break, "Break"},
+        {tokenType::Continue, "Continue"},
         {tokenType::Char, "Char"},
-        {tokenType::Integer, "Integer"},
+        {tokenType::Int, "Int"},
         {tokenType::Long, "Long"},
         {tokenType::Float, "Float"},
-        {tokenType::KeyWord, "KeyWord"},
         {tokenType::Pl, "Plus Mark"},
         {tokenType::Minus, "Minus"},
         {tokenType::Multi, "Multiply"},
@@ -123,7 +147,7 @@ void tokenParser::Parse(){
                 break;
 
             case '1' ... '9' :
-                curToken->type = tokenType::Integer;
+                curToken->type = tokenType::Int_C;
                 curToken->value += *reading;
                 curToken->row = rowNum;
                 curToken->column = columnNum;
@@ -160,7 +184,7 @@ void tokenParser::Parse(){
                 break;
             
             case '0' :
-                curToken->type = tokenType::Integer;
+                curToken->type = tokenType::Int_C;
                 curToken->value += *reading;
                 curToken->row = rowNum;
                 curToken->column = columnNum;
@@ -330,8 +354,9 @@ void tokenParser::Parse(){
             
             default:
                 reading--;
-                if(keyWordsList.count(curToken->value) > 0) 
-                    curToken->type = tokenType::KeyWord;
+                if(keyWordsList.count(curToken->value) > 0){
+                    curToken->type = mapFromKeyWordToTokenType[curToken -> value];
+                } 
                 else curToken->type = tokenType::Identifier;
                 tokenText.push_back(curToken);
                 state = State::Begin;
@@ -349,7 +374,7 @@ void tokenParser::Parse(){
                 break;
             
             case '.' :
-                curToken->type = tokenType::Float;
+                curToken->type = tokenType::Float_C;
                 curToken->value += *reading;
                 state = State::InFloat;
                 break;
@@ -357,7 +382,7 @@ void tokenParser::Parse(){
             case 'L' :
             case 'l' :
                 curToken->value += *reading;
-                curToken->type = tokenType::Long;
+                curToken->type = tokenType::Long_C;
                 tokenText.push_back(curToken);
                 state = State::Begin;
                 break;
@@ -476,14 +501,14 @@ void tokenParser::Parse(){
             switch (*reading)
             {
             case '0' ... '7':
-                curToken->type = tokenType::Integer;
+                curToken->type = tokenType::Int_C;
                 curToken->value += *reading;
                 state = State::In0Int;
                 break;
             
             case 'x' :
             case 'X' :
-                curToken->type = tokenType::Integer;
+                curToken->type = tokenType::Int_C;
                 curToken->value += *reading;
                 state = State::In0xPrefix;
                 break;
@@ -496,7 +521,7 @@ void tokenParser::Parse(){
                 break;
 
             default:
-                curToken->type = tokenType::Integer;
+                curToken->type = tokenType::Int_C;
                 reading--;
                 tokenText.push_back(curToken);
                 state = State::Begin;
@@ -515,7 +540,7 @@ void tokenParser::Parse(){
             case 'l' :
             case 'L' :
                 curToken->value += *reading;
-                curToken->type = tokenType::Long;
+                curToken->type = tokenType::Long_C;
                 tokenText.push_back(curToken);
                 state = State::Begin;
                 break;
@@ -561,7 +586,7 @@ void tokenParser::Parse(){
             case 'l' :
             case 'L' : 
                 curToken->value += *reading;
-                curToken->type = tokenType::Long;
+                curToken->type = tokenType::Long_C;
                 tokenText.push_back(curToken);
                 state = State::Begin;
                 break;
@@ -704,6 +729,8 @@ void tokenParser::Parse(){
         reading++;
     }
     curToken.reset(new token());
+    curToken->column = columnNum;
+    curToken->row = rowNum;
     curToken->type = tokenType::End;
     curToken->value = "#";
     tokenText.push_back(curToken);
@@ -712,7 +739,7 @@ void tokenParser::Parse(){
 void tokenParser::PrintTokenText(){
     int i = 0;
      for(const auto& x: tokenText){
-        cout << i << "  token"  
+        cout << i++ << "  token"  
         << "type:           " << mapFromEnumClassToString[x->type] 
         << "          " << "value" << "        " << x->value << endl;
     }

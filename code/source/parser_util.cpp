@@ -1,5 +1,4 @@
 #include "../library/parser.h"
-#include <iomanip>
 #include <iostream>
 
 void unexpectedTokenTypeErrorF(const std::shared_ptr<token>& tokenPtr, 
@@ -7,8 +6,8 @@ void unexpectedTokenTypeErrorF(const std::shared_ptr<token>& tokenPtr,
             std::string tokentype){
     std::cerr << "Syntax error in row " << tokenPtr->row 
               << " column " <<tokenPtr->column << std::endl;
-    std::cerr << "When parsing " << std::setw(10) << syntaxUnitType << "                "
-              << "Unexpected tokenType : " << std::setw(10) << tokentype << std::endl;
+    std::cerr << "When parsing " << syntaxUnitType << std::endl
+              << "Unexpected tokenType : " << tokentype << std::endl;
     std::cerr << "Parsing terminated " << std::endl;
     exit(-1);
 }   
@@ -18,8 +17,8 @@ void matchTerminatorErrorF(const std::shared_ptr<token>& tokenPtr,
                            std::string terminator){
     std::cerr << "Syntax error in row " << tokenPtr->row 
               << " column " <<tokenPtr->column << std::endl;
-    std::cerr << "When matching" << std::setw(10) << tokentype 
-              << "Unexpected terminator : " << std::setw(10) << terminator << std::endl;
+    std::cerr << "When matching " << tokentype << std::endl
+              << "Unexpected terminator : " << terminator << std::endl;
     std::cerr << "Parsing terminated " << std::endl;
     exit(-1);
 }   
@@ -35,13 +34,46 @@ std::shared_ptr<SyntaxTreeNode> MatchIdentifier( std::vector<std::shared_ptr<tok
     return root;
 }
 
-std::shared_ptr<SyntaxTreeNode> MatchInteger( std::vector<std::shared_ptr<token>>::const_iterator& it){
+std::shared_ptr<SyntaxTreeNode> MatchInt_C( std::vector<std::shared_ptr<token>>::const_iterator& it){
     std::shared_ptr<SyntaxTreeNode> root = std::make_shared<SyntaxTreeNode>();
-    if((*it)->type == tokenType::Integer){
+    if((*it)->type == tokenType::Int_C){
         root->syntaxType = SyntaxUnitType::Terminator;
         root -> curTerminator = (*it) -> value;
     }else {
-        matchTerminatorErrorF((*it), "Integer", (*it)->value);
+        matchTerminatorErrorF((*it), "Int_C", (*it)->value);
+    }
+    return root;
+}
+
+std::shared_ptr<SyntaxTreeNode> MatchLong_C( std::vector<std::shared_ptr<token>>::const_iterator& it){
+    std::shared_ptr<SyntaxTreeNode> root = std::make_shared<SyntaxTreeNode>();
+    if((*it)->type == tokenType::Long_C){
+        root->syntaxType = SyntaxUnitType::Terminator;
+        root -> curTerminator = (*it) -> value;
+    }else {
+        matchTerminatorErrorF((*it), "Long_C", (*it)->value);
+    }
+    return root;
+}
+
+std::shared_ptr<SyntaxTreeNode> MatchFloat_C( std::vector<std::shared_ptr<token>>::const_iterator& it){
+    std::shared_ptr<SyntaxTreeNode> root = std::make_shared<SyntaxTreeNode>();
+    if((*it)->type == tokenType::Int_C){
+        root->syntaxType = SyntaxUnitType::Terminator;
+        root -> curTerminator = (*it) -> value;
+    }else {
+        matchTerminatorErrorF((*it), "Float_C", (*it)->value);
+    }
+    return root;
+}
+
+std::shared_ptr<SyntaxTreeNode> MatchChar_C( std::vector<std::shared_ptr<token>>::const_iterator& it){
+    std::shared_ptr<SyntaxTreeNode> root = std::make_shared<SyntaxTreeNode>();
+    if((*it)->type == tokenType::Char_C){
+        root->syntaxType = SyntaxUnitType::Terminator;
+        root -> curTerminator = (*it) -> value;
+    }else {
+        matchTerminatorErrorF((*it), "Char_C", (*it)->value);
     }
     return root;
 }
