@@ -7,22 +7,17 @@
 #include<unordered_set>
 #include<memory>
 
-using std::string;
-using std::vector;
-using std::unordered_map;
-using std::unordered_set;
-using std::shared_ptr;
 
 enum class tokenType 
 {
-                Nul,
-                Error,
+                Nul,                            // Initial Type
+                Error,                          
                 Identifier,
                 End,                            // #
 
                 String,                         // " xxx " 
                 Char_C,                         // ' x '
-                Int_C,                      // 0123 0x123 123 
+                Int_C,                          // 0123 0x123 123 
                 Long_C,                         // 0123L 0X123L 123L
                 Float_C,                        // 1.23  1.23E0 1.23e0
 
@@ -110,7 +105,7 @@ struct tokenParser;                             //forward declaration
 struct token{
 
     tokenType                                   type = tokenType::Nul;
-    string                                      value;
+    std::string                                 value;
     int                                         row = -1;
     int                                         column = -1; 
     bool                                        isKeyWord = false;
@@ -124,10 +119,10 @@ struct tokenParser {
     bool                                        hasError = false;                               
     int                                         rowNum  = 1;                                   
     int                                         columnNum = 0;                                  
-    unordered_set<string>                       keyWordsList;                     
-    vector<shared_ptr<token>>                   tokenText;                              
-    unordered_map<tokenType, string>            mapFromEnumClassToString;  
-    unordered_map<string, tokenType>            mapFromKeyWordToTokenType;
+    std::unordered_set<std::string>             keyWordsList;                     
+    std::vector<std::shared_ptr<token>>         tokenText;                              
+    std::unordered_map<tokenType, std::string>  mapFromEnumClassToString;  
+    std::unordered_map<std::string, tokenType>  mapFromKeyWordToTokenType;
 
     tokenParser(const char* filename);
     void Parse();     

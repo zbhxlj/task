@@ -3,7 +3,7 @@
 
 #include<memory>
 #include<vector>
-#include"lex.h"
+#include"lexicalAnalyzer.h"
 
 enum class SyntaxUnitType{  
     Program,                                    // S    程序             
@@ -15,6 +15,8 @@ enum class SyntaxUnitType{
     VariableSequence,                           // E    变量序列
     VariableSequence__SingleQuota,              // E'
     FunctionDefinition,                         // G    函数定义
+    Identifier,                                 // H
+    Identifier_SingleQuota,                     // H'
     ParameterSequence,                          // I    形式参数序列
     ParameterSequence__SingleQuota,             // I'   
     ComplexSentence,                            // J    复合语句 
@@ -38,12 +40,12 @@ enum class SyntaxUnitType{
 struct SyntaxTreeNode {
     SyntaxUnitType                                      syntaxType = SyntaxUnitType::Nul;
     std::vector<std::shared_ptr<SyntaxTreeNode >>       childs;
-    string                                              curTerminator;
+    std::string                                              curTerminator;
 };
 
 struct Parser{
     tokenParser                                         tokenparser;
-    unordered_map<SyntaxUnitType, string>               mapFromEnumClassToString;  
+    std::unordered_map<SyntaxUnitType, std::string>               mapFromEnumClassToString;  
     Parser(const tokenParser& tP);
 
     std::shared_ptr<SyntaxTreeNode> parse();
@@ -58,6 +60,7 @@ struct Parser{
     std::shared_ptr<SyntaxTreeNode> parseF(std::vector<std::shared_ptr<token>>::const_iterator& it);
     std::shared_ptr<SyntaxTreeNode> parseG(std::vector<std::shared_ptr<token>>::const_iterator& it);
     std::shared_ptr<SyntaxTreeNode> parseH(std::vector<std::shared_ptr<token>>::const_iterator& it);
+    std::shared_ptr<SyntaxTreeNode> parseH__SingleQuota(std::vector<std::shared_ptr<token>>::const_iterator& it);
     std::shared_ptr<SyntaxTreeNode> parseI(std::vector<std::shared_ptr<token>>::const_iterator& it);
     std::shared_ptr<SyntaxTreeNode> parseI__SingleQuota(std::vector<std::shared_ptr<token>>::const_iterator& it);
     std::shared_ptr<SyntaxTreeNode> parseJ(std::vector<std::shared_ptr<token>>::const_iterator& it);
@@ -73,7 +76,6 @@ struct Parser{
     std::shared_ptr<SyntaxTreeNode> parseP__TripleQuota(std::vector<std::shared_ptr<token>>::const_iterator& it);
     std::shared_ptr<SyntaxTreeNode> parseQ(std::vector<std::shared_ptr<token>>::const_iterator& it);
     std::shared_ptr<SyntaxTreeNode> parseR(std::vector<std::shared_ptr<token>>::const_iterator& it);
-    std::shared_ptr<SyntaxTreeNode> parseR_SingleQuota(std::vector<std::shared_ptr<token>>::const_iterator& it);
 };
 
 #endif

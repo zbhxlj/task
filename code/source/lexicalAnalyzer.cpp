@@ -1,13 +1,8 @@
-#include "../library/lex.h"
+#include "../library/lexicalAnalyzer.h"
 #include<iostream>
 #include<cstdio>
 
-using std::endl;
-using std::cerr;
-using std::cout;
 using std::string;
-
-
 
 tokenParser::tokenParser(const char* filename): fileName(filename) {
     keyWordsList = {"if", "else", "while", "for", "return", "break",
@@ -30,6 +25,7 @@ tokenParser::tokenParser(const char* filename): fileName(filename) {
     mapFromEnumClassToString = {
         {tokenType::Nul, "Nul"},
         {tokenType::Error, "Error"},
+        {tokenType::End, "End"},
         {tokenType::Identifier, "Identifier"},
         {tokenType::String, "String"},
         {tokenType::Char_C, "Char_C"},
@@ -70,8 +66,7 @@ tokenParser::tokenParser(const char* filename): fileName(filename) {
         {tokenType::SingleQuota, "SingleQuotation"},
         {tokenType::LeftArray, "LeftArray"},
         {tokenType::RightArray, "RightArray"},
-        {tokenType::Sharp, "Sharp"},
-        {tokenType::End, "End"}
+        {tokenType::Sharp, "Sharp"}
     };
 }
 
@@ -119,7 +114,7 @@ void tokenParser::Parse(){
     const char* reading = input.c_str();
 
     State state = State::Begin;
-    shared_ptr<token> curToken(nullptr);
+    std::shared_ptr<token> curToken(nullptr);
 
     while(*reading){
         columnNum++;
@@ -329,7 +324,7 @@ void tokenParser::Parse(){
                 break;
 
             default:
-                cerr << "Error: Unexpected Character in state::Begin!" << endl;
+                std::cerr << "Error: Unexpected Character in state::Begin!" << std::endl;
                 hasError = true;
                 curToken->type = tokenType::Error;
                 curToken->value += *reading;
@@ -485,7 +480,7 @@ void tokenParser::Parse(){
                 break;
             
             default:
-                cerr << "Unexpected character int State::InNotEq !" << endl;
+                std::cerr << "Unexpected character int State::InNotEq !" << std::endl;
                 hasError = true;
                 curToken->type = tokenType::Error;
                 reading--;
@@ -564,7 +559,7 @@ void tokenParser::Parse(){
                 break;
             
             default:
-                cerr << "Unexpected character in State::In0xPrefix!" << endl;
+                std::cerr << "Unexpected character in State::In0xPrefix!" << std::endl;
                 hasError = true;
                 curToken->type = tokenType::Error;
                 reading--;
@@ -645,7 +640,7 @@ void tokenParser::Parse(){
                 state = State::Begin;
                 break;
             default:
-                cerr << "Unexpected character in State::InAnd!" << endl;
+                std::cerr << "Unexpected character in State::InAnd!" << std::endl;
                 hasError = true;
                 curToken->type = tokenType::Error;
                 tokenText.push_back(curToken);
@@ -665,7 +660,7 @@ void tokenParser::Parse(){
                 state = State::Begin;
                 break;
             default:
-                cerr << "Unexpected character in State::InOr!" << endl;
+                std::cerr << "Unexpected character in State::InOr!" << std::endl;
                 hasError = true;
                 curToken->type = tokenType::Error;
                 tokenText.push_back(curToken);
@@ -680,7 +675,7 @@ void tokenParser::Parse(){
             switch (*reading)
             {
             case '\'':
-                cerr << "There must be a character !" << endl;
+                std::cerr << "There must be a character !" << std::endl;
                 curToken -> type = tokenType::Error;
                 hasError = true;
                 curToken -> value  += *reading;
@@ -707,7 +702,7 @@ void tokenParser::Parse(){
                 break;
             
             default:
-                cerr << "There is more than one character!" << endl;
+                std::cerr << "There is more than one character!" << std::endl;
                 curToken -> type = tokenType::Error;
                 hasError = true;
                 while(*reading != '\''){
@@ -723,7 +718,7 @@ void tokenParser::Parse(){
         }
 
         default:
-            cerr << "Unexpected case !" << endl;
+            std::cerr << "Unexpected case !" << std::endl;
             break;
         }
         reading++;
@@ -739,8 +734,8 @@ void tokenParser::Parse(){
 void tokenParser::PrintTokenText(){
     int i = 0;
      for(const auto& x: tokenText){
-        cout << i++ << "  token"  
+        std::cout << i++ << "  token"  
         << "type:           " << mapFromEnumClassToString[x->type] 
-        << "          " << "value" << "        " << x->value << endl;
+        << "          " << "value" << "        " << x->value << std::endl;
     }
 }

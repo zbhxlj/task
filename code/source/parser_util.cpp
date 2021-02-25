@@ -25,7 +25,7 @@ void matchTerminatorErrorF(const std::shared_ptr<token>& tokenPtr,
     exit(-1);
 }   
 
-void printFuncPath(const string& funcNanme, std::vector<std::shared_ptr<token>>::const_iterator& it){
+void printFuncPath(const std::string& funcNanme, std::vector<std::shared_ptr<token>>::const_iterator& it){
     std::cerr << "Calling parse" << funcNanme << "   token:  " << (*it)->value << std::endl;
 }
 

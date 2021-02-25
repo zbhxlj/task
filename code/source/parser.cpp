@@ -119,8 +119,7 @@ std::shared_ptr<SyntaxTreeNode> Parser::parseB(std::vector<std::shared_ptr<token
     case tokenType::Float :
     case tokenType::Char :
         root->childs.push_back( parseR(it) );
-        root->childs.push_back( MatchIdentifier(it) );
-        it++;
+        root->childs.push_back( parseH(it) );
         root->childs.push_back( parseB_SingleQuota(it) );
         break;
     
@@ -244,6 +243,54 @@ std::shared_ptr<SyntaxTreeNode> Parser::parseG(std::vector<std::shared_ptr<token
     return root;
 }
 
+std::shared_ptr<SyntaxTreeNode> Parser::parseH(std::vector<std::shared_ptr<token>>::const_iterator& it){
+    printFuncPath("H", it);
+    std::shared_ptr<SyntaxTreeNode> root = std::make_shared<SyntaxTreeNode>();
+    root->syntaxType = SyntaxUnitType::Identifier;
+    switch ((*it)->type)
+    {
+    case tokenType::Identifier :
+        root->childs.push_back( MatchIdentifier(it) );
+        it++;
+        root->childs.push_back( parseH__SingleQuota(it) );
+        break;
+    
+    default:
+        unexpectedTokenTypeErrorF((*it), mapFromEnumClassToString[root->syntaxType],    
+                                tokenparser.mapFromEnumClassToString[(*it)->type], "H");
+        break;
+    }
+    return root;
+}
+
+std::shared_ptr<SyntaxTreeNode> Parser::parseH__SingleQuota(std::vector<std::shared_ptr<token>>::const_iterator& it){
+    printFuncPath("H", it);
+    std::shared_ptr<SyntaxTreeNode> root = std::make_shared<SyntaxTreeNode>();
+    root->syntaxType = SyntaxUnitType::Identifier_SingleQuota;
+    switch ((*it)->type)
+    {
+    case tokenType::OpenBracket :
+    case tokenType::Comma :
+    case tokenType::Semi :
+        break;
+    
+    case tokenType::LeftArray :
+        root->childs.push_back( MatchLeftArray(it) );
+        it++;
+        root->childs.push_back( MatchInt_C(it) );
+        it++;
+        root->childs.push_back( MatchRightArray(it));
+        it++;
+        break;
+
+    default:
+        unexpectedTokenTypeErrorF((*it), mapFromEnumClassToString[root->syntaxType],    
+                                tokenparser.mapFromEnumClassToString[(*it)->type], "G");
+        break;
+    }
+    return root;
+}
+
 std::shared_ptr<SyntaxTreeNode> Parser::parseI(std::vector<std::shared_ptr<token>>::const_iterator& it){
     printFuncPath("I", it);
     std::shared_ptr<SyntaxTreeNode> root = std::make_shared<SyntaxTreeNode>();
@@ -301,7 +348,7 @@ std::shared_ptr<SyntaxTreeNode> Parser::parseK(std::vector<std::shared_ptr<token
     case tokenType::Float :
     case tokenType::Char :
         root->childs.push_back( parseR(it) );
-        root->childs.push_back( MatchIdentifier(it) );
+        root->childs.push_back( parseH(it) );
         it++;
         break;
     
@@ -519,6 +566,9 @@ std::shared_ptr<SyntaxTreeNode> Parser::parseO__SingleQuota(std::vector<std::sha
     case tokenType::End :
         root->childs.push_back( MatchEnd(it));
         it++;
+        break;
+    
+    case tokenType::Rp :
         break;
 
     case tokenType::Else :
@@ -785,50 +835,21 @@ std::shared_ptr<SyntaxTreeNode> Parser::parseR(std::vector<std::shared_ptr<token
     case tokenType::Int:
         root->childs.push_back( MatchInt(it) );
         it++;
-        root->childs.push_back( parseR_SingleQuota(it));
         break;
     
     case tokenType::Float:
         root->childs.push_back( MatchFloat(it) );
         it++;
-        root->childs.push_back( parseR_SingleQuota(it));
         break;
     
     case tokenType::Char:
         root->childs.push_back( MatchChar(it) );
         it++;
-        root->childs.push_back( parseR_SingleQuota(it));
         break;
 
     default:
         unexpectedTokenTypeErrorF((*it), mapFromEnumClassToString[root->syntaxType],    
                                 tokenparser.mapFromEnumClassToString[(*it)->type], "R");
-        break;
-    }
-    return root;
-}
-
-std::shared_ptr<SyntaxTreeNode> Parser::parseR_SingleQuota(std::vector<std::shared_ptr<token>>::const_iterator& it){
-    printFuncPath("R_SingleQuota", it);
-    std::shared_ptr<SyntaxTreeNode> root = std::make_shared<SyntaxTreeNode>();
-    root->syntaxType = SyntaxUnitType::Array;
-    switch ((*it)->type)
-    {
-    case tokenType::Identifier :
-        break;
-    
-    case tokenType::LeftArray :
-        root->childs.push_back( MatchLeftArray(it));
-        it++;
-        root->childs.push_back( MatchInt(it));
-        it++;
-        root->childs.push_back( MatchRightArray(it));
-        it++;
-        break;
-
-    default:
-        unexpectedTokenTypeErrorF((*it), mapFromEnumClassToString[root->syntaxType],    
-                                tokenparser.mapFromEnumClassToString[(*it)->type], "R_SingleQuota");
         break;
     }
     return root;

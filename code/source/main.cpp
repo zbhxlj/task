@@ -1,5 +1,5 @@
 #include<string>
-#include "../library/lex.h"
+#include "../library/lexicalAnalyzer.h"
 #include<iostream>
 #include"../library/parser.h"
 
