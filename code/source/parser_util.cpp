@@ -1,9 +1,25 @@
 #include "../library/parser.h"
+#include <iomanip>
 #include <iostream>
 
-void errorF(){
+void unexpectedTokenTypeErrorF(const std::shared_ptr<token>& tokenPtr, 
+            std::string syntaxUnitType,
+            std::string tokentype){
+    std::cerr << "Syntax error in row " << tokenPtr->row 
+              << " column " <<tokenPtr->column << std::endl;
+    std::cerr << "When parsing " << std::setw(30) << syntaxUnitType
+              << "Unexpected tokenType : " << std::setw(10) << tokentype << std::endl;
+    exit(-1);
+}   
 
-}
+void matchTerminatorErrorF(std::shared_ptr<token>& tokenPtr,
+                           std::string tokentype,
+                           std::string terminator){
+    std::cerr << "Syntax error in row " << tokenPtr->row 
+              << " column " <<tokenPtr->column << std::endl;
+    std::cerr << "When matching" << std::setw(10) << tokentype 
+              << "Unexpected terminator : " << std::setw(10) << terminator << std::endl;
+}   
 
 std::shared_ptr<SyntaxTreeNode> MatchIdentifier( std::vector<std::shared_ptr<token>>::const_iterator& it){
     std::shared_ptr<SyntaxTreeNode> root = std::make_shared<SyntaxTreeNode>();

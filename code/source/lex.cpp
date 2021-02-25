@@ -46,7 +46,8 @@ tokenParser::tokenParser(const char* filename): fileName(filename) {
         {tokenType::SingleQuota, "SingleQuotation"},
         {tokenType::LeftArray, "LeftArray"},
         {tokenType::RightArray, "RightArray"},
-        {tokenType::Sharp, "Sharp"}
+        {tokenType::Sharp, "Sharp"},
+        {tokenType::End, "End"}
     };
 }
 
@@ -704,11 +705,15 @@ void tokenParser::Parse(){
     }
     curToken.reset(new token());
     curToken->type = tokenType::End;
+    curToken->value = "#";
     tokenText.push_back(curToken);
 }
 
 void tokenParser::PrintTokenText(){
+    int i = 0;
      for(const auto& x: tokenText){
-        cout << "x.type: " << mapFromEnumClassToString[x->type] << " " << "x.value" << " " << x->value << endl;
+        cout << i << "  token"  
+        << "type:           " << mapFromEnumClassToString[x->type] 
+        << "          " << "value" << "        " << x->value << endl;
     }
 }

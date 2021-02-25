@@ -21,6 +21,7 @@ std::shared_ptr<SyntaxTreeNode> parseS(std::vector<std::shared_ptr<token>>::cons
         break;
     
     default:
+        
         break;
     }
     return root;
@@ -392,6 +393,7 @@ std::shared_ptr<SyntaxTreeNode> parseO__SingleQuota(std::vector<std::shared_ptr<
         }
         break;
     }
+    return root;
 }
 
 std::shared_ptr<SyntaxTreeNode> parseP(std::vector<std::shared_ptr<token>>::const_iterator& it){
@@ -415,6 +417,7 @@ std::shared_ptr<SyntaxTreeNode> parseP(std::vector<std::shared_ptr<token>>::cons
     default:
         break;
     }
+    return root;
 }
 
 std::shared_ptr<SyntaxTreeNode> parseP__SingleQuota(std::vector<std::shared_ptr<token>>::const_iterator& it){
@@ -498,6 +501,7 @@ std::shared_ptr<SyntaxTreeNode> parseP__SingleQuota(std::vector<std::shared_ptr<
     default:
         break;
     }
+    return root;
 }
 
 std::shared_ptr<SyntaxTreeNode> parseP__DoubleQuota(std::vector<std::shared_ptr<token>>::const_iterator& it){
@@ -539,6 +543,7 @@ std::shared_ptr<SyntaxTreeNode> parseP__DoubleQuota(std::vector<std::shared_ptr<
     default:
         break;
     }
+    return root;
 }
 
 std::shared_ptr<SyntaxTreeNode> parseP__TripleQuota(std::vector<std::shared_ptr<token>>::const_iterator& it){
@@ -570,6 +575,7 @@ std::shared_ptr<SyntaxTreeNode> parseP__TripleQuota(std::vector<std::shared_ptr<
     default:
         break;
     }
+    return root;
 }
 
 std::shared_ptr<SyntaxTreeNode> parseQ(std::vector<std::shared_ptr<token>>::const_iterator& it){
@@ -589,6 +595,7 @@ std::shared_ptr<SyntaxTreeNode> parseQ(std::vector<std::shared_ptr<token>>::cons
     default:
         break;
     }
+    return root;
 }
 
 std::shared_ptr<SyntaxTreeNode> parseR(std::vector<std::shared_ptr<token>>::const_iterator& it){
@@ -618,6 +625,7 @@ std::shared_ptr<SyntaxTreeNode> parseR(std::vector<std::shared_ptr<token>>::cons
     default:
         break;
     }
+    return root;
 }
 
 std::shared_ptr<SyntaxTreeNode> parseR_SingleQuota(std::vector<std::shared_ptr<token>>::const_iterator& it){
@@ -636,4 +644,5 @@ std::shared_ptr<SyntaxTreeNode> parseR_SingleQuota(std::vector<std::shared_ptr<t
     default:
         break;
     }
+    return root;
 }
