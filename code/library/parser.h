@@ -15,6 +15,7 @@ enum class SyntaxUnitType{
     VariableSequence,                           // E    变量序列
     VariableSequence__SingleQuota,              // E'
     FunctionDefinition,                         // G    函数定义
+    FunctionDefinition__SingleQuota,            // G'
     Identifier,                                 // H
     Identifier_SingleQuota,                     // H'
     ParameterSequence,                          // I    形式参数序列
@@ -59,6 +60,7 @@ struct Parser{
     std::shared_ptr<SyntaxTreeNode> parseE__SingleQuota(std::vector<std::shared_ptr<token>>::const_iterator& it);
     std::shared_ptr<SyntaxTreeNode> parseF(std::vector<std::shared_ptr<token>>::const_iterator& it);
     std::shared_ptr<SyntaxTreeNode> parseG(std::vector<std::shared_ptr<token>>::const_iterator& it);
+    std::shared_ptr<SyntaxTreeNode> parseG__SingleQuota(std::vector<std::shared_ptr<token>>::const_iterator& it);
     std::shared_ptr<SyntaxTreeNode> parseH(std::vector<std::shared_ptr<token>>::const_iterator& it);
     std::shared_ptr<SyntaxTreeNode> parseH__SingleQuota(std::vector<std::shared_ptr<token>>::const_iterator& it);
     std::shared_ptr<SyntaxTreeNode> parseI(std::vector<std::shared_ptr<token>>::const_iterator& it);
