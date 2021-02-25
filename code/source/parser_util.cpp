@@ -3,11 +3,13 @@
 
 void unexpectedTokenTypeErrorF(const std::shared_ptr<token>& tokenPtr, 
             std::string syntaxUnitType,
-            std::string tokentype){
+            std::string tokentype,
+            std::string funcName){
     std::cerr << "Syntax error in row " << tokenPtr->row 
               << " column " <<tokenPtr->column << std::endl;
     std::cerr << "When parsing " << syntaxUnitType << std::endl
-              << "Unexpected tokenType : " << tokentype << std::endl;
+              << "Unexpected tokenType : " << tokentype << std::endl
+              << "In function parse" << funcName << std::endl;
     std::cerr << "Parsing terminated " << std::endl;
     exit(-1);
 }   
@@ -22,6 +24,10 @@ void matchTerminatorErrorF(const std::shared_ptr<token>& tokenPtr,
     std::cerr << "Parsing terminated " << std::endl;
     exit(-1);
 }   
+
+void printFuncPath(const string& funcNanme, std::vector<std::shared_ptr<token>>::const_iterator& it){
+    std::cerr << "Calling parse" << funcNanme << "   token:  " << (*it)->value << std::endl;
+}
 
 std::shared_ptr<SyntaxTreeNode> MatchIdentifier( std::vector<std::shared_ptr<token>>::const_iterator& it){
     std::shared_ptr<SyntaxTreeNode> root = std::make_shared<SyntaxTreeNode>();
