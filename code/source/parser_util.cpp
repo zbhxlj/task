@@ -7,18 +7,21 @@ void unexpectedTokenTypeErrorF(const std::shared_ptr<token>& tokenPtr,
             std::string tokentype){
     std::cerr << "Syntax error in row " << tokenPtr->row 
               << " column " <<tokenPtr->column << std::endl;
-    std::cerr << "When parsing " << std::setw(30) << syntaxUnitType
+    std::cerr << "When parsing " << std::setw(10) << syntaxUnitType << "                "
               << "Unexpected tokenType : " << std::setw(10) << tokentype << std::endl;
+    std::cerr << "Parsing terminated " << std::endl;
     exit(-1);
 }   
 
-void matchTerminatorErrorF(std::shared_ptr<token>& tokenPtr,
+void matchTerminatorErrorF(const std::shared_ptr<token>& tokenPtr,
                            std::string tokentype,
                            std::string terminator){
     std::cerr << "Syntax error in row " << tokenPtr->row 
               << " column " <<tokenPtr->column << std::endl;
     std::cerr << "When matching" << std::setw(10) << tokentype 
               << "Unexpected terminator : " << std::setw(10) << terminator << std::endl;
+    std::cerr << "Parsing terminated " << std::endl;
+    exit(-1);
 }   
 
 std::shared_ptr<SyntaxTreeNode> MatchIdentifier( std::vector<std::shared_ptr<token>>::const_iterator& it){
@@ -27,7 +30,7 @@ std::shared_ptr<SyntaxTreeNode> MatchIdentifier( std::vector<std::shared_ptr<tok
         root->syntaxType = SyntaxUnitType::Terminator;
         root -> curTerminator = (*it) -> value;
     }else {
-        std::cerr << "syntax error in row " << (*it)->row << " column "  << (*it) -> column << std::endl;
+        matchTerminatorErrorF((*it), "Identifier", (*it)->value);
     }
     return root;
 }
@@ -38,7 +41,7 @@ std::shared_ptr<SyntaxTreeNode> MatchInteger( std::vector<std::shared_ptr<token>
         root->syntaxType = SyntaxUnitType::Terminator;
         root -> curTerminator = (*it) -> value;
     }else {
-        std::cerr << "syntax error in row " << (*it)->row << " column "  << (*it) -> column << std::endl;
+        matchTerminatorErrorF((*it), "Integer", (*it)->value);
     }
     return root;
 }
@@ -49,7 +52,7 @@ std::shared_ptr<SyntaxTreeNode> MatchCloseBracket( std::vector<std::shared_ptr<t
         root->syntaxType = SyntaxUnitType::Terminator;
         root -> curTerminator = (*it) -> value;
     }else {
-        std::cerr << "syntax error in row " << (*it)->row << " column "  << (*it) -> column << std::endl;
+        matchTerminatorErrorF((*it), "(", (*it)->value);
     }
     return root;
 }
@@ -60,7 +63,7 @@ std::shared_ptr<SyntaxTreeNode> MatchOpenBracket( std::vector<std::shared_ptr<to
         root->syntaxType = SyntaxUnitType::Terminator;
         root -> curTerminator = (*it) -> value;
     }else {
-        std::cerr << "syntax error in row " << (*it)->row << " column "  << (*it) -> column << std::endl;
+        matchTerminatorErrorF((*it), ")", (*it)->value);
     }
     return root;
 }
@@ -72,7 +75,7 @@ std::shared_ptr<SyntaxTreeNode> MatchEnd( std::vector<std::shared_ptr<token>>::c
         root->syntaxType = SyntaxUnitType::Terminator;
         root -> curTerminator = (*it) -> value;
     }else {
-        std::cerr << "syntax error in row " << (*it)->row << " column "  << (*it) -> column << std::endl;
+        matchTerminatorErrorF((*it), "#", (*it)->value);
     }
     return root;
 }
@@ -83,7 +86,7 @@ std::shared_ptr<SyntaxTreeNode> MatchSemi( std::vector<std::shared_ptr<token>>::
         root->syntaxType = SyntaxUnitType::Terminator;
         root -> curTerminator = (*it) -> value;
     }else {
-        std::cerr << "syntax error in row " << (*it)->row << " column "  << (*it) -> column << std::endl;
+        matchTerminatorErrorF((*it), ";", (*it)->value);
     }
     return root;
 }
@@ -94,7 +97,7 @@ std::shared_ptr<SyntaxTreeNode> MatchComma( std::vector<std::shared_ptr<token>>:
         root->syntaxType = SyntaxUnitType::Terminator;
         root -> curTerminator = (*it) -> value;
     }else {
-        std::cerr << "syntax error in row " << (*it)->row << " column "  << (*it) -> column << std::endl;
+        matchTerminatorErrorF((*it), ",", (*it)->value);
     }
     return root;
 }
@@ -105,7 +108,7 @@ std::shared_ptr<SyntaxTreeNode> MatchLp( std::vector<std::shared_ptr<token>>::co
         root->syntaxType = SyntaxUnitType::Terminator;
         root -> curTerminator = (*it) -> value;
     }else {
-        std::cerr << "syntax error in row " << (*it)->row << " column "  << (*it) -> column << std::endl;
+        matchTerminatorErrorF((*it), "{", (*it)->value);
     }
     return root;
 }
@@ -116,7 +119,7 @@ std::shared_ptr<SyntaxTreeNode> MatchRp( std::vector<std::shared_ptr<token>>::co
         root->syntaxType = SyntaxUnitType::Terminator;
         root -> curTerminator = (*it) -> value;
     }else {
-        std::cerr << "syntax error in row " << (*it)->row << " column "  << (*it) -> column << std::endl;
+        matchTerminatorErrorF((*it), "}", (*it)->value);
     }
     return root;
 }
@@ -127,7 +130,7 @@ std::shared_ptr<SyntaxTreeNode> MatchFor( std::vector<std::shared_ptr<token>>::c
         root->syntaxType = SyntaxUnitType::Terminator;
         root -> curTerminator = (*it) -> value;
     }else {
-        std::cerr << "syntax error in row " << (*it)->row << " column "  << (*it) -> column << std::endl;
+        matchTerminatorErrorF((*it), "for", (*it)->value);
     }
     return root;
 }
@@ -138,7 +141,7 @@ std::shared_ptr<SyntaxTreeNode> MatchContinue( std::vector<std::shared_ptr<token
         root->syntaxType = SyntaxUnitType::Terminator;
         root -> curTerminator = (*it) -> value;
     }else {
-        std::cerr << "syntax error in row " << (*it)->row << " column "  << (*it) -> column << std::endl;
+        matchTerminatorErrorF((*it), "continue", (*it)->value);
     }
     return root;
 }
@@ -149,7 +152,7 @@ std::shared_ptr<SyntaxTreeNode> MatchBreak( std::vector<std::shared_ptr<token>>:
         root->syntaxType = SyntaxUnitType::Terminator;
         root -> curTerminator = (*it) -> value;
     }else {
-        std::cerr << "syntax error in row " << (*it)->row << " column "  << (*it) -> column << std::endl;
+        matchTerminatorErrorF((*it), "break", (*it)->value);
     }
     return root;
 }
@@ -160,7 +163,7 @@ std::shared_ptr<SyntaxTreeNode> MatchIf( std::vector<std::shared_ptr<token>>::co
         root->syntaxType = SyntaxUnitType::Terminator;
         root -> curTerminator = (*it) -> value;
     }else {
-        std::cerr << "syntax error in row " << (*it)->row << " column "  << (*it) -> column << std::endl;
+        matchTerminatorErrorF((*it), "if", (*it)->value);
     }
     return root;
 }
@@ -171,7 +174,7 @@ std::shared_ptr<SyntaxTreeNode> MatchWhile( std::vector<std::shared_ptr<token>>:
         root->syntaxType = SyntaxUnitType::Terminator;
         root -> curTerminator = (*it) -> value;
     }else {
-        std::cerr << "syntax error in row " << (*it)->row << " column "  << (*it) -> column << std::endl;
+        matchTerminatorErrorF((*it), "while", (*it)->value);
     }
     return root;
 }
@@ -182,7 +185,7 @@ std::shared_ptr<SyntaxTreeNode> MatchReturn( std::vector<std::shared_ptr<token>>
         root->syntaxType = SyntaxUnitType::Terminator;
         root -> curTerminator = (*it) -> value;
     }else {
-        std::cerr << "syntax error in row " << (*it)->row << " column "  << (*it) -> column << std::endl;
+        matchTerminatorErrorF((*it), "return", (*it)->value);
     }
     return root;
 }
@@ -193,7 +196,7 @@ std::shared_ptr<SyntaxTreeNode> MatchElse( std::vector<std::shared_ptr<token>>::
         root->syntaxType = SyntaxUnitType::Terminator;
         root -> curTerminator = (*it) -> value;
     }else {
-        std::cerr << "syntax error in row " << (*it)->row << " column "  << (*it) -> column << std::endl;
+        matchTerminatorErrorF((*it), "else", (*it)->value);
     }
     return root;
 }
@@ -204,7 +207,7 @@ std::shared_ptr<SyntaxTreeNode> MatchAnd( std::vector<std::shared_ptr<token>>::c
         root->syntaxType = SyntaxUnitType::Terminator;
         root -> curTerminator = (*it) -> value;
     }else {
-        std::cerr << "syntax error in row " << (*it)->row << " column "  << (*it) -> column << std::endl;
+        matchTerminatorErrorF((*it), "&&", (*it)->value);
     }
     return root;
 }
@@ -215,7 +218,7 @@ std::shared_ptr<SyntaxTreeNode> MatchOr( std::vector<std::shared_ptr<token>>::co
         root->syntaxType = SyntaxUnitType::Terminator;
         root -> curTerminator = (*it) -> value;
     }else {
-        std::cerr << "syntax error in row " << (*it)->row << " column "  << (*it) -> column << std::endl;
+        matchTerminatorErrorF((*it), "||", (*it)->value);
     }
     return root;
 }
@@ -226,7 +229,7 @@ std::shared_ptr<SyntaxTreeNode> MatchPl( std::vector<std::shared_ptr<token>>::co
         root->syntaxType = SyntaxUnitType::Terminator;
         root -> curTerminator = (*it) -> value;
     }else {
-        std::cerr << "syntax error in row " << (*it)->row << " column "  << (*it) -> column << std::endl;
+        matchTerminatorErrorF((*it), "+", (*it)->value);
     }
     return root;
 }
@@ -237,7 +240,7 @@ std::shared_ptr<SyntaxTreeNode> MatchMinus( std::vector<std::shared_ptr<token>>:
         root->syntaxType = SyntaxUnitType::Terminator;
         root -> curTerminator = (*it) -> value;
     }else {
-        std::cerr << "syntax error in row " << (*it)->row << " column "  << (*it) -> column << std::endl;
+        matchTerminatorErrorF((*it), "-", (*it)->value);
     }
     return root;
 }
@@ -248,7 +251,7 @@ std::shared_ptr<SyntaxTreeNode> MatchMulti( std::vector<std::shared_ptr<token>>:
         root->syntaxType = SyntaxUnitType::Terminator;
         root -> curTerminator = (*it) -> value;
     }else {
-        std::cerr << "syntax error in row " << (*it)->row << " column "  << (*it) -> column << std::endl;
+        matchTerminatorErrorF((*it), "*", (*it)->value);
     }
     return root;
 }
@@ -259,7 +262,7 @@ std::shared_ptr<SyntaxTreeNode> MatchDivid( std::vector<std::shared_ptr<token>>:
         root->syntaxType = SyntaxUnitType::Terminator;
         root -> curTerminator = (*it) -> value;
     }else {
-        std::cerr << "syntax error in row " << (*it)->row << " column "  << (*it) -> column << std::endl;
+        matchTerminatorErrorF((*it), "/", (*it)->value);
     }
     return root;
 }
@@ -270,7 +273,7 @@ std::shared_ptr<SyntaxTreeNode> MatchEqual( std::vector<std::shared_ptr<token>>:
         root->syntaxType = SyntaxUnitType::Terminator;
         root -> curTerminator = (*it) -> value;
     }else {
-        std::cerr << "syntax error in row " << (*it)->row << " column "  << (*it) -> column << std::endl;
+        matchTerminatorErrorF((*it), "==", (*it)->value);
     }
     return root;
 }
@@ -281,7 +284,7 @@ std::shared_ptr<SyntaxTreeNode> MatchNotEqual( std::vector<std::shared_ptr<token
         root->syntaxType = SyntaxUnitType::Terminator;
         root -> curTerminator = (*it) -> value;
     }else {
-        std::cerr << "syntax error in row " << (*it)->row << " column "  << (*it) -> column << std::endl;
+        matchTerminatorErrorF((*it), "!=", (*it)->value);
     }
     return root;
 }
@@ -292,7 +295,7 @@ std::shared_ptr<SyntaxTreeNode> MatchGreater( std::vector<std::shared_ptr<token>
         root->syntaxType = SyntaxUnitType::Terminator;
         root -> curTerminator = (*it) -> value;
     }else {
-        std::cerr << "syntax error in row " << (*it)->row << " column "  << (*it) -> column << std::endl;
+        matchTerminatorErrorF((*it), ">", (*it)->value);
     }
     return root;
 }
@@ -303,7 +306,7 @@ std::shared_ptr<SyntaxTreeNode> MatchLess( std::vector<std::shared_ptr<token>>::
         root->syntaxType = SyntaxUnitType::Terminator;
         root -> curTerminator = (*it) -> value;
     }else {
-        std::cerr << "syntax error in row " << (*it)->row << " column "  << (*it) -> column << std::endl;
+        matchTerminatorErrorF((*it), "<", (*it)->value);
     }
     return root;
 }
@@ -314,7 +317,7 @@ std::shared_ptr<SyntaxTreeNode> MatchGreaterEq( std::vector<std::shared_ptr<toke
         root->syntaxType = SyntaxUnitType::Terminator;
         root -> curTerminator = (*it) -> value;
     }else {
-        std::cerr << "syntax error in row " << (*it)->row << " column "  << (*it) -> column << std::endl;
+        matchTerminatorErrorF((*it), ">=", (*it)->value);
     }
     return root;
 }
@@ -325,7 +328,7 @@ std::shared_ptr<SyntaxTreeNode> MatchLessEq( std::vector<std::shared_ptr<token>>
         root->syntaxType = SyntaxUnitType::Terminator;
         root -> curTerminator = (*it) -> value;
     }else {
-        std::cerr << "syntax error in row " << (*it)->row << " column "  << (*it) -> column << std::endl;
+        matchTerminatorErrorF((*it), "<=", (*it)->value);
     }
     return root;
 }
@@ -336,7 +339,7 @@ std::shared_ptr<SyntaxTreeNode> MatchAssign( std::vector<std::shared_ptr<token>>
         root->syntaxType = SyntaxUnitType::Terminator;
         root -> curTerminator = (*it) -> value;
     }else {
-        std::cerr << "syntax error in row " << (*it)->row << " column "  << (*it) -> column << std::endl;
+        matchTerminatorErrorF((*it), "=", (*it)->value);
     }
     return root;
 }
@@ -347,7 +350,7 @@ std::shared_ptr<SyntaxTreeNode> MatchInt( std::vector<std::shared_ptr<token>>::c
         root->syntaxType = SyntaxUnitType::Terminator;
         root -> curTerminator = (*it) -> value;
     }else {
-        std::cerr << "syntax error in row " << (*it)->row << " column "  << (*it) -> column << std::endl;
+        matchTerminatorErrorF((*it), "int", (*it)->value);
     }
     return root;
 }
@@ -358,7 +361,7 @@ std::shared_ptr<SyntaxTreeNode> MatchFloat( std::vector<std::shared_ptr<token>>:
         root->syntaxType = SyntaxUnitType::Terminator;
         root -> curTerminator = (*it) -> value;
     }else {
-        std::cerr << "syntax error in row " << (*it)->row << " column "  << (*it) -> column << std::endl;
+        matchTerminatorErrorF((*it), "float", (*it)->value);
     }
     return root;
 }
@@ -369,7 +372,7 @@ std::shared_ptr<SyntaxTreeNode> MatchChar( std::vector<std::shared_ptr<token>>::
         root->syntaxType = SyntaxUnitType::Terminator;
         root -> curTerminator = (*it) -> value;
     }else {
-        std::cerr << "syntax error in row " << (*it)->row << " column "  << (*it) -> column << std::endl;
+        matchTerminatorErrorF((*it), "char", (*it)->value);
     }
     return root;
 }
@@ -381,7 +384,7 @@ std::shared_ptr<SyntaxTreeNode> MatchLeftArray( std::vector<std::shared_ptr<toke
         root->syntaxType = SyntaxUnitType::Terminator;
         root -> curTerminator = (*it) -> value;
     }else {
-        std::cerr << "syntax error in row " << (*it)->row << " column "  << (*it) -> column << std::endl;
+        matchTerminatorErrorF((*it), "[", (*it)->value);
     }
     return root;
 }
@@ -393,7 +396,7 @@ std::shared_ptr<SyntaxTreeNode> MatchRightArray( std::vector<std::shared_ptr<tok
         root->syntaxType = SyntaxUnitType::Terminator;
         root -> curTerminator = (*it) -> value;
     }else {
-        std::cerr << "syntax error in row " << (*it)->row << " column "  << (*it) -> column << std::endl;
+        matchTerminatorErrorF((*it), "]", (*it)->value);
     }
     return root;
 }

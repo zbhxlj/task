@@ -3,12 +3,43 @@
 #include<vector>
 #include "parser_util.cpp"
 
-std::shared_ptr<SyntaxTreeNode> parse(const tokenParser& environment){
-    auto it = environment.tokenText.begin();
+Parser::Parser(const tokenParser& tP) : tokenparser(tP) {
+    mapFromEnumClassToString = {
+        {SyntaxUnitType::Program, "Program"},
+        {SyntaxUnitType::ExternalDefinitionSequence, "ExternalDefinitionSequence"},
+        {SyntaxUnitType::ExternalDefinitionSequence___SingleQuota, "ExternalDefinitionSequence_SingleQuota"},
+        {SyntaxUnitType::ExternalDefinition, "ExternalDefinition"},
+        {SyntaxUnitType::ExternalDefinition__SingleQuota, "ExternalDefinition_SingleQuota"},
+        {SyntaxUnitType::ExternalVariableDefinition, "ExternalVarialbleDefinition"},
+        {SyntaxUnitType::VariableSequence, "VariableSequence"},
+        {SyntaxUnitType::VariableSequence__SingleQuota, "VariableSequence_SingleQuota"},
+        {SyntaxUnitType::FunctionDefinition, "FunctionDefinition"},
+        {SyntaxUnitType::ParameterSequence, "ParameterSequence"},
+        {SyntaxUnitType::ComplexSentence, "ComplexSentence"},
+        {SyntaxUnitType::Parameter, "Parameter"},
+        {SyntaxUnitType::LocalVariableDefinitionSequence, "LocalVariableDefinitionSequence"},
+        {SyntaxUnitType::SentenceSequence, "SentenceSequence"},
+        {SyntaxUnitType::LocalVarialbleDefinition, "LocalVariableDefinition"},
+        {SyntaxUnitType::Sentence, "Sentence"},
+        {SyntaxUnitType::Sentence__SingleQuota, "Sentence_SingleQuota"},
+        {SyntaxUnitType::Expression, "Expression"},
+        {SyntaxUnitType::Expression__SingleQuota, "Expression_SingleQuota"},
+        {SyntaxUnitType::Expression__DoubleQuota, "Expression_DoubleQuota"},
+        {SyntaxUnitType::Expression__TripleQuota, "Expression_TripleQuota"},
+        {SyntaxUnitType::ArgumentSequence, "ArgumentSequence"},
+        {SyntaxUnitType::TypeName, "TypeName"},
+        {SyntaxUnitType::Array, "Array"},
+        {SyntaxUnitType::Terminator, "Terminator"},
+        {SyntaxUnitType::Nul, "Nul"}
+    };
+}
+
+std::shared_ptr<SyntaxTreeNode> Parser::parse(){
+    auto it = tokenparser.tokenText.cbegin();
     return parseS(it);
 }
 
-std::shared_ptr<SyntaxTreeNode> parseS(std::vector<std::shared_ptr<token>>::const_iterator& it){
+std::shared_ptr<SyntaxTreeNode> Parser::parseS(std::vector<std::shared_ptr<token>>::const_iterator& it){
     std::shared_ptr<SyntaxTreeNode> root = std::make_shared<SyntaxTreeNode>();
     root->syntaxType = SyntaxUnitType::Program;
     switch ((*it)->type)
@@ -21,14 +52,15 @@ std::shared_ptr<SyntaxTreeNode> parseS(std::vector<std::shared_ptr<token>>::cons
         break;
     
     default:
-        
+        unexpectedTokenTypeErrorF((*it), mapFromEnumClassToString[root->syntaxType],    
+                                tokenparser.mapFromEnumClassToString[(*it)->type]);
         break;
     }
     return root;
 }
 
 
-std::shared_ptr<SyntaxTreeNode> parseA(std::vector<std::shared_ptr<token>>::const_iterator& it){
+std::shared_ptr<SyntaxTreeNode> Parser::parseA(std::vector<std::shared_ptr<token>>::const_iterator& it){
     std::shared_ptr<SyntaxTreeNode> root = std::make_shared<SyntaxTreeNode>();
     root->syntaxType = SyntaxUnitType::ExternalDefinitionSequence;
     switch ((*it)->type)
@@ -42,12 +74,14 @@ std::shared_ptr<SyntaxTreeNode> parseA(std::vector<std::shared_ptr<token>>::cons
         break;
     
     default:
+        unexpectedTokenTypeErrorF((*it), mapFromEnumClassToString[root->syntaxType],    
+                                tokenparser.mapFromEnumClassToString[(*it)->type]);
         break;
     }
     return root;
 }
 
-std::shared_ptr<SyntaxTreeNode> parseA__SingleQuota(std::vector<std::shared_ptr<token>>::const_iterator& it){
+std::shared_ptr<SyntaxTreeNode> Parser::parseA__SingleQuota(std::vector<std::shared_ptr<token>>::const_iterator& it){
     std::shared_ptr<SyntaxTreeNode> root = std::make_shared<SyntaxTreeNode>();
     root->syntaxType = SyntaxUnitType::ExternalDefinition__SingleQuota;
     switch ((*it)->type)
@@ -63,12 +97,14 @@ std::shared_ptr<SyntaxTreeNode> parseA__SingleQuota(std::vector<std::shared_ptr<
         it++;
         break;
     default:
+        unexpectedTokenTypeErrorF((*it), mapFromEnumClassToString[root->syntaxType],    
+                                tokenparser.mapFromEnumClassToString[(*it)->type]);
         break;
     }
     return root;
 }
 
-std::shared_ptr<SyntaxTreeNode> parseB(std::vector<std::shared_ptr<token>>::const_iterator& it){
+std::shared_ptr<SyntaxTreeNode> Parser::parseB(std::vector<std::shared_ptr<token>>::const_iterator& it){
     std::shared_ptr<SyntaxTreeNode> root = std::make_shared<SyntaxTreeNode>();
     root->syntaxType = SyntaxUnitType::ExternalDefinition;
     switch ((*it) -> type)
@@ -83,12 +119,14 @@ std::shared_ptr<SyntaxTreeNode> parseB(std::vector<std::shared_ptr<token>>::cons
         break;
     
     default:
+        unexpectedTokenTypeErrorF((*it), mapFromEnumClassToString[root->syntaxType],    
+                                tokenparser.mapFromEnumClassToString[(*it)->type]);    
         break;
     }
     return root;
 }
 
-std::shared_ptr<SyntaxTreeNode> parseB_SingleQuota(std::vector<std::shared_ptr<token>>::const_iterator& it){
+std::shared_ptr<SyntaxTreeNode> Parser::parseB_SingleQuota(std::vector<std::shared_ptr<token>>::const_iterator& it){
     std::shared_ptr<SyntaxTreeNode> root = std::make_shared<SyntaxTreeNode>();
     root->syntaxType = SyntaxUnitType::ExternalDefinition__SingleQuota;
     switch ((*it) -> type)
@@ -105,12 +143,14 @@ std::shared_ptr<SyntaxTreeNode> parseB_SingleQuota(std::vector<std::shared_ptr<t
         break;
         
     default:
+        unexpectedTokenTypeErrorF((*it), mapFromEnumClassToString[root->syntaxType],    
+                                tokenparser.mapFromEnumClassToString[(*it)->type]);
         break;
     }
     return root;
 }
 
-std::shared_ptr<SyntaxTreeNode> parseC(std::vector<std::shared_ptr<token>>::const_iterator& it){
+std::shared_ptr<SyntaxTreeNode> Parser::parseC(std::vector<std::shared_ptr<token>>::const_iterator& it){
     std::shared_ptr<SyntaxTreeNode> root = std::make_shared<SyntaxTreeNode>();
     root->syntaxType = SyntaxUnitType::ExternalVariableDefinition;
     switch ((*it) -> type)
@@ -124,12 +164,14 @@ std::shared_ptr<SyntaxTreeNode> parseC(std::vector<std::shared_ptr<token>>::cons
         break;
     
     default:
+        unexpectedTokenTypeErrorF((*it), mapFromEnumClassToString[root->syntaxType],    
+                                tokenparser.mapFromEnumClassToString[(*it)->type]);
         break;
     }
     return root;
 }
 
-std::shared_ptr<SyntaxTreeNode> parseE(std::vector<std::shared_ptr<token>>::const_iterator& it){
+std::shared_ptr<SyntaxTreeNode> Parser::parseE(std::vector<std::shared_ptr<token>>::const_iterator& it){
     std::shared_ptr<SyntaxTreeNode> root = std::make_shared<SyntaxTreeNode>();
     root->syntaxType = SyntaxUnitType::VariableSequence;
     switch ((*it) -> type)
@@ -141,12 +183,14 @@ std::shared_ptr<SyntaxTreeNode> parseE(std::vector<std::shared_ptr<token>>::cons
         break;
     
     default:
+        unexpectedTokenTypeErrorF((*it), mapFromEnumClassToString[root->syntaxType],    
+                                tokenparser.mapFromEnumClassToString[(*it)->type]);
         break;
     }
     return root;
 }
 
-std::shared_ptr<SyntaxTreeNode> parseE__SingleQuota(std::vector<std::shared_ptr<token>>::const_iterator& it){
+std::shared_ptr<SyntaxTreeNode> Parser::parseE__SingleQuota(std::vector<std::shared_ptr<token>>::const_iterator& it){
     std::shared_ptr<SyntaxTreeNode> root = std::make_shared<SyntaxTreeNode>();
     root->syntaxType = SyntaxUnitType::VariableSequence__SingleQuota;
     switch ((*it) -> type)
@@ -161,12 +205,14 @@ std::shared_ptr<SyntaxTreeNode> parseE__SingleQuota(std::vector<std::shared_ptr<
         break;
 
     default:
+        unexpectedTokenTypeErrorF((*it), mapFromEnumClassToString[root->syntaxType],    
+                                tokenparser.mapFromEnumClassToString[(*it)->type]);
         break;
     }
     return root;
 }
 
-std::shared_ptr<SyntaxTreeNode> parseG(std::vector<std::shared_ptr<token>>::const_iterator& it){
+std::shared_ptr<SyntaxTreeNode> Parser::parseG(std::vector<std::shared_ptr<token>>::const_iterator& it){
     std::shared_ptr<SyntaxTreeNode> root = std::make_shared<SyntaxTreeNode>();
     root->syntaxType = SyntaxUnitType::FunctionDefinition;
     switch ((*it)->type)
@@ -180,12 +226,14 @@ std::shared_ptr<SyntaxTreeNode> parseG(std::vector<std::shared_ptr<token>>::cons
         break;
     
     default:
+        unexpectedTokenTypeErrorF((*it), mapFromEnumClassToString[root->syntaxType],    
+                                tokenparser.mapFromEnumClassToString[(*it)->type]);
         break;
     }
     return root;
 }
 
-std::shared_ptr<SyntaxTreeNode> parseI(std::vector<std::shared_ptr<token>>::const_iterator& it){
+std::shared_ptr<SyntaxTreeNode> Parser::parseI(std::vector<std::shared_ptr<token>>::const_iterator& it){
     std::shared_ptr<SyntaxTreeNode> root = std::make_shared<SyntaxTreeNode>();
     root->syntaxType = SyntaxUnitType::ParameterSequence;
     switch ((*it)->type)
@@ -205,12 +253,14 @@ std::shared_ptr<SyntaxTreeNode> parseI(std::vector<std::shared_ptr<token>>::cons
         break;
 
     default:
+        unexpectedTokenTypeErrorF((*it), mapFromEnumClassToString[root->syntaxType],    
+                                tokenparser.mapFromEnumClassToString[(*it)->type]);
         break;
     }
     return root;
 }
 
-std::shared_ptr<SyntaxTreeNode> parseK(std::vector<std::shared_ptr<token>>::const_iterator& it){
+std::shared_ptr<SyntaxTreeNode> Parser::parseK(std::vector<std::shared_ptr<token>>::const_iterator& it){
     std::shared_ptr<SyntaxTreeNode> root = std::make_shared<SyntaxTreeNode>();
     root->syntaxType = SyntaxUnitType::Parameter;
     switch ((*it)->type)
@@ -224,12 +274,14 @@ std::shared_ptr<SyntaxTreeNode> parseK(std::vector<std::shared_ptr<token>>::cons
         break;
     
     default:
+        unexpectedTokenTypeErrorF((*it), mapFromEnumClassToString[root->syntaxType],    
+                                tokenparser.mapFromEnumClassToString[(*it)->type]);
         break;
     }
     return root;
 }
 
-std::shared_ptr<SyntaxTreeNode> parseJ(std::vector<std::shared_ptr<token>>::const_iterator& it){
+std::shared_ptr<SyntaxTreeNode> Parser::parseJ(std::vector<std::shared_ptr<token>>::const_iterator& it){
     std::shared_ptr<SyntaxTreeNode> root = std::make_shared<SyntaxTreeNode>();
     root->syntaxType = SyntaxUnitType::ComplexSentence;
     switch ((*it) -> type)
@@ -243,12 +295,14 @@ std::shared_ptr<SyntaxTreeNode> parseJ(std::vector<std::shared_ptr<token>>::cons
         break;
     
     default:
+        unexpectedTokenTypeErrorF((*it), mapFromEnumClassToString[root->syntaxType],    
+                                tokenparser.mapFromEnumClassToString[(*it)->type]);
         break;
     }
     return root;
 }
 
-std::shared_ptr<SyntaxTreeNode> parseL(std::vector<std::shared_ptr<token>>::const_iterator& it){
+std::shared_ptr<SyntaxTreeNode> Parser::parseL(std::vector<std::shared_ptr<token>>::const_iterator& it){
     std::shared_ptr<SyntaxTreeNode> root = std::make_shared<SyntaxTreeNode>();
     root->syntaxType = SyntaxUnitType::LocalVariableDefinitionSequence;
     switch ((*it) -> type)
@@ -264,12 +318,14 @@ std::shared_ptr<SyntaxTreeNode> parseL(std::vector<std::shared_ptr<token>>::cons
         root->childs.push_back( MatchEnd(it) );
         it++;
     default:
+        unexpectedTokenTypeErrorF((*it), mapFromEnumClassToString[root->syntaxType],    
+                                tokenparser.mapFromEnumClassToString[(*it)->type]);
         break;
     }
     return root;
 }
 
-std::shared_ptr<SyntaxTreeNode> parseN(std::vector<std::shared_ptr<token>>::const_iterator& it){
+std::shared_ptr<SyntaxTreeNode> Parser::parseN(std::vector<std::shared_ptr<token>>::const_iterator& it){
     std::shared_ptr<SyntaxTreeNode> root = std::make_shared<SyntaxTreeNode>();
     root->syntaxType = SyntaxUnitType::LocalVarialbleDefinition;
     switch ((*it) -> type)
@@ -283,12 +339,14 @@ std::shared_ptr<SyntaxTreeNode> parseN(std::vector<std::shared_ptr<token>>::cons
         break;
     
     default:
+        unexpectedTokenTypeErrorF((*it), mapFromEnumClassToString[root->syntaxType],    
+                                tokenparser.mapFromEnumClassToString[(*it)->type]);
         break;
     }
     return root;
 }
 
-std::shared_ptr<SyntaxTreeNode> parseM(std::vector<std::shared_ptr<token>>::const_iterator& it){
+std::shared_ptr<SyntaxTreeNode> Parser::parseM(std::vector<std::shared_ptr<token>>::const_iterator& it){
     std::shared_ptr<SyntaxTreeNode> root = std::make_shared<SyntaxTreeNode>();
     root->syntaxType = SyntaxUnitType::SentenceSequence;
     switch ((*it) -> type)
@@ -314,12 +372,14 @@ std::shared_ptr<SyntaxTreeNode> parseM(std::vector<std::shared_ptr<token>>::cons
         }
         break;
     default:
+        unexpectedTokenTypeErrorF((*it), mapFromEnumClassToString[root->syntaxType],    
+                                tokenparser.mapFromEnumClassToString[(*it)->type]);
         break;
     }
     return root;
 }
 
-std::shared_ptr<SyntaxTreeNode> parseO(std::vector<std::shared_ptr<token>>::const_iterator& it){
+std::shared_ptr<SyntaxTreeNode> Parser::parseO(std::vector<std::shared_ptr<token>>::const_iterator& it){
     std::shared_ptr<SyntaxTreeNode> root = std::make_shared<SyntaxTreeNode>();
     root->syntaxType = SyntaxUnitType::Sentence;
     if((*it)->value == "for"){
@@ -372,11 +432,14 @@ std::shared_ptr<SyntaxTreeNode> parseO(std::vector<std::shared_ptr<token>>::cons
         root->childs.push_back( MatchElse(it) );
         root->childs.push_back( parseO(++it) );
         it++;
-    }  
+    }else {
+        unexpectedTokenTypeErrorF((*it), mapFromEnumClassToString[root->syntaxType],    
+                                tokenparser.mapFromEnumClassToString[(*it)->type]);
+    }
     return root;
 }
 
-std::shared_ptr<SyntaxTreeNode> parseO__SingleQuota(std::vector<std::shared_ptr<token>>::const_iterator& it){
+std::shared_ptr<SyntaxTreeNode> Parser::parseO__SingleQuota(std::vector<std::shared_ptr<token>>::const_iterator& it){
     std::shared_ptr<SyntaxTreeNode> root = std::make_shared<SyntaxTreeNode>();
     root->syntaxType = SyntaxUnitType::Sentence__SingleQuota;
     switch ((*it)->type)
@@ -392,11 +455,14 @@ std::shared_ptr<SyntaxTreeNode> parseO__SingleQuota(std::vector<std::shared_ptr<
             it++;
         }
         break;
+
+        unexpectedTokenTypeErrorF((*it), mapFromEnumClassToString[root->syntaxType],    
+                                tokenparser.mapFromEnumClassToString[(*it)->type]);
     }
     return root;
 }
 
-std::shared_ptr<SyntaxTreeNode> parseP(std::vector<std::shared_ptr<token>>::const_iterator& it){
+std::shared_ptr<SyntaxTreeNode> Parser::parseP(std::vector<std::shared_ptr<token>>::const_iterator& it){
     std::shared_ptr<SyntaxTreeNode> root = std::make_shared<SyntaxTreeNode>();
     root->syntaxType = SyntaxUnitType::Expression;
     switch ((*it)->type)
@@ -415,12 +481,14 @@ std::shared_ptr<SyntaxTreeNode> parseP(std::vector<std::shared_ptr<token>>::cons
         break;
 
     default:
+        unexpectedTokenTypeErrorF((*it), mapFromEnumClassToString[root->syntaxType],    
+                                tokenparser.mapFromEnumClassToString[(*it)->type]);
         break;
     }
     return root;
 }
 
-std::shared_ptr<SyntaxTreeNode> parseP__SingleQuota(std::vector<std::shared_ptr<token>>::const_iterator& it){
+std::shared_ptr<SyntaxTreeNode> Parser::parseP__SingleQuota(std::vector<std::shared_ptr<token>>::const_iterator& it){
     std::shared_ptr<SyntaxTreeNode> root = std::make_shared<SyntaxTreeNode>();
     root->syntaxType = SyntaxUnitType::Expression__SingleQuota;
     switch ((*it)->type)
@@ -499,12 +567,14 @@ std::shared_ptr<SyntaxTreeNode> parseP__SingleQuota(std::vector<std::shared_ptr<
         break;
 
     default:
+        unexpectedTokenTypeErrorF((*it), mapFromEnumClassToString[root->syntaxType],    
+                                tokenparser.mapFromEnumClassToString[(*it)->type]);
         break;
     }
     return root;
 }
 
-std::shared_ptr<SyntaxTreeNode> parseP__DoubleQuota(std::vector<std::shared_ptr<token>>::const_iterator& it){
+std::shared_ptr<SyntaxTreeNode> Parser::parseP__DoubleQuota(std::vector<std::shared_ptr<token>>::const_iterator& it){
     std::shared_ptr<SyntaxTreeNode> root = std::make_shared<SyntaxTreeNode>();
     root->syntaxType = SyntaxUnitType::Expression__DoubleQuota;
     switch ((*it)->type)
@@ -541,12 +611,14 @@ std::shared_ptr<SyntaxTreeNode> parseP__DoubleQuota(std::vector<std::shared_ptr<
 
     
     default:
+        unexpectedTokenTypeErrorF((*it), mapFromEnumClassToString[root->syntaxType],    
+                                tokenparser.mapFromEnumClassToString[(*it)->type]);
         break;
     }
     return root;
 }
 
-std::shared_ptr<SyntaxTreeNode> parseP__TripleQuota(std::vector<std::shared_ptr<token>>::const_iterator& it){
+std::shared_ptr<SyntaxTreeNode> Parser::parseP__TripleQuota(std::vector<std::shared_ptr<token>>::const_iterator& it){
     std::shared_ptr<SyntaxTreeNode> root = std::make_shared<SyntaxTreeNode>();
     root->syntaxType = SyntaxUnitType::Expression__TripleQuota;
     switch ((*it)->type)
@@ -573,12 +645,14 @@ std::shared_ptr<SyntaxTreeNode> parseP__TripleQuota(std::vector<std::shared_ptr<
         break;
 
     default:
+        unexpectedTokenTypeErrorF((*it), mapFromEnumClassToString[root->syntaxType],    
+                                tokenparser.mapFromEnumClassToString[(*it)->type]);
         break;
     }
     return root;
 }
 
-std::shared_ptr<SyntaxTreeNode> parseQ(std::vector<std::shared_ptr<token>>::const_iterator& it){
+std::shared_ptr<SyntaxTreeNode> Parser::parseQ(std::vector<std::shared_ptr<token>>::const_iterator& it){
     std::shared_ptr<SyntaxTreeNode> root = std::make_shared<SyntaxTreeNode>();
     root->syntaxType = SyntaxUnitType::ArgumentSequence;
     switch ((*it)->type)
@@ -593,12 +667,14 @@ std::shared_ptr<SyntaxTreeNode> parseQ(std::vector<std::shared_ptr<token>>::cons
         it++;
         break;
     default:
+        unexpectedTokenTypeErrorF((*it), mapFromEnumClassToString[root->syntaxType],    
+                                tokenparser.mapFromEnumClassToString[(*it)->type]);
         break;
     }
     return root;
 }
 
-std::shared_ptr<SyntaxTreeNode> parseR(std::vector<std::shared_ptr<token>>::const_iterator& it){
+std::shared_ptr<SyntaxTreeNode> Parser::parseR(std::vector<std::shared_ptr<token>>::const_iterator& it){
     std::shared_ptr<SyntaxTreeNode> root = std::make_shared<SyntaxTreeNode>();
     root->syntaxType = SyntaxUnitType::ArgumentSequence;
 
@@ -623,12 +699,14 @@ std::shared_ptr<SyntaxTreeNode> parseR(std::vector<std::shared_ptr<token>>::cons
         break;
 
     default:
+        unexpectedTokenTypeErrorF((*it), mapFromEnumClassToString[root->syntaxType],    
+                                tokenparser.mapFromEnumClassToString[(*it)->type]);
         break;
     }
     return root;
 }
 
-std::shared_ptr<SyntaxTreeNode> parseR_SingleQuota(std::vector<std::shared_ptr<token>>::const_iterator& it){
+std::shared_ptr<SyntaxTreeNode> Parser::parseR_SingleQuota(std::vector<std::shared_ptr<token>>::const_iterator& it){
     std::shared_ptr<SyntaxTreeNode> root = std::make_shared<SyntaxTreeNode>();
     root->syntaxType = SyntaxUnitType::Array;
     switch ((*it)->type)
@@ -642,6 +720,8 @@ std::shared_ptr<SyntaxTreeNode> parseR_SingleQuota(std::vector<std::shared_ptr<t
         root->childs.push_back( MatchRightArray(++it));
 
     default:
+        unexpectedTokenTypeErrorF((*it), mapFromEnumClassToString[root->syntaxType],    
+                                tokenparser.mapFromEnumClassToString[(*it)->type]);
         break;
     }
     return root;

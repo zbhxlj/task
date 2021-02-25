@@ -11,7 +11,8 @@ int main(int argc, char* argv[]){
     test1.Parse();    
     test1.PrintTokenText();
 
-    parse(test1);
+    Parser parser(test1);
+    parser.parse();
 
     return 0;
 }

@@ -40,32 +40,38 @@ struct SyntaxTreeNode {
     string                                              curTerminator;
 };
 
-std::shared_ptr<SyntaxTreeNode> parse(const tokenParser& environment);
-std::shared_ptr<SyntaxTreeNode> parseS(std::vector<std::shared_ptr<token>>::const_iterator& it);
-std::shared_ptr<SyntaxTreeNode> parseA(std::vector<std::shared_ptr<token>>::const_iterator& it);
-std::shared_ptr<SyntaxTreeNode> parseA__SingleQuota(std::vector<std::shared_ptr<token>>::const_iterator& it);
-std::shared_ptr<SyntaxTreeNode> parseB(std::vector<std::shared_ptr<token>>::const_iterator& it);
-std::shared_ptr<SyntaxTreeNode> parseB_SingleQuota(std::vector<std::shared_ptr<token>>::const_iterator& it);
-std::shared_ptr<SyntaxTreeNode> parseC(std::vector<std::shared_ptr<token>>::const_iterator& it);
-std::shared_ptr<SyntaxTreeNode> parseE(std::vector<std::shared_ptr<token>>::const_iterator& it);
-std::shared_ptr<SyntaxTreeNode> parseE__SingleQuota(std::vector<std::shared_ptr<token>>::const_iterator& it);
-std::shared_ptr<SyntaxTreeNode> parseF(std::vector<std::shared_ptr<token>>::const_iterator& it);
-std::shared_ptr<SyntaxTreeNode> parseG(std::vector<std::shared_ptr<token>>::const_iterator& it);
-std::shared_ptr<SyntaxTreeNode> parseH(std::vector<std::shared_ptr<token>>::const_iterator& it);
-std::shared_ptr<SyntaxTreeNode> parseI(std::vector<std::shared_ptr<token>>::const_iterator& it);
-std::shared_ptr<SyntaxTreeNode> parseJ(std::vector<std::shared_ptr<token>>::const_iterator& it);
-std::shared_ptr<SyntaxTreeNode> parseK(std::vector<std::shared_ptr<token>>::const_iterator& it);
-std::shared_ptr<SyntaxTreeNode> parseL(std::vector<std::shared_ptr<token>>::const_iterator& it);
-std::shared_ptr<SyntaxTreeNode> parseM(std::vector<std::shared_ptr<token>>::const_iterator& it);
-std::shared_ptr<SyntaxTreeNode> parseN(std::vector<std::shared_ptr<token>>::const_iterator& it);
-std::shared_ptr<SyntaxTreeNode> parseO(std::vector<std::shared_ptr<token>>::const_iterator& it);
-std::shared_ptr<SyntaxTreeNode> parseO__SingleQuota(std::vector<std::shared_ptr<token>>::const_iterator& it);
-std::shared_ptr<SyntaxTreeNode> parseP(std::vector<std::shared_ptr<token>>::const_iterator& it);
-std::shared_ptr<SyntaxTreeNode> parseP__SingleQuota(std::vector<std::shared_ptr<token>>::const_iterator& it);
-std::shared_ptr<SyntaxTreeNode> parseP__DoubleQuota(std::vector<std::shared_ptr<token>>::const_iterator& it);
-std::shared_ptr<SyntaxTreeNode> parseP__TripleQuota(std::vector<std::shared_ptr<token>>::const_iterator& it);
-std::shared_ptr<SyntaxTreeNode> parseQ(std::vector<std::shared_ptr<token>>::const_iterator& it);
-std::shared_ptr<SyntaxTreeNode> parseR(std::vector<std::shared_ptr<token>>::const_iterator& it);
-std::shared_ptr<SyntaxTreeNode> parseR_SingleQuota(std::vector<std::shared_ptr<token>>::const_iterator& it);
+struct Parser{
+    tokenParser                                         tokenparser;
+    unordered_map<SyntaxUnitType, string>               mapFromEnumClassToString;  
+    Parser(const tokenParser& tP);
+
+    std::shared_ptr<SyntaxTreeNode> parse();
+    std::shared_ptr<SyntaxTreeNode> parseS(std::vector<std::shared_ptr<token>>::const_iterator& it);
+    std::shared_ptr<SyntaxTreeNode> parseA(std::vector<std::shared_ptr<token>>::const_iterator& it);
+    std::shared_ptr<SyntaxTreeNode> parseA__SingleQuota(std::vector<std::shared_ptr<token>>::const_iterator& it);
+    std::shared_ptr<SyntaxTreeNode> parseB(std::vector<std::shared_ptr<token>>::const_iterator& it);
+    std::shared_ptr<SyntaxTreeNode> parseB_SingleQuota(std::vector<std::shared_ptr<token>>::const_iterator& it);
+    std::shared_ptr<SyntaxTreeNode> parseC(std::vector<std::shared_ptr<token>>::const_iterator& it);
+    std::shared_ptr<SyntaxTreeNode> parseE(std::vector<std::shared_ptr<token>>::const_iterator& it);
+    std::shared_ptr<SyntaxTreeNode> parseE__SingleQuota(std::vector<std::shared_ptr<token>>::const_iterator& it);
+    std::shared_ptr<SyntaxTreeNode> parseF(std::vector<std::shared_ptr<token>>::const_iterator& it);
+    std::shared_ptr<SyntaxTreeNode> parseG(std::vector<std::shared_ptr<token>>::const_iterator& it);
+    std::shared_ptr<SyntaxTreeNode> parseH(std::vector<std::shared_ptr<token>>::const_iterator& it);
+    std::shared_ptr<SyntaxTreeNode> parseI(std::vector<std::shared_ptr<token>>::const_iterator& it);
+    std::shared_ptr<SyntaxTreeNode> parseJ(std::vector<std::shared_ptr<token>>::const_iterator& it);
+    std::shared_ptr<SyntaxTreeNode> parseK(std::vector<std::shared_ptr<token>>::const_iterator& it);
+    std::shared_ptr<SyntaxTreeNode> parseL(std::vector<std::shared_ptr<token>>::const_iterator& it);
+    std::shared_ptr<SyntaxTreeNode> parseM(std::vector<std::shared_ptr<token>>::const_iterator& it);
+    std::shared_ptr<SyntaxTreeNode> parseN(std::vector<std::shared_ptr<token>>::const_iterator& it);
+    std::shared_ptr<SyntaxTreeNode> parseO(std::vector<std::shared_ptr<token>>::const_iterator& it);
+    std::shared_ptr<SyntaxTreeNode> parseO__SingleQuota(std::vector<std::shared_ptr<token>>::const_iterator& it);
+    std::shared_ptr<SyntaxTreeNode> parseP(std::vector<std::shared_ptr<token>>::const_iterator& it);
+    std::shared_ptr<SyntaxTreeNode> parseP__SingleQuota(std::vector<std::shared_ptr<token>>::const_iterator& it);
+    std::shared_ptr<SyntaxTreeNode> parseP__DoubleQuota(std::vector<std::shared_ptr<token>>::const_iterator& it);
+    std::shared_ptr<SyntaxTreeNode> parseP__TripleQuota(std::vector<std::shared_ptr<token>>::const_iterator& it);
+    std::shared_ptr<SyntaxTreeNode> parseQ(std::vector<std::shared_ptr<token>>::const_iterator& it);
+    std::shared_ptr<SyntaxTreeNode> parseR(std::vector<std::shared_ptr<token>>::const_iterator& it);
+    std::shared_ptr<SyntaxTreeNode> parseR_SingleQuota(std::vector<std::shared_ptr<token>>::const_iterator& it);
+};
 
 #endif
