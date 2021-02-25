@@ -86,7 +86,7 @@ std::shared_ptr<SyntaxTreeNode> MatchChar_C( std::vector<std::shared_ptr<token>>
 
 std::shared_ptr<SyntaxTreeNode> MatchCloseBracket( std::vector<std::shared_ptr<token>>::const_iterator& it){
     std::shared_ptr<SyntaxTreeNode> root = std::make_shared<SyntaxTreeNode>();
-    if((*it)->type == tokenType::OpenBracket){
+    if((*it)->type == tokenType::CloseBracket){
         root->syntaxType = SyntaxUnitType::Terminator;
         root -> curTerminator = (*it) -> value;
     }else {
@@ -97,7 +97,7 @@ std::shared_ptr<SyntaxTreeNode> MatchCloseBracket( std::vector<std::shared_ptr<t
 
 std::shared_ptr<SyntaxTreeNode> MatchOpenBracket( std::vector<std::shared_ptr<token>>::const_iterator& it){
     std::shared_ptr<SyntaxTreeNode> root = std::make_shared<SyntaxTreeNode>();
-    if((*it)->type == tokenType::CloseBracket){
+    if((*it)->type == tokenType::OpenBracket){
         root->syntaxType = SyntaxUnitType::Terminator;
         root -> curTerminator = (*it) -> value;
     }else {

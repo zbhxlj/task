@@ -134,18 +134,15 @@ std::shared_ptr<SyntaxTreeNode> Parser::parseB_SingleQuota(std::vector<std::shar
     switch ((*it) -> type)
     {
     case tokenType::OpenBracket:
-        std::cerr << "It should be here" << std::endl;
         root->childs.push_back( parseG(it) );
         break;
 
     case tokenType::Comma :
     case tokenType::Semi :
         root->childs.push_back( parseE__SingleQuota(it) );
-        it++;
         break;
         
     default:
-    std::cerr << "ridiculous" << std::endl;
         unexpectedTokenTypeErrorF((*it), mapFromEnumClassToString[root->syntaxType],    
                                 tokenparser.mapFromEnumClassToString[(*it)->type], "B_SingleQuota");
         break;
@@ -164,7 +161,6 @@ std::shared_ptr<SyntaxTreeNode> Parser::parseC(std::vector<std::shared_ptr<token
     case tokenType::Char :
         root->childs.push_back( parseR(it) );
         root->childs.push_back( parseE(++it));
-        it++;
         break;
     
     default:
@@ -184,7 +180,6 @@ std::shared_ptr<SyntaxTreeNode> Parser::parseE(std::vector<std::shared_ptr<token
     case tokenType::Identifier:
         root->childs.push_back( MatchIdentifier(it) );
         root->childs.push_back( parseE__SingleQuota(++it));
-        it++;
         break;
     
     default:
@@ -202,9 +197,8 @@ std::shared_ptr<SyntaxTreeNode> Parser::parseE__SingleQuota(std::vector<std::sha
     switch ((*it) -> type)
     {
     case tokenType::Comma :
-        root->childs.push_back( MatchComma(it) );
+        root->childs.push_back( MatchComma(it));
         root->childs.push_back( parseE(++it) );
-        it++;
         break;
     
     case tokenType::Semi :
@@ -229,7 +223,6 @@ std::shared_ptr<SyntaxTreeNode> Parser::parseG(std::vector<std::shared_ptr<token
         root->childs.push_back( parseI(++it) );
         root->childs.push_back( MatchCloseBracket(++it) );
         root->childs.push_back( parseJ(++it) );
-        it++;
         break;
     
     default:
@@ -257,7 +250,6 @@ std::shared_ptr<SyntaxTreeNode> Parser::parseI(std::vector<std::shared_ptr<token
         root->childs.push_back( parseK(it) );
         root->childs.push_back( MatchComma(++it) );
         root->childs.push_back( parseI(++it) );
-        it++;
         break;
 
     default:
@@ -279,7 +271,6 @@ std::shared_ptr<SyntaxTreeNode> Parser::parseK(std::vector<std::shared_ptr<token
     case tokenType::Char :
         root->childs.push_back( parseR(it) );
         root->childs.push_back( MatchIdentifier(++it) );
-        it++;
         break;
     
     default:
@@ -323,7 +314,6 @@ std::shared_ptr<SyntaxTreeNode> Parser::parseL(std::vector<std::shared_ptr<token
     case tokenType::Char :
         root->childs.push_back( parseN(it) );
         root->childs.push_back( parseL(++it) );
-        it++;
         break;
     case tokenType::End :
         root->childs.push_back( MatchEnd(it) );
@@ -347,7 +337,6 @@ std::shared_ptr<SyntaxTreeNode> Parser::parseN(std::vector<std::shared_ptr<token
     case tokenType::Char :
         root->childs.push_back( parseR(it) );
         root->childs.push_back( parseE(++it) );
-        it++;
         break;
     
     default:
@@ -365,6 +354,7 @@ std::shared_ptr<SyntaxTreeNode> Parser::parseM(std::vector<std::shared_ptr<token
     switch ((*it) -> type)
     {
     case tokenType::Rp :
+        it--;
         break;
     
     case tokenType::Int_C:
@@ -374,7 +364,6 @@ std::shared_ptr<SyntaxTreeNode> Parser::parseM(std::vector<std::shared_ptr<token
     case tokenType::Identifier:
         root->childs.push_back( parseO(it));
         root->childs.push_back( parseM(++it) );
-        it++;
         break;
 
     case tokenType::Return:
@@ -385,7 +374,6 @@ std::shared_ptr<SyntaxTreeNode> Parser::parseM(std::vector<std::shared_ptr<token
     case tokenType::For:
         root->childs.push_back( parseO(it));
         root->childs.push_back( parseM(++it) );
-        it++;
         break;
     default:
         unexpectedTokenTypeErrorF((*it), mapFromEnumClassToString[root->syntaxType],    
@@ -411,7 +399,6 @@ std::shared_ptr<SyntaxTreeNode> Parser::parseO(std::vector<std::shared_ptr<token
         root->childs.push_back( parseP(++it) );
         root->childs.push_back( MatchCloseBracket(++it) );
         root->childs.push_back( parseO(++it) );
-        it++;
         break;
     
     case tokenType::Continue:
@@ -432,7 +419,6 @@ std::shared_ptr<SyntaxTreeNode> Parser::parseO(std::vector<std::shared_ptr<token
         root->childs.push_back( parseP(++it) );
         root->childs.push_back( MatchCloseBracket(++it) );
         root->childs.push_back( parseO(++it) );
-        it++;
         break;
 
     case tokenType::If:
@@ -442,7 +428,6 @@ std::shared_ptr<SyntaxTreeNode> Parser::parseO(std::vector<std::shared_ptr<token
         root->childs.push_back( MatchCloseBracket(++it) );
         root->childs.push_back( parseO(++it) );
         root->childs.push_back( parseO__SingleQuota(++it) );
-        it++;
         break;
 
     case tokenType::Return:
@@ -470,7 +455,6 @@ std::shared_ptr<SyntaxTreeNode> Parser::parseO(std::vector<std::shared_ptr<token
     case tokenType::Else:
         root->childs.push_back( MatchElse(it) );
         root->childs.push_back( parseO(++it) );
-        it++;
         break;
 
     default:
@@ -491,11 +475,11 @@ std::shared_ptr<SyntaxTreeNode> Parser::parseO__SingleQuota(std::vector<std::sha
         root->childs.push_back( MatchEnd(it));
         it++;
         break;
+
     default:
         if((*it)->value == "else"){
             root->childs.push_back( MatchElse(it) );
             root->childs.push_back( parseO(++it));
-            it++;
         }
         break;
 
@@ -515,31 +499,26 @@ std::shared_ptr<SyntaxTreeNode> Parser::parseP(std::vector<std::shared_ptr<token
         root->childs.push_back( MatchIdentifier(it) );
         root->childs.push_back( parseP__DoubleQuota(++it) );
         root->childs.push_back( parseP__TripleQuota(++it) );
-        it++;
         break;
     
     case tokenType::Int_C :
         root->childs.push_back( MatchInt_C(it));
         root->childs.push_back( parseP__TripleQuota(++it));
-        it++;
         break;
 
     case tokenType::Float_C :
         root->childs.push_back( MatchFloat_C(it));
         root->childs.push_back( parseP__TripleQuota(++it));
-        it++;
         break;
 
     case tokenType::Long_C :
         root->childs.push_back( MatchLong_C(it));
         root->childs.push_back( parseP__TripleQuota(++it));
-        it++;
         break;
 
     case tokenType::Char_C :
         root->childs.push_back( MatchChar_C(it));
         root->childs.push_back( parseP__TripleQuota(++it));
-        it++;
         break;
 
     default:
@@ -559,74 +538,62 @@ std::shared_ptr<SyntaxTreeNode> Parser::parseP__SingleQuota(std::vector<std::sha
     case tokenType::And :
         root->childs.push_back( MatchAnd(it));
         root->childs.push_back( parseP(++it) );
-        it++;    
         break;
     
     case tokenType::Or :
         root->childs.push_back( MatchOr(it));
         root->childs.push_back( parseP(++it) );
-        it++;
         break;
 
     case tokenType::Pl :
         root->childs.push_back( MatchPl(it));
         root->childs.push_back( parseP(++it) );
-        it++;
         break;
     
     case tokenType::Minus :
         root->childs.push_back( MatchMinus(it));
         root->childs.push_back( parseP(++it) );
-        it++;
         break;
 
     case tokenType::Multi :
         root->childs.push_back( MatchMulti(it));
         root->childs.push_back( parseP(++it) );
-        it++;
         break;
 
     case tokenType::Divid :
         root->childs.push_back( MatchDivid(it));
         root->childs.push_back( parseP(++it) );
-        it++;
         break;
 
     case tokenType::Eq :
         root->childs.push_back( MatchEqual(it));
         root->childs.push_back( parseP(++it) );
-        it++;
         break;
     
     case tokenType::NtEq :
         root->childs.push_back( MatchNotEqual(it));
         root->childs.push_back( parseP(++it) );
-        it++;
         break;
     
     case tokenType::Gt :
         root->childs.push_back( MatchGreater(it));
         root->childs.push_back( parseP(++it) );
-        it++;
         break;
 
     
     case tokenType::Ls :
         root->childs.push_back( MatchLess(it));
         root->childs.push_back( parseP(++it) );
-        it++;
         break;
     
     case tokenType::GtEq :
         root->childs.push_back( MatchGreaterEq(it));
         root->childs.push_back( parseP(++it) );
-        it++;
         break;
 
     case tokenType::LsEq :
         root->childs.push_back( MatchLessEq(it));
         root->childs.push_back( parseP(++it) );
-        it++;
         break;
 
     default:
@@ -646,7 +613,6 @@ std::shared_ptr<SyntaxTreeNode> Parser::parseP__DoubleQuota(std::vector<std::sha
     case tokenType::Assign :
         root->childs.push_back( MatchAssign(it));
         root->childs.push_back( parseP(++it) );
-        it++;
         break;
         
     case tokenType::OpenBracket :
@@ -671,6 +637,7 @@ std::shared_ptr<SyntaxTreeNode> Parser::parseP__DoubleQuota(std::vector<std::sha
     case tokenType::Ls:
     case tokenType::GtEq :
     case tokenType::LsEq:  
+        it--;
         break;
 
     
@@ -690,6 +657,7 @@ std::shared_ptr<SyntaxTreeNode> Parser::parseP__TripleQuota(std::vector<std::sha
     {
     case tokenType::Semi :
     case tokenType::CloseBracket:
+        it--;
         break;
     
     case tokenType::And :
@@ -706,7 +674,6 @@ std::shared_ptr<SyntaxTreeNode> Parser::parseP__TripleQuota(std::vector<std::sha
     case tokenType::LsEq: 
         root->childs.push_back( parseP__SingleQuota(it) );
         root->childs.push_back( parseP__TripleQuota(++it) );
-        it++;
         break;
 
     default:
@@ -733,7 +700,6 @@ std::shared_ptr<SyntaxTreeNode> Parser::parseQ(std::vector<std::shared_ptr<token
     case tokenType::Identifier:
         root->childs.push_back( parseP(it) );
         root->childs.push_back( parseQ(++it) );
-        it++;
         break;
 
     default:
@@ -754,19 +720,16 @@ std::shared_ptr<SyntaxTreeNode> Parser::parseR(std::vector<std::shared_ptr<token
     case tokenType::Int:
         root->childs.push_back( MatchInt(it) );
         root->childs.push_back( parseR_SingleQuota(++it));
-        it++;
         break;
     
     case tokenType::Float:
         root->childs.push_back( MatchFloat(it) );
         root->childs.push_back( parseR_SingleQuota(++it));
-        it++;
         break;
     
     case tokenType::Char:
         root->childs.push_back( MatchChar(it) );
         root->childs.push_back( parseR_SingleQuota(++it));
-        it++;
         break;
 
     default:
@@ -784,12 +747,15 @@ std::shared_ptr<SyntaxTreeNode> Parser::parseR_SingleQuota(std::vector<std::shar
     switch ((*it)->type)
     {
     case tokenType::Identifier :
+        it--;
         break;
     
     case tokenType::LeftArray :
         root->childs.push_back( MatchLeftArray(it));
         root->childs.push_back( MatchInt(++it));
         root->childs.push_back( MatchRightArray(++it));
+        it++;
+        break;
 
     default:
         unexpectedTokenTypeErrorF((*it), mapFromEnumClassToString[root->syntaxType],    
