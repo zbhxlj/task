@@ -109,7 +109,7 @@ std::shared_ptr<SyntaxTreeNode> MatchOpenBracket( std::vector<std::shared_ptr<to
 
 std::shared_ptr<SyntaxTreeNode> MatchEnd( std::vector<std::shared_ptr<token>>::const_iterator& it){
     std::shared_ptr<SyntaxTreeNode> root = std::make_shared<SyntaxTreeNode>();
-    if((*it)->type == tokenType::Sharp){
+    if((*it)->type == tokenType::End){
         root->syntaxType = SyntaxUnitType::Terminator;
         root -> curTerminator = (*it) -> value;
     }else {
