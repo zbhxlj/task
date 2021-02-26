@@ -113,7 +113,7 @@ std::shared_ptr<SyntaxTreeNode> MatchEnd( std::vector<std::shared_ptr<token>>::c
         root->syntaxType = SyntaxUnitType::Terminator;
         root -> curTerminator = (*it) -> value;
     }else {
-        matchTerminatorErrorF((*it), "#", (*it)->value);
+        matchTerminatorErrorF((*it), "$", (*it)->value);
     }
     return root;
 }

@@ -4,7 +4,7 @@
 
 using std::string;
 
-tokenParser::tokenParser(const char* filename): fileName(filename) {
+tokenParser::tokenParser(const preCompiler& input): input(input) {
     keyWordsList = {"if", "else", "while", "for", "return", "break",
                  "continue", "char", "int", "long","float"};
 
@@ -106,12 +106,7 @@ tokenParser::tokenParser(const char* filename): fileName(filename) {
 
 void tokenParser::Parse(){
 
-    FILE* fp = fopen(fileName, "r");
-    char ch;
-    string input;
-    while((ch = fgetc(fp)) != EOF) input += ch;
-
-    const char* reading = input.c_str();
+    const char* reading = input.output->c_str();
 
     State state = State::Begin;
     std::shared_ptr<token> curToken(nullptr);
@@ -727,7 +722,7 @@ void tokenParser::Parse(){
     curToken->column = columnNum;
     curToken->row = rowNum;
     curToken->type = tokenType::End;
-    curToken->value = "#";
+    curToken->value = "$";
     tokenText.push_back(curToken);
 }
 

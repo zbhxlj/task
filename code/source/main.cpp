@@ -1,17 +1,19 @@
 #include<string>
-#include "../library/lexicalAnalyzer.h"
+#include"../library/lexicalAnalyzer.h"
 #include<iostream>
 #include"../library/parser.h"
+#include"../library/preCompilation.h"
 
 using std::cout;
 using std::endl;
 
 int main(int argc, char* argv[]){
-    tokenParser test1(argv[1]);
-    test1.Parse();    
-    test1.PrintTokenText();
+    preCompiler test1(argv[1]);
+    tokenParser test2(test1);
+    test2.Parse();    
+    test2.PrintTokenText();
 
-    Parser parser(test1);
+    Parser parser(test2);
     parser.parse();
 
     return 0;

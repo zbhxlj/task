@@ -6,14 +6,14 @@
 #include<unordered_map>
 #include<unordered_set>
 #include<memory>
-
+#include "preCompilation.h"
 
 enum class tokenType 
 {
                 Nul,                            // Initial Type
                 Error,                          
                 Identifier,
-                End,                            // #
+                End,                            // $
 
                 String,                         // " xxx " 
                 Char_C,                         // ' x '
@@ -114,7 +114,7 @@ struct token{
 
 struct tokenParser {
 
-    const char*                                 fileName = nullptr;
+    preCompiler                                 input;
 
     bool                                        hasError = false;                               
     int                                         rowNum  = 1;                                   
@@ -124,7 +124,7 @@ struct tokenParser {
     std::unordered_map<tokenType, std::string>  mapFromEnumClassToString;  
     std::unordered_map<std::string, tokenType>  mapFromKeyWordToTokenType;
 
-    tokenParser(const char* filename);
+    tokenParser(const preCompiler& input);
     void Parse();     
     void PrintTokenText();  
 };

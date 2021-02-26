@@ -47,6 +47,7 @@ struct SyntaxTreeNode {
 struct Parser{
     tokenParser                                         tokenparser;
     std::unordered_map<SyntaxUnitType, std::string>               mapFromEnumClassToString;  
+
     Parser(const tokenParser& tP);
 
     std::shared_ptr<SyntaxTreeNode> parse();
