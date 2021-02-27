@@ -14,6 +14,9 @@ std::unordered_map<SyntaxUnitType, std::string> Parser::mapFromEnumClassToString
         {SyntaxUnitType::VariableSequence, "VariableSequence"},
         {SyntaxUnitType::VariableSequence__SingleQuota, "VariableSequence_SingleQuota"},
         {SyntaxUnitType::FunctionDefinition, "FunctionDefinition"},
+        {SyntaxUnitType::FunctionDefinition__SingleQuota, "FunctionDefinition__SingleQuota"},
+        {SyntaxUnitType::Identifier, "Identifier"},
+        {SyntaxUnitType::Identifier_SingleQuota, "Identifier__SingleQuota"},
         {SyntaxUnitType::ParameterSequence, "ParameterSequence"},
         {SyntaxUnitType::ComplexSentence, "ComplexSentence"},
         {SyntaxUnitType::Parameter, "Parameter"},
@@ -852,7 +855,7 @@ std::shared_ptr<SyntaxTreeNode> Parser::parseQ(std::vector<std::shared_ptr<token
 std::shared_ptr<SyntaxTreeNode> Parser::parseR(std::vector<std::shared_ptr<token>>::const_iterator& it){
     printFuncPath("R", it);
     std::shared_ptr<SyntaxTreeNode> root = std::make_shared<SyntaxTreeNode>();
-    root->syntaxType = SyntaxUnitType::ArgumentSequence;
+    root->syntaxType = SyntaxUnitType::TypeName;
 
     switch ((*it)->type)
     {

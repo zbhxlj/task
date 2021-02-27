@@ -18,7 +18,7 @@ int main(int argc, char* argv[]){
     parser.parse();
 
     formatter format(parser);
-    format.print(0, format.parser.root);
+    format.print();
 
     return 0;
 }
