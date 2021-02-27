@@ -2,9 +2,9 @@
 #include<memory>
 #include<vector>
 #include "parser_util.cpp"
+#include<unordered_map>
 
-Parser::Parser(const tokenParser& tP) : tokenparser(tP) {
-    mapFromEnumClassToString = {
+std::unordered_map<SyntaxUnitType, std::string> Parser::mapFromEnumClassToString = {
         {SyntaxUnitType::Program, "Program"},
         {SyntaxUnitType::ExternalDefinitionSequence, "ExternalDefinitionSequence"},
         {SyntaxUnitType::ExternalDefinitionSequence___SingleQuota, "ExternalDefinitionSequence_SingleQuota"},
@@ -32,14 +32,15 @@ Parser::Parser(const tokenParser& tP) : tokenparser(tP) {
         {SyntaxUnitType::Terminator, "Terminator"},
         {SyntaxUnitType::Nul, "Nul"}
     };
-}
 
-std::shared_ptr<SyntaxTreeNode> Parser::parse(){
+Parser::Parser(const tokenParser& tP) : tokenparser(tP) {}
+
+void Parser::parse(){
     auto it = tokenparser.tokenText.cbegin();
     printFuncPath("", it);
-    auto root = parseS(it);
+    root = parseS(it);
     std::cout << "Compilation success !" << std::endl;
-    return root;
+    return;
 }
 
 std::shared_ptr<SyntaxTreeNode> Parser::parseS(std::vector<std::shared_ptr<token>>::const_iterator& it){

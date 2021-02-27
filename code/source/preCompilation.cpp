@@ -7,7 +7,7 @@ void preCompiler::preCompile(){
     FILE* fp = fopen(fileName, "r");
 
     if(fp == nullptr){
-        std::cerr << "Open failed or Path error!" << std::endl;
+        std::cerr << "Open failed or Path error of the given file!" << std::endl;
         exit(-1);
     }
 
@@ -36,7 +36,7 @@ void preCompiler::preCompile(){
                 FILE* includeFilePtr = fopen(includeFile.c_str(),  "r");
 
                 if(includeFilePtr == nullptr){
-                    std::cerr << "Open failed or Path error !" << std::endl;
+                    std::cerr << "Open failed or Path error when including files !" << std::endl;
                     exit(-1);
                 }
 
@@ -53,7 +53,7 @@ void preCompiler::preCompile(){
 
                 while(*tail == ' ') tail++;
                 head = tail;
-                while(*tail != ' ' && *tail != '\n') tail++;
+                while(*tail != '\n') tail++;
                 std::string expression(head, tail - head);
 
                 defines.push_back(std::make_pair(macroDefination, expression));
@@ -72,25 +72,30 @@ void preCompiler::preCompile(){
 
 void preCompiler::macroExpansion(){
     bool found = false;
+    // std::cout << *output << std::endl;
+    // for(int i = 0; i < output->size(); i++){
+    //     std::cout << i << "  " << (*output)[i] << std::endl;
+    // }
     do
     {   
         found = false;
         for(const auto& p : defines){
-            auto pos = output->find_first_of(p.first);
+            auto pos = output->find(p.first);
             if(pos != std::string::npos){
                 found = true;
-                std::cout << "pos : "<< pos << std::endl;
-                std::cout << "output->substr(0, pos) "  << output->substr(0, pos)  << std::endl
-                          << "p.second  "  << p.second  << std::endl
-                          << "output->substr(pos + p.first.size())  " 
-                          <<  output->substr(pos + p.first.size()) << std::endl;
+                // std::cout << "pos : "<< pos << std::endl;
+                // std::cout << "p.first  " << p.first << std::endl;
+                // std::cout << "output->substr(0, pos) "  << output->substr(0, pos)  << std::endl
+                //           << "p.second  "  << p.second  << std::endl
+                //           << "output->substr(pos + p.first.size())  " 
+                //           <<  output->substr(pos + p.first.size()) << std::endl;
                 *output = output->substr(0, pos) 
                         + p.second 
                         + output->substr(pos + p.first.size());
-                std::cout << "output   " << *output << std::endl;
+                // std::cout << "output   " << *output << std::endl;
             }
         }
     } while (found == true);
-    std::cout << "after replace : " <<  *output << std::endl;
-    std::cout << "size" << output->size() << std::endl;
+    // std::cout << "after replace : " <<  *output << std::endl;
+    // std::cout << "size" << output->size() << std::endl;
 }

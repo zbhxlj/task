@@ -41,16 +41,18 @@ enum class SyntaxUnitType{
 struct SyntaxTreeNode {
     SyntaxUnitType                                      syntaxType = SyntaxUnitType::Nul;
     std::vector<std::shared_ptr<SyntaxTreeNode >>       childs;
-    std::string                                              curTerminator;
+    std::shared_ptr<token>                              curToken = nullptr;              
 };
 
 struct Parser{
     tokenParser                                         tokenparser;
-    std::unordered_map<SyntaxUnitType, std::string>               mapFromEnumClassToString;  
+    std::shared_ptr<SyntaxTreeNode>                     root;
+
+    static std::unordered_map<SyntaxUnitType, std::string>     mapFromEnumClassToString;  
 
     Parser(const tokenParser& tP);
 
-    std::shared_ptr<SyntaxTreeNode> parse();
+    void parse();
     std::shared_ptr<SyntaxTreeNode> parseS(std::vector<std::shared_ptr<token>>::const_iterator& it);
     std::shared_ptr<SyntaxTreeNode> parseA(std::vector<std::shared_ptr<token>>::const_iterator& it);
     std::shared_ptr<SyntaxTreeNode> parseA__SingleQuota(std::vector<std::shared_ptr<token>>::const_iterator& it);

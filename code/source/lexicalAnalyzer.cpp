@@ -120,6 +120,9 @@ void tokenParser::Parse(){
             curToken.reset(new token());
             switch (*reading)
             {
+            case '\t':
+                columnNum += 3;
+                break;
             case ' ':
                 break;
             case '\n':
@@ -319,6 +322,7 @@ void tokenParser::Parse(){
                 break;
 
             default:
+                std::cerr << "character : " << *reading << std::endl;
                 std::cerr << "Error: Unexpected Character in state::Begin!" << std::endl;
                 hasError = true;
                 curToken->type = tokenType::Error;
