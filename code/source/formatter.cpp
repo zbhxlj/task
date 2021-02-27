@@ -53,7 +53,9 @@ void formatter::printNode(int& tabNum, const std::shared_ptr<SyntaxTreeNode>& ro
                     std::string tmp = output.str();
                     // std::cout << "tmp " << std::endl << tmp;
                     tmp.pop_back();
-                    output.str(tmp);
+                    std::stringstream toswap;
+                    toswap << tmp;
+                    output.swap(toswap);
                     // std::cout << "output " << std::endl << output.str() << std::endl;
                     output << root->curToken->value << std::endl;
                     printTab(tabNum, output);
