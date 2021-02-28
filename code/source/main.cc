@@ -19,6 +19,7 @@ int main(int argc, char* argv[]){
     syntax_analyzer.Parse();
 
     Formatter format(syntax_analyzer);
+    format.PrintAST();
     format.PrintFormattedText();
 
     return 0;

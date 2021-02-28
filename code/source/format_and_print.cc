@@ -17,7 +17,11 @@ void printTab(int tabNum, std::stringstream& output){
     }
 }
 
-void Formatter::PrintAST(int depth, const std::shared_ptr<SyntaxTreeNode>& root){
+void Formatter::PrintAST(){
+    printAST(0, syntax_analyzer.root);
+}
+
+void Formatter::printAST(int depth, const std::shared_ptr<SyntaxTreeNode>& root){
     for(int i = 0; i < depth; i++) std::cout << "  ";
     std::cout << "SyntaxUnitType : " << MapFromSyntaxUnitTypeToString[root->syntax_type]  << std::endl;
     if(root -> token.get() != nullptr){
@@ -32,7 +36,7 @@ void Formatter::PrintAST(int depth, const std::shared_ptr<SyntaxTreeNode>& root)
     std::cout << std::endl;
 
     for(const auto& son : root -> childs){
-        PrintAST(depth + 1, son);
+        printAST(depth + 1, son);
     }
     return;
 }
@@ -47,7 +51,7 @@ void Formatter::PrintNode(int& tabNum, const std::shared_ptr<SyntaxTreeNode>& ro
                 printTab(tabNum, output);
                 break;
             
-            // I cannot  figure out why the following solution is wrong on my machine.
+            // I cannot  figure out why the following solution is wrong.
             // Wrong solution :
             // 
             // tabNum--;

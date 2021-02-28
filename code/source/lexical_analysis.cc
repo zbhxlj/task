@@ -36,9 +36,8 @@ LexicalAnalyzer::LexicalAnalyzer(const Preprocesser& preprocesser)
  * }
  * 
  * @input output_file_after_preprocess
- * @return token_text
+ * @output token_text
  */
-
 
 void LexicalAnalyzer::LexicalAnalyze(){
 

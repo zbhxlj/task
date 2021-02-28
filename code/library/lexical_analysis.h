@@ -9,8 +9,6 @@
 #include "preprocess.h"
 #include "enum_class.h"
 
-struct LexicalAnalyzer;                             
-
 struct Token{
 
     TokenType                                   token_type = TokenType::Nul;
@@ -19,6 +17,12 @@ struct Token{
     int                                         number_of_column = -1; 
 };
 
+// LexicalAnalyzer extracts tokens from the given source file and saves the result in itself.
+// 
+// Example :
+//   LexicalAnalyzer lexical_analyzer(preprocesser);
+//   lexical_analyzer.LexicalAnalyze();
+//   lexical_analyzer.PrintTokenText();
 struct LexicalAnalyzer {
 
     Preprocesser                                preprocesser;

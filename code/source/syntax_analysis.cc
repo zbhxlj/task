@@ -11,6 +11,7 @@ void SyntaxAnalyzer::Parse(){
     auto it = lexical_analyzer.token_text.cbegin();
     printFuncPath("", it);
     root = ParseS(it);
+    std::cout << "----------------------------------------------" << std::endl;
     std::cout << "Compilation success !" << std::endl;
     return;
 }

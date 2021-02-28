@@ -1,6 +1,9 @@
 #include "../library/syntax_analysis.h"
 #include <iostream>
 
+// This file contains some useful helper functions when in syntax analysis.
+// Including user_friendly error_handle functions and MatchTerminator functions. 
+
 void UnexpectedTokenTypeErrorF(const std::shared_ptr<Token>& token_ptr, 
             std::string syntax_unit_type,
             std::string token_type,
@@ -10,6 +13,7 @@ void UnexpectedTokenTypeErrorF(const std::shared_ptr<Token>& token_ptr,
     std::cerr << "When parsing " << syntax_unit_type << std::endl
               << "Unexpected TokenType : " << token_type << std::endl
               << "In function Parse" << function_name << std::endl;
+    std::cerr << "----------------------------------------------" << std::endl;
     std::cerr << "Parsing terminated " << std::endl;
     exit(-1);
 }   
@@ -21,6 +25,7 @@ void matchTerminatorErrorF(const std::shared_ptr<Token>& token_ptr,
               << " number_of_column " <<token_ptr->number_of_column << std::endl;
     std::cerr << "When matching " << token_type << std::endl
               << "Unexpected terminator : " << terminator << std::endl;
+    std::cerr << "----------------------------------------------" << std::endl;
     std::cerr << "Parsing terminated " << std::endl;
     exit(-1);
 }   

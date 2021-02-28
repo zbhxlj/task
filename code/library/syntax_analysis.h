@@ -5,12 +5,18 @@
 #include<vector>
 #include"lexical_analysis.h"
 
+// SyntaxTreeNode makes up the abstract syntax tree. 
 struct SyntaxTreeNode {
     SyntaxUnitType                                      syntax_type = SyntaxUnitType::Nul;
     std::vector<std::shared_ptr<SyntaxTreeNode >>       childs;
     std::shared_ptr<Token>                              token = nullptr;              
 };
 
+// SyntaxAnalyzer parses to check whether it is grammatical.
+// 
+// Example :
+//    SyntaxAnalyzer   syntax_analyzer(lexical_analyzer);
+//    syntax_analyzer.Parse();
 struct SyntaxAnalyzer{
     LexicalAnalyzer                                     lexical_analyzer;
     std::shared_ptr<SyntaxTreeNode>                     root;
