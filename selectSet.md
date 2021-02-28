@@ -6,7 +6,11 @@ V := Vn ∪ Vt
 
 
 
+SELECT( R  →  int) = FIRST( int r' ) = { int }
 
+SELECT( R  → float   ) = FIRST( float r' ) = { float }
+
+SELECT( R  →   char  )  = FIRST(char r' ) = { char }
 
 SELECT( Q  → PQ) = FIRST( PQ ) = { Integer ,  Identifier}
 
@@ -24,7 +28,7 @@ SELECT( P' →  && P) = { && }
 
 SELECT( P''' →  P'P''') = FIRST( P'P''' ) = { &&,   || ,  + , - , * , /,  == , !=,  > ,  < ,  >= , <= }
 
-SELECT( P'''  →  ε) = FOLLOW( P''' ) = { ; , ) , }
+SELECT( P'''  →  ε) = FOLLOW( P''' ) = { ;  ,  )  }
 
 SELECT( P  →  IntegerP''' ) = FIRST( IntegerP''') = { Integer }
 
@@ -32,7 +36,7 @@ SELECT( P  →  IdentifierP''P''') = { Identifier }
 
 SELECT( O' → else O) = { else }
 
-SELECT( O'  →  ε) = FOLLOW( O' ) = { # }
+SELECT( O'  →  ε) = FOLLOW( O' ) = { #,   }  }
 
 SELECT( O  →  P;) = FIRST( P; ) = { Integer,  Identifier }
 
@@ -52,38 +56,57 @@ SELECT( M  →  OM) = FIRST( OM ) = { Integer, Identifier, return, if, while, br
 
 SELECT( M  →  ε) = FOLLOW( M ) = {  }  }
 
-SELECT( N  →  aE; )  = { int,  float,  char,  int[integer],  float[integer],  char[integer] }
+SELECT( N  →  RE; )  = { int,  float,  char }
 
-SELECT( L  →  N L) =   { int,  float,  char,  int[integer],  float[integer],  char[integer] }
+SELECT( L  →  N L) =   { int,  float,  char }
 
-SELECT( L  →  ε)  = FOLLOW( L ) = { # }
+SELECT( L  →  ε)  = FOLLOW( L ) = { 非 int  float  char }
 
 SELECT( J  →  { L M }) = {  {  }
 
-SELECT(K  →  ah) =  { int,  float,  char,  int[integer],  float[integer],  char[integer] }
+SELECT(K  →  RH) =  { int,  float,  char}
 
-SELECT( I  →  K, I) =  { int,  float,  char,  int[integer],  float[integer],  char[integer] }
+SELECT( I'  →  ε)  = { ) }
+
+SELECT( I'  →  , I ) = { , }
+
+SELECT( I  →  K I') =  { int,  float,  char }
 
 SELECT( I  →  ε) =  {  )  }
 
-SELECT( G →  ah( I ) J) = { int,  float,  char,  int[integer],  float[integer],  char[integer] }
+SELECT( H'  →   [Integer]  ) =  { [   }
+
+SELECT( H'  →  ε) = {  ,   ;   (   )  }
+
+SELECT( H  →  Identifier H' ) = { Identifier }
+
+SELECT( G'  →  ; ) = { ; }
+
+SELECT( G'  →   J )  = {  {  }
+
+SELECT( G →  ( I ) G' ) = { (  }
 
 SELECT( E'  →  , E)  = { , }
 
-SELECT( E'  →  ε) =  { ; }
+SELECT( E'  →  ; ) =  { ; }
 
-SELECT( E  →  hE') = {  Identifier  }
+SELECT( E  →  HE') = {  Identifier  }
 
-SELECT( C  →  aE) = { int,  float,  char,  int[integer],  float[integer],  char[integer] }
+SELECT( C  →  RE) = { int,  float,  char}
 
-SELECT( B  →  C) = { int,  float,  char,  int[integer],  float[integer],  char[integer] }
+SELECT( B'  →  E' ) = { ,   ;  }
 
-SELECT( B  →  G ) = { int,  float,  char,  int[integer],  float[integer],  char[integer] }
+SELECT( B' →   G ) =  {  (  }
 
-SELECT( A'  →  A ) =  { int,  float,  char,  int[integer],  float[integer],  char[integer] }
+SELECT( B  →  RHB' ) = { int,  float,  char }
+
+SELECT( A'  →  A ) =  { int,  float,  char }
 
 SELECT( A'  →  ε)  = { # }
 
-SELECT( A  →  BA' )  = { int,  float,  char,  int[integer],  float[integer],  char[integer] }
+SELECT( A  →  BA' )  = { int,  float,  char}
 
-SELECT( S  →  A )  =  { int,  float,  char,  int[integer],  float[integer],  char[integer] }
+SELECT( S  →  A )  =  { int,  float,  char}
+
+
+
