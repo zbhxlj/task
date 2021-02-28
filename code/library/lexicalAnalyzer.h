@@ -114,7 +114,7 @@ struct token{
 
 struct tokenParser {
 
-    preCompiler                                 input;
+    Preprocesser                                 input;
 
     bool                                        hasError = false;                               
     int                                         rowNum  = 1;                                   
@@ -124,7 +124,7 @@ struct tokenParser {
     std::unordered_map<tokenType, std::string>  mapFromEnumClassToString;  
     std::unordered_map<std::string, tokenType>  mapFromKeyWordToTokenType;
 
-    tokenParser(const preCompiler& input);
+    tokenParser(const Preprocesser& input);
     void Parse();     
     void PrintTokenText();  
 };

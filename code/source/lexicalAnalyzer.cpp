@@ -4,7 +4,7 @@
 
 using std::string;
 
-tokenParser::tokenParser(const preCompiler& input): input(input) {
+tokenParser::tokenParser(const Preprocesser& input): input(input) {
     keyWordsList = {"if", "else", "while", "for", "return", "break",
                  "continue", "char", "int", "long","float"};
 
@@ -99,14 +99,14 @@ tokenParser::tokenParser(const preCompiler& input): input(input) {
  *  reading++;
  * }
  * 
- * @param const char* fileName
+ * @param const char* source_file_name
  * @return hasUnknowType indicating whether there is Error Type
  */
 
 
 void tokenParser::Parse(){
 
-    const char* reading = input.output->c_str();
+    const char* reading = input.output_file_after_preprocess->c_str();
 
     State state = State::Begin;
     std::shared_ptr<token> curToken(nullptr);
