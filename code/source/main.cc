@@ -10,6 +10,7 @@ using std::endl;
 
 int main(int argc, char* argv[]){
     Preprocesser test1(argv[1]);
+    test1.Preprocess();
     LexicalAnalyzer test2(test1);
     test2.LexicalAnalyze();    
     test2.PrintTokenText();

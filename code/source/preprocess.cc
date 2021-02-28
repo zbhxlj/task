@@ -30,6 +30,8 @@ void Preprocesser::Preprocess(){
 
     const char* string_begin = nullptr, *string_end = nullptr;
 
+    output_file_after_preprocess = std::shared_ptr<std::string>(new std::string);
+
     while(*current_position){
         if(*current_position == '#'){
 

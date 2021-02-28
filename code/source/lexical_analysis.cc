@@ -43,7 +43,6 @@ LexicalAnalyzer::LexicalAnalyzer(const Preprocesser& preprocesser)
 void LexicalAnalyzer::LexicalAnalyze(){
 
     const char* current_position = preprocesser.output_file_after_preprocess->c_str();
-
     State state = State::Begin;
     std::shared_ptr<Token> curToken(nullptr);
 
