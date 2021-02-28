@@ -1,6 +1,6 @@
 #include "../library/syntax_analysis.h"
 #include <iostream>
-
+#include<iomanip>
 // This file contains some useful helper functions when in syntax analysis.
 // Including user_friendly error_handle functions and MatchTerminator functions. 
 
@@ -8,9 +8,9 @@ void UnexpectedTokenTypeErrorF(const std::shared_ptr<Token>& token_ptr,
             std::string syntax_unit_type,
             std::string token_type,
             std::string function_name){
-    std::cerr << "Syntax error in number_of_row " << token_ptr->number_of_row 
-              << " number_of_column " <<token_ptr->number_of_column << std::endl;
-    std::cerr << "When parsing " << syntax_unit_type << std::endl
+    std::cerr << "Syntax error in number_of_row " << std::setw(7) << token_ptr->number_of_row 
+              << " number_of_column " << std::setw(7) << token_ptr->number_of_column << std::endl;
+    std::cerr << "When parsing " << std::setw(7) << syntax_unit_type << std::endl
               << "Unexpected TokenType : " << token_type << std::endl
               << "In function Parse" << function_name << std::endl;
     std::cerr << "----------------------------------------------" << std::endl;
@@ -21,9 +21,9 @@ void UnexpectedTokenTypeErrorF(const std::shared_ptr<Token>& token_ptr,
 void matchTerminatorErrorF(const std::shared_ptr<Token>& token_ptr,
                            std::string token_type,
                            std::string terminator){
-    std::cerr << "Syntax error in number_of_row " << token_ptr->number_of_row 
-              << " number_of_column " <<token_ptr->number_of_column << std::endl;
-    std::cerr << "When matching " << token_type << std::endl
+    std::cerr << "Syntax error in number_of_row "<< std::setw(7)  << token_ptr->number_of_row 
+              << " number_of_column " << std::setw(7)  << token_ptr->number_of_column << std::endl;
+    std::cerr << "When matching " << std::setw(7) << token_type << std::endl
               << "Unexpected terminator : " << terminator << std::endl;
     std::cerr << "----------------------------------------------" << std::endl;
     std::cerr << "Parsing terminated " << std::endl;
@@ -31,7 +31,8 @@ void matchTerminatorErrorF(const std::shared_ptr<Token>& token_ptr,
 }   
 
 void printFuncPath(const std::string& function_name, std::vector<std::shared_ptr<Token>>::const_iterator& it){
-    std::cerr << "Calling Parse" << function_name << "   Token:  " << (*it)->token_value << std::endl;
+    std::cerr << std::setiosflags(std::ios::left)
+    << "Calling Parse " << std::setw(20) << function_name  << " Token:  " << (*it)->token_value << std::endl;
 }
 
 std::shared_ptr<SyntaxTreeNode> MatchIdentifier( std::vector<std::shared_ptr<Token>>::const_iterator& it){

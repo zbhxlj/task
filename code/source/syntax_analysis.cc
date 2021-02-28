@@ -13,6 +13,8 @@ void SyntaxAnalyzer::Parse(){
     root = ParseS(it);
     std::cout << "----------------------------------------------" << std::endl;
     std::cout << "Compilation success !" << std::endl;
+    std::cout << "----------------------------------------------" << std::endl;
+    std::cout << std::endl;
     return;
 }
 

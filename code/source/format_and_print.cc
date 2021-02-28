@@ -6,8 +6,14 @@ void Formatter::PrintFormattedText(){
     std::stringstream output;
     int i = 0;
     int tabNum = 0;
+    std::cout << std::endl;
+    std::cout << std::endl;
+    std::cout << "-----------------FormattedText--------------------"  << std::endl;
     PrintNode(tabNum, syntax_analyzer.root, output, i);
     std::cout << output.str() ;
+    std::cout << "-----------------End--------------------"  << std::endl;
+    std::cout << std::endl;
+
 }
 
 void printTab(int tabNum, std::stringstream& output){
@@ -18,7 +24,10 @@ void printTab(int tabNum, std::stringstream& output){
 }
 
 void Formatter::PrintAST(){
+    std::cout << std::endl;
+    std::cout << "-----------------AST--------------------"  << std::endl;
     printAST(0, syntax_analyzer.root);
+    std::cout << "-----------------End--------------------"  << std::endl;
 }
 
 void Formatter::printAST(int depth, const std::shared_ptr<SyntaxTreeNode>& root){

@@ -1,7 +1,7 @@
 #include "../library/lexical_analysis.h"
 #include<iostream>
 #include<cstdio>
-
+#include<iomanip>
 
 LexicalAnalyzer::LexicalAnalyzer(const Preprocesser& preprocesser)
                                                         : preprocesser(preprocesser) {}
@@ -667,8 +667,12 @@ void LexicalAnalyzer::LexicalAnalyze(){
 void LexicalAnalyzer::PrintTokenText(){
     int i = 0;
      for(const auto& x: token_text){
-        std::cout << i++ << "  Token"  
-        << "token_type:           " << MapFromTokenTypeToString[x->token_type] 
-        << "          " << "token_value" << "        " << x->token_value << std::endl;
+        std::cout << std::setiosflags(std::ios::left)
+        << std::setw(4)
+        << i++  << " Token  " 
+        << std::setw(20)
+        << " token_type: " << std::setw(20) 
+        << MapFromTokenTypeToString[x->token_type] 
+        << std::setw(20) << "token_value " << std::setw(10) << x->token_value << std::endl;
     }
 }
