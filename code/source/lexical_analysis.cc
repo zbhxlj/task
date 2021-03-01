@@ -43,7 +43,7 @@ void LexicalAnalyzer::LexicalAnalyze(){
 
     const char* current_position = preprocesser.output_file_after_preprocess->c_str();
     State state = State::Begin;
-    std::shared_ptr<Token> curToken(nullptr);
+    std::shared_ptr<Token> current_token(nullptr);
 
     while(*current_position){
         current_number_of_column++;
@@ -51,7 +51,7 @@ void LexicalAnalyzer::LexicalAnalyze(){
         {
         case State::Begin:
         {
-            curToken.reset(new Token());
+            current_token.reset(new Token());
             switch (*current_position)
             {
             case '\t':
@@ -66,205 +66,206 @@ void LexicalAnalyzer::LexicalAnalyze(){
             
             case 'a' ... 'z' :
             case 'A' ... 'Z' :
-                curToken->token_type = TokenType::Identifier;
-                curToken->token_value += *current_position;
-                curToken->number_of_row = current_number_of_row;
-                curToken->number_of_column = current_number_of_column;
+                current_token->token_type = TokenType::Identifier;
+                current_token->token_value += *current_position;
+                current_token->number_of_row = current_number_of_row;
+                current_token->number_of_column = current_number_of_column;
                 state = State::InIdentifier;
                 break;
 
             case '1' ... '9' :
-                curToken->token_type = TokenType::Int_C;
-                curToken->token_value += *current_position;
-                curToken->number_of_row = current_number_of_row;
-                curToken->number_of_column = current_number_of_column;
+                current_token->token_type = TokenType::Int_C;
+                current_token->token_value += *current_position;
+                current_token->number_of_row = current_number_of_row;
+                current_token->number_of_column = current_number_of_column;
                 state = State:: InInt;
                 break;
 
             case '=' :
-                curToken->token_type = TokenType::Assign;
-                curToken->token_value += *current_position;
-                curToken->number_of_row = current_number_of_row;
-                curToken->number_of_column = current_number_of_column;
+                current_token->token_type = TokenType::Assign;
+                current_token->token_value += *current_position;
+                current_token->number_of_row = current_number_of_row;
+                current_token->number_of_column = current_number_of_column;
                 state = State::InAssign;
                 break;
             case '<' :
-                curToken->token_type = TokenType::Ls;
-                curToken->token_value += *current_position;
-                curToken->number_of_row = current_number_of_row;
-                curToken->number_of_column = current_number_of_column;
+                current_token->token_type = TokenType::Ls;
+                current_token->token_value += *current_position;
+                current_token->number_of_row = current_number_of_row;
+                current_token->number_of_column = current_number_of_column;
                 state = State::InLess;
                 break;
             case '>' :
-                curToken->token_type = TokenType::Gt;
-                curToken->token_value += *current_position;
-                curToken->number_of_row = current_number_of_row;
-                curToken->number_of_column = current_number_of_column;
+                current_token->token_type = TokenType::Gt;
+                current_token->token_value += *current_position;
+                current_token->number_of_row = current_number_of_row;
+                current_token->number_of_column = current_number_of_column;
                 state = State::InGtr;
                 break;
             case '!' :
-                curToken->token_type = TokenType::NtEq;
-                curToken->token_value += *current_position;
-                curToken->number_of_row = current_number_of_row;
-                curToken->number_of_column = current_number_of_column;
+                current_token->token_type = TokenType::NtEq;
+                current_token->token_value += *current_position;
+                current_token->number_of_row = current_number_of_row;
+                current_token->number_of_column = current_number_of_column;
                 state = State::InNotEq;
                 break;
             
             case '0' :
-                curToken->token_type = TokenType::Int_C;
-                curToken->token_value += *current_position;
-                curToken->number_of_row = current_number_of_row;
-                curToken->number_of_column = current_number_of_column;
+                current_token->token_type = TokenType::Int_C;
+                current_token->token_value += *current_position;
+                current_token->number_of_row = current_number_of_row;
+                current_token->number_of_column = current_number_of_column;
                 state = State::In0Prefix;
                 break;
             
             case '+' :
-                curToken->token_type = TokenType::Pl;
-                curToken->token_value += *current_position;
-                curToken->number_of_row = current_number_of_row;
-                curToken->number_of_column = current_number_of_column;
-                token_text.push_back(curToken);
+                current_token->token_type = TokenType::Pl;
+                current_token->token_value += *current_position;
+                current_token->number_of_row = current_number_of_row;
+                current_token->number_of_column = current_number_of_column;
+                token_text.push_back(current_token);
                 state = State::Begin;
                 break;
             case '-' :
-                curToken->token_type = TokenType::Minus;
-                curToken->token_value += *current_position;
-                curToken->number_of_row = current_number_of_row;
-                curToken->number_of_column = current_number_of_column;
-                token_text.push_back(curToken);
+                current_token->token_type = TokenType::Minus;
+                current_token->token_value += *current_position;
+                current_token->number_of_row = current_number_of_row;
+                current_token->number_of_column = current_number_of_column;
+                token_text.push_back(current_token);
                 state = State::Begin;
                 break;
             case '*' :
-                curToken->token_type = TokenType::Multi;
-                curToken->token_value += *current_position;
-                curToken->number_of_row = current_number_of_row;
-                curToken->number_of_column = current_number_of_column;
-                token_text.push_back(curToken);
+                current_token->token_type = TokenType::Multi;
+                current_token->token_value += *current_position;
+                current_token->number_of_row = current_number_of_row;
+                current_token->number_of_column = current_number_of_column;
+                token_text.push_back(current_token);
                 state = State::Begin;
                 break;
             case '/' :
-                curToken->token_type = TokenType::Divid;
-                curToken->token_value += *current_position;
-                curToken->number_of_row = current_number_of_row;
-                curToken->number_of_column = current_number_of_column;
-                token_text.push_back(curToken);
+                current_token->token_type = TokenType::Divid;
+                current_token->token_value += *current_position;
+                current_token->number_of_row = current_number_of_row;
+                current_token->number_of_column = current_number_of_column;
+                token_text.push_back(current_token);
                 state = State::Begin;
                 break;
             
             case '(' :
-                curToken->token_type = TokenType::OpenBracket;
-                curToken->token_value += *current_position;
-                curToken->number_of_row = current_number_of_row;
-                curToken->number_of_column = current_number_of_column;
-                token_text.push_back(curToken);
+                current_token->token_type = TokenType::OpenBracket;
+                current_token->token_value += *current_position;
+                current_token->number_of_row = current_number_of_row;
+                current_token->number_of_column = current_number_of_column;
+                token_text.push_back(current_token);
                 state = State::Begin;
                 break;
             case ')' :
-                curToken->token_type = TokenType::CloseBracket;
-                curToken->token_value += *current_position;
-                curToken->number_of_row = current_number_of_row;
-                curToken->number_of_column = current_number_of_column;
-                token_text.push_back(curToken);
+                current_token->token_type = TokenType::CloseBracket;
+                current_token->token_value += *current_position;
+                current_token->number_of_row = current_number_of_row;
+                current_token->number_of_column = current_number_of_column;
+                token_text.push_back(current_token);
                 state = State::Begin;
                 break;
             case '[' :
-                curToken->token_type = TokenType::LeftArray;
-                curToken->token_value += *current_position;
-                curToken->number_of_row = current_number_of_row;
-                curToken->number_of_column = current_number_of_column;
-                token_text.push_back(curToken);
+                current_token->token_type = TokenType::LeftArray;
+                current_token->token_value += *current_position;
+                current_token->number_of_row = current_number_of_row;
+                current_token->number_of_column = current_number_of_column;
+                token_text.push_back(current_token);
                 state = State::Begin;
                 break;
             case ']' :
-                curToken->token_type = TokenType::RightArray;
-                curToken->token_value += *current_position;
-                curToken->number_of_row = current_number_of_row;
-                curToken->number_of_column = current_number_of_column;
-                token_text.push_back(curToken);
+                current_token->token_type = TokenType::RightArray;
+                current_token->token_value += *current_position;
+                current_token->number_of_row = current_number_of_row;
+                current_token->number_of_column = current_number_of_column;
+                token_text.push_back(current_token);
                 state = State::Begin;
                 break;
             case '{' :
-                curToken->token_type = TokenType::Lp;
-                curToken->token_value += *current_position;
-                curToken->number_of_row = current_number_of_row;
-                curToken->number_of_column = current_number_of_column;
-                token_text.push_back(curToken);
+                current_token->token_type = TokenType::Lp;
+                current_token->token_value += *current_position;
+                current_token->number_of_row = current_number_of_row;
+                current_token->number_of_column = current_number_of_column;
+                token_text.push_back(current_token);
                 state = State::Begin;
                 break;
             case '}' :
-                curToken->token_type = TokenType::Rp;
-                curToken->token_value += *current_position;
-                curToken->number_of_row = current_number_of_row;
-                curToken->number_of_column = current_number_of_column;
-                token_text.push_back(curToken);
+                current_token->token_type = TokenType::Rp;
+                current_token->token_value += *current_position;
+                current_token->number_of_row = current_number_of_row;
+                current_token->number_of_column = current_number_of_column;
+                token_text.push_back(current_token);
                 state = State::Begin;
                 break;
             
             case ',' :
-                curToken->token_type = TokenType::Comma;
-                curToken->token_value += *current_position;
-                curToken->number_of_row = current_number_of_row;
-                curToken->number_of_column = current_number_of_column;
-                token_text.push_back(curToken);
+                current_token->token_type = TokenType::Comma;
+                current_token->token_value += *current_position;
+                current_token->number_of_row = current_number_of_row;
+                current_token->number_of_column = current_number_of_column;
+                token_text.push_back(current_token);
                 state = State::Begin;
                 break;
             case ';' :
-                curToken->token_type = TokenType::Semi;
-                curToken->token_value += *current_position;
-                curToken->number_of_row = current_number_of_row;
-                curToken->number_of_column = current_number_of_column;
-                token_text.push_back(curToken);
+                current_token->token_type = TokenType::Semi;
+                current_token->token_value += *current_position;
+                current_token->number_of_row = current_number_of_row;
+                current_token->number_of_column = current_number_of_column;
+                token_text.push_back(current_token);
                 state = State::Begin;
                 break;
             case '\'' :
-                curToken->token_type = TokenType::Char;
-                curToken->token_value += *current_position;
-                curToken->number_of_row = current_number_of_row;
-                curToken->number_of_column = current_number_of_column;
+                current_token->token_type = TokenType::Char;
+                current_token->token_value += *current_position;
+                current_token->number_of_row = current_number_of_row;
+                current_token->number_of_column = current_number_of_column;
                 state = State::InSingleQuota;
                 break;
             case '\"' : 
-                curToken->token_type = TokenType::String;
-                curToken->token_value += *current_position;
-                curToken->number_of_row = current_number_of_row;
-                curToken->number_of_column = current_number_of_column;
+                current_token->token_type = TokenType::String;
+                current_token->token_value += *current_position;
+                current_token->number_of_row = current_number_of_row;
+                current_token->number_of_column = current_number_of_column;
                 state = State::InDoubleQuota;
                 break;
 
             case '#' :
-                curToken->token_type = TokenType::Sharp;
-                curToken->token_value += *current_position;
-                curToken->number_of_row = current_number_of_row;
-                curToken->number_of_column = current_number_of_column;
-                token_text.push_back(curToken);
+                current_token->token_type = TokenType::Sharp;
+                current_token->token_value += *current_position;
+                current_token->number_of_row = current_number_of_row;
+                current_token->number_of_column = current_number_of_column;
+                token_text.push_back(current_token);
                 state = State::Begin;
                 break;
 
             case '&' :
-                curToken->token_type = TokenType::And;
-                curToken->token_value += *current_position;
-                curToken->number_of_row = current_number_of_row;
-                curToken->number_of_column = current_number_of_column;
+                current_token->token_type = TokenType::And;
+                current_token->token_value += *current_position;
+                current_token->number_of_row = current_number_of_row;
+                current_token->number_of_column = current_number_of_column;
                 state = State::InAnd;
                 break;
             case '|' :
-                curToken->token_type = TokenType::Or;
-                curToken->token_value += *current_position;
-                curToken->number_of_row = current_number_of_row;
-                curToken->number_of_column = current_number_of_column;
+                current_token->token_type = TokenType::Or;
+                current_token->token_value += *current_position;
+                current_token->number_of_row = current_number_of_row;
+                current_token->number_of_column = current_number_of_column;
                 state = State::InOr;
+                break;
+            
+            case '$' :
+                current_token->token_type = TokenType::End;
+                current_token->token_value += *current_position;
+                current_token->number_of_column = current_number_of_column;
+                current_token->number_of_row = current_number_of_row;
+                token_text.push_back(current_token);
+                state = State::Begin;
                 break;
 
             default:
-                std::cerr << "character : " << *current_position << std::endl;
-                std::cerr << "Error: Unexpected Character in state::Begin!" << std::endl;
-                has_error_when_parsing = true;
-                curToken->token_type = TokenType::Error;
-                curToken->token_value += *current_position;
-                curToken->number_of_row = current_number_of_row;
-                curToken->number_of_column = current_number_of_column;
-                token_text.push_back(curToken);
-                state = State::Begin;
+                UnknownTokenErrorf(current_token, "Begin", current_position);
                 break;
             } 
             break;
@@ -277,16 +278,16 @@ void LexicalAnalyzer::LexicalAnalyze(){
             case 'a' ... 'z' :
             case 'A' ... 'Z' :
             case '0' ... '9' :
-                curToken->token_value += *current_position;
+                current_token->token_value += *current_position;
                 break;
             
             default:
                 current_position--;
-                if(MapFromKeyWordToTokenType.count(curToken->token_value) > 0){
-                    curToken->token_type = MapFromKeyWordToTokenType[curToken -> token_value];
+                if(MapFromKeyWordToTokenType.count(current_token->token_value) > 0){
+                    current_token->token_type = MapFromKeyWordToTokenType[current_token -> token_value];
                 } 
-                else curToken->token_type = TokenType::Identifier;
-                token_text.push_back(curToken);
+                else current_token->token_type = TokenType::Identifier;
+                token_text.push_back(current_token);
                 state = State::Begin;
                 break;
             }
@@ -298,26 +299,26 @@ void LexicalAnalyzer::LexicalAnalyze(){
             switch (*current_position)
             {
             case '0' ... '9':
-                curToken->token_value += *current_position;
+                current_token->token_value += *current_position;
                 break;
             
             case '.' :
-                curToken->token_type = TokenType::Float_C;
-                curToken->token_value += *current_position;
+                current_token->token_type = TokenType::Float_C;
+                current_token->token_value += *current_position;
                 state = State::InFloat;
                 break;
 
             case 'L' :
             case 'l' :
-                curToken->token_value += *current_position;
-                curToken->token_type = TokenType::Long_C;
-                token_text.push_back(curToken);
+                current_token->token_value += *current_position;
+                current_token->token_type = TokenType::Long_C;
+                token_text.push_back(current_token);
                 state = State::Begin;
                 break;
 
             default:
                 current_position--;
-                token_text.push_back(curToken);
+                token_text.push_back(current_token);
                 state = State::Begin;
                 break;
             }
@@ -329,12 +330,12 @@ void LexicalAnalyzer::LexicalAnalyze(){
             switch (*current_position)
             {
             case '0' ... '9':
-                curToken->token_value += *current_position;
+                current_token->token_value += *current_position;
                 break;
             
             default:
                 current_position--;
-                token_text.push_back(curToken);
+                token_text.push_back(current_token);
                 state = State::Begin;
                 break;
             }
@@ -346,15 +347,15 @@ void LexicalAnalyzer::LexicalAnalyze(){
             switch (*current_position)
             {
             case '=':
-                curToken->token_type = TokenType::Eq;
-                curToken->token_value += *current_position;
-                token_text.push_back(curToken);
+                current_token->token_type = TokenType::Eq;
+                current_token->token_value += *current_position;
+                token_text.push_back(current_token);
                 state = State::Begin;
                 break;
             
             default:
                 current_position--;
-                token_text.push_back(curToken);
+                token_text.push_back(current_token);
                 state = State::Begin;
                 break;
             }
@@ -366,15 +367,15 @@ void LexicalAnalyzer::LexicalAnalyze(){
             switch (*current_position)
             {
             case '=' :
-                curToken->token_type = TokenType::LsEq;
-                curToken->token_value += *current_position;
-                token_text.push_back(curToken);
+                current_token->token_type = TokenType::LsEq;
+                current_token->token_value += *current_position;
+                token_text.push_back(current_token);
                 state = State::Begin;
                 break;
             
             default:
                 current_position--;
-                token_text.push_back(curToken);
+                token_text.push_back(current_token);
                 state = State::Begin;
                 break;
             }
@@ -386,15 +387,15 @@ void LexicalAnalyzer::LexicalAnalyze(){
             switch (*current_position)
             {
             case '=' :
-                curToken->token_type = TokenType::GtEq;
-                curToken->token_value += *current_position;
-                token_text.push_back(curToken);
+                current_token->token_type = TokenType::GtEq;
+                current_token->token_value += *current_position;
+                token_text.push_back(current_token);
                 state = State::Begin;
                 break;
             
             default:
                 current_position--;
-                token_text.push_back(curToken);
+                token_text.push_back(current_token);
                 state = State::Begin;
                 break;
             }
@@ -407,18 +408,17 @@ void LexicalAnalyzer::LexicalAnalyze(){
             switch (*current_position)
             {
             case '=' :
-                curToken->token_value += *current_position;
-                token_text.push_back(curToken);
+                current_token->token_value += *current_position;
+                token_text.push_back(current_token);
                 state = State::Begin;
                 break;
             
             default:
-                std::cerr << "Unexpected character int State::InNotEq !" << std::endl;
-                has_error_when_parsing = true;
-                curToken->token_type = TokenType::Error;
-                current_position--;
-                token_text.push_back(curToken);
-                state = State::Begin;
+                UnknownTokenErrorf(current_token, "InNotEq", current_position);
+                // std::cerr << "Unexpected character int State::InNotEq !" << std::endl;
+                // has_error_when_parsing = true;
+                // curToken->token_type = TokenType::Error;
+                // current_position--;
                 break;
             }
             break;
@@ -429,29 +429,29 @@ void LexicalAnalyzer::LexicalAnalyze(){
             switch (*current_position)
             {
             case '0' ... '7':
-                curToken->token_type = TokenType::Int_C;
-                curToken->token_value += *current_position;
+                current_token->token_type = TokenType::Int_C;
+                current_token->token_value += *current_position;
                 state = State::In0Int;
                 break;
             
             case 'x' :
             case 'X' :
-                curToken->token_type = TokenType::Int_C;
-                curToken->token_value += *current_position;
+                current_token->token_type = TokenType::Int_C;
+                current_token->token_value += *current_position;
                 state = State::In0xPrefix;
                 break;
             
             case '8' ... '9' :
-                curToken->token_type = TokenType::Error;
-                curToken->token_value += *current_position;
-                token_text.push_back(curToken);
+                current_token->token_type = TokenType::Error;
+                current_token->token_value += *current_position;
+                token_text.push_back(current_token);
                 state = State::Begin;
                 break;
 
             default:
-                curToken->token_type = TokenType::Int_C;
+                current_token->token_type = TokenType::Int_C;
                 current_position--;
-                token_text.push_back(curToken);
+                token_text.push_back(current_token);
                 state = State::Begin;
                 break;
             }
@@ -463,18 +463,18 @@ void LexicalAnalyzer::LexicalAnalyze(){
             switch (*current_position)
             {
             case '0' ... '7':
-                curToken->token_value += *current_position;
+                current_token->token_value += *current_position;
                 break;
             case 'l' :
             case 'L' :
-                curToken->token_value += *current_position;
-                curToken->token_type = TokenType::Long_C;
-                token_text.push_back(curToken);
+                current_token->token_value += *current_position;
+                current_token->token_type = TokenType::Long_C;
+                token_text.push_back(current_token);
                 state = State::Begin;
                 break;
             default:
                 current_position--;
-                token_text.push_back(curToken);
+                token_text.push_back(current_token);
                 state = State::Begin;
                 break;
             }
@@ -487,17 +487,18 @@ void LexicalAnalyzer::LexicalAnalyze(){
             {
             case '0' ... '9' :
             case 'a' ... 'f' :
-                curToken->token_value += *current_position;
+                current_token->token_value += *current_position;
                 state = State::In0xInt;
                 break;
             
             default:
-                std::cerr << "Unexpected character in State::In0xPrefix!" << std::endl;
-                has_error_when_parsing = true;
-                curToken->token_type = TokenType::Error;
-                current_position--;
-                token_text.push_back(curToken);
-                state = State::Begin;
+                UnknownTokenErrorf(current_token, "In0Prefix", current_position);
+                // std::cerr << "Unexpected character in State::In0xPrefix!" << std::endl;
+                // has_error_when_parsing = true;
+                // curToken->token_type = TokenType::Error;
+                // current_position--;
+                // token_text.push_back(curToken);
+                // state = State::Begin;
                 break;
             }
             break;
@@ -509,18 +510,18 @@ void LexicalAnalyzer::LexicalAnalyze(){
             {
             case '0' ... '9' :
             case 'a' ... 'f' :
-                curToken->token_value += *current_position;
+                current_token->token_value += *current_position;
                 break;
             case 'l' :
             case 'L' : 
-                curToken->token_value += *current_position;
-                curToken->token_type = TokenType::Long_C;
-                token_text.push_back(curToken);
+                current_token->token_value += *current_position;
+                current_token->token_type = TokenType::Long_C;
+                token_text.push_back(current_token);
                 state = State::Begin;
                 break;
             default:
                 current_position--;
-                token_text.push_back(curToken);
+                token_text.push_back(current_token);
                 state = State::Begin;
                 break;
             }
@@ -532,13 +533,13 @@ void LexicalAnalyzer::LexicalAnalyze(){
             switch (*current_position)
             {
             case '\"' : 
-                curToken ->token_value += *current_position;
-                token_text.push_back(curToken);
+                current_token ->token_value += *current_position;
+                token_text.push_back(current_token);
                 state = State::Begin;
                 break;
             
             default:
-                curToken -> token_value += *current_position;
+                current_token -> token_value += *current_position;
                 state = State::InString;
                 break;
             }
@@ -550,14 +551,14 @@ void LexicalAnalyzer::LexicalAnalyze(){
             switch (*current_position)
             {
             case '\"' : 
-                curToken ->token_value += *current_position;
-                token_text.push_back(curToken);
+                current_token ->token_value += *current_position;
+                token_text.push_back(current_token);
                 state = State::Begin;
                 break;
 
             
             default:
-                curToken -> token_value += *current_position;
+                current_token -> token_value += *current_position;
                 break;
             }
             break;
@@ -568,16 +569,17 @@ void LexicalAnalyzer::LexicalAnalyze(){
             switch (*current_position)
             {
             case '&' :
-                curToken->token_value += *current_position;
-                token_text.push_back(curToken);
+                current_token->token_value += *current_position;
+                token_text.push_back(current_token);
                 state = State::Begin;
                 break;
             default:
-                std::cerr << "Unexpected character in State::InAnd!" << std::endl;
-                has_error_when_parsing = true;
-                curToken->token_type = TokenType::Error;
-                token_text.push_back(curToken);
-                state = State::Begin;
+                UnknownTokenErrorf(current_token, "InAnd", current_position);
+                // std::cerr << "Unexpected character in State::InAnd!" << std::endl;
+                // has_error_when_parsing = true;
+                // current_token->token_type = TokenType::Error;
+                // token_text.push_back(current_token);
+                // state = State::Begin;
                 break;
             }
             break;
@@ -588,16 +590,17 @@ void LexicalAnalyzer::LexicalAnalyze(){
             switch (*current_position)
             {
             case '|' :
-                curToken->token_value += *current_position;
-                token_text.push_back(curToken);
+                current_token->token_value += *current_position;
+                token_text.push_back(current_token);
                 state = State::Begin;
                 break;
             default:
-                std::cerr << "Unexpected character in State::InOr!" << std::endl;
-                has_error_when_parsing = true;
-                curToken->token_type = TokenType::Error;
-                token_text.push_back(curToken);
-                state = State::Begin;
+                UnknownTokenErrorf(current_token, "InOr", current_position);
+                // std::cerr << "Unexpected character in State::InOr!" << std::endl;
+                // has_error_when_parsing = true;
+                // current_token->token_type = TokenType::Error;
+                // token_text.push_back(current_token);
+                // state = State::Begin;
                 break;
             }
             break;
@@ -609,15 +612,15 @@ void LexicalAnalyzer::LexicalAnalyze(){
             {
             case '\'':
                 std::cerr << "There must be a character !" << std::endl;
-                curToken -> token_type = TokenType::Error;
+                current_token -> token_type = TokenType::Error;
                 has_error_when_parsing = true;
-                curToken -> token_value  += *current_position;
-                token_text.push_back(curToken);
+                current_token -> token_value  += *current_position;
+                token_text.push_back(current_token);
                 state = State::Begin;
                 break;
             
             default:
-                curToken -> token_value += *current_position;
+                current_token -> token_value += *current_position;
                 state = State::InChar;
                 break;
             }
@@ -629,21 +632,22 @@ void LexicalAnalyzer::LexicalAnalyze(){
             switch (*current_position)
             {
             case '\'':
-                curToken -> token_value  += *current_position;
-                token_text.push_back(curToken);
+                current_token -> token_value  += *current_position;
+                token_text.push_back(current_token);
                 state = State::Begin;
                 break;
             
             default:
+                // UnknownTokenErrorf(current_token, "InChar", current_position);
                 std::cerr << "There is more than one character!" << std::endl;
-                curToken -> token_type = TokenType::Error;
+                current_token -> token_type = TokenType::Error;
                 has_error_when_parsing = true;
                 while(*current_position != '\''){
-                    curToken -> token_value  += *current_position;
+                    current_token -> token_value  += *current_position;
                     current_position++;
                 }
-                curToken -> token_value  += *current_position;
-                token_text.push_back(curToken);
+                current_token -> token_value  += *current_position;
+                token_text.push_back(current_token);
                 state = State::Begin;
                 break;
             }
@@ -652,16 +656,11 @@ void LexicalAnalyzer::LexicalAnalyze(){
 
         default:
             std::cerr << "Unexpected case !" << std::endl;
+            exit(-1);
             break;
         }
         current_position++;
     }
-    curToken.reset(new Token());
-    curToken->number_of_column = current_number_of_column;
-    curToken->number_of_row = current_number_of_row;
-    curToken->token_type = TokenType::End;
-    curToken->token_value = "$";
-    token_text.push_back(curToken);
 }
 
 void LexicalAnalyzer::PrintTokenText(){
@@ -675,4 +674,20 @@ void LexicalAnalyzer::PrintTokenText(){
         << MapFromTokenTypeToString[x->token_type] 
         << std::setw(20) << "token_value " << std::setw(10) << x->token_value << std::endl;
     }
+}
+
+
+void LexicalAnalyzer::UnknownTokenErrorf(const std::shared_ptr<Token>& current_token,  
+                    const std::string& state, const char* current_position){
+                std::cerr << "character : " << *current_position << std::endl;
+                std::cerr << "Error: Unexpected Character in state::" << state << "!" << std::endl;
+                std::cerr << "In row " << current_number_of_row << "  In  column  " << current_number_of_column << std::endl;
+                has_error_when_parsing = true;
+                // current_token->token_type = TokenType::Error;
+                // current_token->token_value += *current_position;
+                // current_token->number_of_row = current_number_of_row;
+                // current_token->number_of_column = current_number_of_column;
+                // token_text.push_back(current_token);
+                // state = State::Begin;
+                exit(-1);
 }

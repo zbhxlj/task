@@ -158,7 +158,7 @@ inline std::unordered_map<TokenType, std::string>  MapFromTokenTypeToString = {
         {TokenType::LsEq, "LessOrEqual"},
         {TokenType::Eq, "Equal"},
         {TokenType::GtEq, "GreaterEqual"},
-        {TokenType::Gt, "GreaterOrEqual"},
+        {TokenType::Gt, "Greate"},
         {TokenType::NtEq, "NotEqual"},
         {TokenType::And, "And"}, 
         {TokenType::Or, "Or"},
