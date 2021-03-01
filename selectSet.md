@@ -36,7 +36,7 @@ SELECT( P  →  IdentifierP''P''') = { Identifier }
 
 SELECT(P  →  String )  =  { String }
 
-SELECT( O' → else O) = { else }
+SELECT( O' → else J) = { else }
 
 SELECT( O'  →  ε) = FOLLOW( O' ) = { # ,   }  }
 
@@ -44,15 +44,15 @@ SELECT( O  →  P;) = FIRST( P; ) = { Integer,  Identifier }
 
 SELECT( O  →  return P; ) = { return }
 
-SELECT( O → if ( P ) O O') = { if }
+SELECT( O → if ( P ) J O') = { if }
 
-SELECT( O  → while( P ) O ) = { while }
+SELECT( O  → while( P ) J ) = { while }
 
 SELECT( O  → break; ) = { break; }
 
 SELECT( O  →  continue;  ) =  { continue; }
 
-SELECT(O  → for ( P ; P ; P) O) = { for }
+SELECT(O  → for ( P ; P ; P) J) = { for }
 
 SELECT(O   →  L) =  {int, float, long } // 这个情况特殊
 
