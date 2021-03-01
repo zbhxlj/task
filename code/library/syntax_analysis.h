@@ -32,7 +32,7 @@ struct SyntaxAnalyzer{
     std::shared_ptr<SyntaxTreeNode> ParseB_SingleQuota(std::vector<std::shared_ptr<Token>>::const_iterator& it);
     std::shared_ptr<SyntaxTreeNode> ParseC(std::vector<std::shared_ptr<Token>>::const_iterator& it);
     std::shared_ptr<SyntaxTreeNode> ParseE(std::vector<std::shared_ptr<Token>>::const_iterator& it);
-    std::shared_ptr<SyntaxTreeNode> parseE__SingleQuota(std::vector<std::shared_ptr<Token>>::const_iterator& it);
+    std::shared_ptr<SyntaxTreeNode> ParseE__SingleQuota(std::vector<std::shared_ptr<Token>>::const_iterator& it);
     std::shared_ptr<SyntaxTreeNode> ParseF(std::vector<std::shared_ptr<Token>>::const_iterator& it);
     std::shared_ptr<SyntaxTreeNode> ParseG(std::vector<std::shared_ptr<Token>>::const_iterator& it);
     std::shared_ptr<SyntaxTreeNode> ParseG__SingleQuota(std::vector<std::shared_ptr<Token>>::const_iterator& it);

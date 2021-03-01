@@ -64,7 +64,12 @@ void Preprocesser::Preprocess(){
 
                 current_position = string_end;
             }
-            }else {
+            }else if(*current_position == '/' && *(current_position + 1) == '/'){
+                while(*current_position != '\n') current_position++;
+                *output_file_after_preprocess += *current_position;
+                current_position++;
+            }
+            else {
                 *output_file_after_preprocess += *current_position;
                 current_position++;
             }

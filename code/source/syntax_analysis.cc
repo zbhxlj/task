@@ -119,7 +119,7 @@ std::shared_ptr<SyntaxTreeNode> SyntaxAnalyzer::ParseB_SingleQuota(std::vector<s
 
     case TokenType::Comma :
     case TokenType::Semi :
-        root->childs.push_back( parseE__SingleQuota(it) );
+        root->childs.push_back( ParseE__SingleQuota(it) );
         break;
         
     default:
@@ -158,9 +158,8 @@ std::shared_ptr<SyntaxTreeNode> SyntaxAnalyzer::ParseE(std::vector<std::shared_p
     switch ((*it) -> token_type)
     {
     case TokenType::Identifier:
-        root->childs.push_back( MatchIdentifier(it) );
-        it++;
-        root->childs.push_back( parseE__SingleQuota(it));
+        root->childs.push_back( ParseH(it) );
+        root->childs.push_back( ParseE__SingleQuota(it));
         break;
     
     default:
@@ -171,7 +170,7 @@ std::shared_ptr<SyntaxTreeNode> SyntaxAnalyzer::ParseE(std::vector<std::shared_p
     return root;
 }
 
-std::shared_ptr<SyntaxTreeNode> SyntaxAnalyzer::parseE__SingleQuota(std::vector<std::shared_ptr<Token>>::const_iterator& it){
+std::shared_ptr<SyntaxTreeNode> SyntaxAnalyzer::ParseE__SingleQuota(std::vector<std::shared_ptr<Token>>::const_iterator& it){
     printFuncPath("E_SingleQuota", it);
     std::shared_ptr<SyntaxTreeNode> root = std::make_shared<SyntaxTreeNode>();
     root->syntax_type = SyntaxUnitType::VariableSequence__SingleQuota;
@@ -391,6 +390,7 @@ std::shared_ptr<SyntaxTreeNode> SyntaxAnalyzer::ParseL(std::vector<std::shared_p
     case TokenType::Int :
     case TokenType::Float :
     case TokenType::Char :
+    case TokenType::Long :
         root->childs.push_back( ParseN(it) );
         root->childs.push_back( ParseL(it) );
         break;
@@ -412,6 +412,7 @@ std::shared_ptr<SyntaxTreeNode> SyntaxAnalyzer::ParseN(std::vector<std::shared_p
     case TokenType::Int :
     case TokenType::Float :
     case TokenType::Char :
+    case TokenType::Long :
         root->childs.push_back( ParseR(it) );
         root->childs.push_back( ParseE(it) );
         break;
@@ -451,6 +452,15 @@ std::shared_ptr<SyntaxTreeNode> SyntaxAnalyzer::ParseM(std::vector<std::shared_p
         root->childs.push_back( ParseO(it));
         root->childs.push_back( ParseM(it) );
         break;
+    
+    case TokenType::Char :
+    case TokenType::Int :
+    case TokenType::Long :
+    case TokenType::Float :
+        root->childs.push_back( ParseO(it));
+        root->childs.push_back( ParseM(it) );
+        break;
+
     default:
         UnexpectedTokenTypeErrorF((*it), MapFromSyntaxUnitTypeToString[root->syntax_type],    
                                 MapFromTokenTypeToString[(*it)->token_type], "M");
@@ -479,7 +489,7 @@ std::shared_ptr<SyntaxTreeNode> SyntaxAnalyzer::ParseO(std::vector<std::shared_p
         root->childs.push_back( ParseP(it) );
         root->childs.push_back( MatchCloseBracket(it) );
         it++;
-        root->childs.push_back( ParseO(it) );
+        root->childs.push_back( ParseJ(it) );
         break;
     
     case TokenType::Continue:
@@ -504,7 +514,7 @@ std::shared_ptr<SyntaxTreeNode> SyntaxAnalyzer::ParseO(std::vector<std::shared_p
         root->childs.push_back( ParseP(it) );
         root->childs.push_back( MatchCloseBracket(it) );
         it++;
-        root->childs.push_back( ParseO(it) );
+        root->childs.push_back( ParseJ(it) );
         break;
 
     case TokenType::If:
@@ -515,7 +525,7 @@ std::shared_ptr<SyntaxTreeNode> SyntaxAnalyzer::ParseO(std::vector<std::shared_p
         root->childs.push_back( ParseP(it) );
         root->childs.push_back( MatchCloseBracket(it) );
         it++;
-        root->childs.push_back( ParseO(it) );
+        root->childs.push_back( ParseJ(it) );
         root->childs.push_back( ParseO__SingleQuota(it) );
         break;
 
@@ -545,7 +555,14 @@ std::shared_ptr<SyntaxTreeNode> SyntaxAnalyzer::ParseO(std::vector<std::shared_p
     case TokenType::Else:
         root->childs.push_back( MatchElse(it) );
         it++;
-        root->childs.push_back( ParseO(it) );
+        root->childs.push_back( ParseJ(it) );
+        break;
+    
+    case TokenType::Char :
+    case TokenType::Int :
+    case TokenType::Long :
+    case TokenType::Float :
+        root->childs.push_back( ParseL(it));
         break;
 
     default:
@@ -566,20 +583,20 @@ std::shared_ptr<SyntaxTreeNode> SyntaxAnalyzer::ParseO__SingleQuota(std::vector<
         root->childs.push_back( MatchEnd(it));
         it++;
         break;
-    
+
     case TokenType::Rp :
         break;
 
     case TokenType::Else :
         root->childs.push_back( MatchElse(it) );
         it++;
-        root->childs.push_back( ParseO(it));
+        root->childs.push_back( ParseJ(it));
         break;
 
     default:
 
-        UnexpectedTokenTypeErrorF((*it), MapFromSyntaxUnitTypeToString[root->syntax_type],    
-                                MapFromTokenTypeToString[(*it)->token_type], "O_SingleQuota");
+        // UnexpectedTokenTypeErrorF((*it), MapFromSyntaxUnitTypeToString[root->syntax_type],    
+        //                         MapFromTokenTypeToString[(*it)->token_type], "O_SingleQuota");
 
         break;
     }
@@ -621,6 +638,11 @@ std::shared_ptr<SyntaxTreeNode> SyntaxAnalyzer::ParseP(std::vector<std::shared_p
         root->childs.push_back( MatchChar_C(it));
         it++;
         root->childs.push_back( ParseP__TripleQuota(it));
+        break;
+
+    case TokenType::String :
+        root->childs.push_back( MatchString(it));
+        it++;
         break;
 
     default:
@@ -843,6 +865,11 @@ std::shared_ptr<SyntaxTreeNode> SyntaxAnalyzer::ParseR(std::vector<std::shared_p
     
     case TokenType::Char:
         root->childs.push_back( MatchChar(it) );
+        it++;
+        break;
+
+    case TokenType::Long:
+        root->childs.push_back( MatchLong(it) );
         it++;
         break;
 

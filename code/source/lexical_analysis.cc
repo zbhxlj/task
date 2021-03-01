@@ -217,7 +217,7 @@ void LexicalAnalyzer::LexicalAnalyze(){
                 state = State::Begin;
                 break;
             case '\'' :
-                current_token->token_type = TokenType::Char;
+                current_token->token_type = TokenType::Char_C;
                 current_token->token_value += *current_position;
                 current_token->number_of_row = current_number_of_row;
                 current_token->number_of_column = current_number_of_column;
@@ -639,7 +639,11 @@ void LexicalAnalyzer::LexicalAnalyze(){
             
             default:
                 // UnknownTokenErrorf(current_token, "InChar", current_position);
-                std::cerr << "There is more than one character!" << std::endl;
+                std::cerr << "There is more than one character!" 
+                << "In row " << current_number_of_row 
+                << " In column  "  << current_number_of_column 
+                << std::endl;
+                exit(-1);
                 current_token -> token_type = TokenType::Error;
                 has_error_when_parsing = true;
                 while(*current_position != '\''){

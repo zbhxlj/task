@@ -70,7 +70,7 @@ std::shared_ptr<SyntaxTreeNode> MatchLong_C( std::vector<std::shared_ptr<Token>>
 
 std::shared_ptr<SyntaxTreeNode> MatchFloat_C( std::vector<std::shared_ptr<Token>>::const_iterator& it){
     std::shared_ptr<SyntaxTreeNode> root = std::make_shared<SyntaxTreeNode>();
-    if((*it)->token_type == TokenType::Int_C){
+    if((*it)->token_type == TokenType::Float_C){
         root->syntax_type = SyntaxUnitType::Terminator;
         root -> token = (*it);
     }else {
@@ -96,7 +96,7 @@ std::shared_ptr<SyntaxTreeNode> MatchCloseBracket( std::vector<std::shared_ptr<T
         root->syntax_type = SyntaxUnitType::Terminator;
         root -> token = (*it);
     }else {
-        matchTerminatorErrorF((*it), "(", (*it)->token_value);
+        matchTerminatorErrorF((*it), ")", (*it)->token_value);
     }
     return root;
 }
@@ -107,7 +107,7 @@ std::shared_ptr<SyntaxTreeNode> MatchOpenBracket( std::vector<std::shared_ptr<To
         root->syntax_type = SyntaxUnitType::Terminator;
         root -> token = (*it);
     }else {
-        matchTerminatorErrorF((*it), ")", (*it)->token_value);
+        matchTerminatorErrorF((*it), "(", (*it)->token_value);
     }
     return root;
 }
@@ -390,7 +390,7 @@ std::shared_ptr<SyntaxTreeNode> MatchAssign( std::vector<std::shared_ptr<Token>>
 
 std::shared_ptr<SyntaxTreeNode> MatchInt( std::vector<std::shared_ptr<Token>>::const_iterator& it){
     std::shared_ptr<SyntaxTreeNode> root = std::make_shared<SyntaxTreeNode>();
-    if((*it)->token_value == "int"){
+    if((*it)->token_type == TokenType::Int){
         root->syntax_type = SyntaxUnitType::Terminator;
         root -> token = (*it);
     }else {
@@ -401,7 +401,7 @@ std::shared_ptr<SyntaxTreeNode> MatchInt( std::vector<std::shared_ptr<Token>>::c
 
 std::shared_ptr<SyntaxTreeNode> MatchFloat( std::vector<std::shared_ptr<Token>>::const_iterator& it){
     std::shared_ptr<SyntaxTreeNode> root = std::make_shared<SyntaxTreeNode>();
-    if((*it)->token_value == "float"){
+    if((*it)->token_type == TokenType::Float){
         root->syntax_type = SyntaxUnitType::Terminator;
         root -> token = (*it);
     }else {
@@ -410,9 +410,10 @@ std::shared_ptr<SyntaxTreeNode> MatchFloat( std::vector<std::shared_ptr<Token>>:
     return root;
 }
 
+
 std::shared_ptr<SyntaxTreeNode> MatchChar( std::vector<std::shared_ptr<Token>>::const_iterator& it){
     std::shared_ptr<SyntaxTreeNode> root = std::make_shared<SyntaxTreeNode>();
-    if((*it)->token_value == "char"){
+    if((*it)->token_type == TokenType::Char){
         root->syntax_type = SyntaxUnitType::Terminator;
         root -> token = (*it);
     }else {
@@ -421,6 +422,16 @@ std::shared_ptr<SyntaxTreeNode> MatchChar( std::vector<std::shared_ptr<Token>>::
     return root;
 }
 
+std::shared_ptr<SyntaxTreeNode> MatchLong( std::vector<std::shared_ptr<Token>>::const_iterator& it){
+    std::shared_ptr<SyntaxTreeNode> root = std::make_shared<SyntaxTreeNode>();
+    if((*it)->token_type == TokenType::Long){
+        root->syntax_type = SyntaxUnitType::Terminator;
+        root -> token = (*it);
+    }else {
+        matchTerminatorErrorF((*it), "long", (*it)->token_value);
+    }
+    return root;
+}
 
 std::shared_ptr<SyntaxTreeNode> MatchLeftArray( std::vector<std::shared_ptr<Token>>::const_iterator& it){
     std::shared_ptr<SyntaxTreeNode> root = std::make_shared<SyntaxTreeNode>();
@@ -441,6 +452,17 @@ std::shared_ptr<SyntaxTreeNode> MatchRightArray( std::vector<std::shared_ptr<Tok
         root -> token = (*it);
     }else {
         matchTerminatorErrorF((*it), "]", (*it)->token_value);
+    }
+    return root;
+}
+
+std::shared_ptr<SyntaxTreeNode> MatchString( std::vector<std::shared_ptr<Token>>::const_iterator& it){
+    std::shared_ptr<SyntaxTreeNode> root = std::make_shared<SyntaxTreeNode>();
+    if((*it)->token_type == TokenType::String){
+        root->syntax_type = SyntaxUnitType::Terminator;
+        root -> token = (*it);
+    }else {
+        matchTerminatorErrorF((*it), "String", (*it)->token_value);
     }
     return root;
 }
