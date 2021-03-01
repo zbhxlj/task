@@ -34,9 +34,11 @@ SELECT( P  →  IntegerP''' ) = FIRST( IntegerP''') = { Integer }
 
 SELECT( P  →  IdentifierP''P''') = { Identifier }
 
+SELECT(P  →  String )  =  { String }
+
 SELECT( O' → else O) = { else }
 
-SELECT( O'  →  ε) = FOLLOW( O' ) = { #,   }  }
+SELECT( O'  →  ε) = FOLLOW( O' ) = { # ,   }  }
 
 SELECT( O  →  P;) = FIRST( P; ) = { Integer,  Identifier }
 
@@ -52,7 +54,9 @@ SELECT( O  →  continue;  ) =  { continue; }
 
 SELECT(O  → for ( P ; P ; P) O) = { for }
 
-SELECT( M  →  OM) = FIRST( OM ) = { Integer, Identifier, return, if, while, break, continue, for}
+SELECT(O   →  L) =  {int, float, long } // 这个情况特殊
+
+SELECT( M  →  OM) = FIRST( OM ) = { Integer, Identifier, return, if, while, break, continue, for, int, char, float}
 
 SELECT( M  →  ε) = FOLLOW( M ) = {  }  }
 
