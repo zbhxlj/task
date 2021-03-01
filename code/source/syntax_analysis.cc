@@ -4,6 +4,8 @@
 #include "syntax_analysis_util.cc"
 #include<unordered_map>
 
+// This file provides functions made up Recursive Descent method.
+// Relative information is in 
 
 SyntaxAnalyzer::SyntaxAnalyzer(const LexicalAnalyzer& tP) : lexical_analyzer(tP) {}
 

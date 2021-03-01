@@ -3,6 +3,13 @@
 
 #include "syntax_analysis.h"
 #include<sstream>
+
+// Formatter prints abstract syntax tree and shows formatted text;
+//
+// Example: 
+//  Formatter formatter(syntax_analyzer);
+//  formatter.PrintAST();
+//  formatter.PrintFormattedText(); 
 class Formatter {
 private:
     SyntaxAnalyzer                                           syntax_analyzer;

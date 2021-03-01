@@ -680,7 +680,7 @@ void LexicalAnalyzer::PrintTokenText(){
     }
 }
 
-
+// User_friendly error_handle helper function.
 void LexicalAnalyzer::UnknownTokenErrorf(const std::shared_ptr<Token>& current_token,  
                     const std::string& state, const char* current_position){
                 std::cerr << "character : " << *current_position << std::endl;

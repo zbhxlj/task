@@ -2,6 +2,7 @@
 #include<iostream>
 #include<sstream>
 
+//API exposed to the user.
 void Formatter::PrintFormattedText(){
     std::stringstream output;
     int i = 0;
@@ -19,6 +20,7 @@ void Formatter::PrintFormattedText(){
 
 }
 
+// print spaces
 void printTab(int tabNum, std::stringstream& output){
     while(tabNum > 0){
         output << "  ";
@@ -26,6 +28,7 @@ void printTab(int tabNum, std::stringstream& output){
     }
 }
 
+// API exposed to the user.
 void Formatter::PrintAST(){
     std::cout << std::endl;
     std::cout << "-----------------AST--------------------"  << std::endl;
@@ -33,6 +36,7 @@ void Formatter::PrintAST(){
     std::cout << "-----------------End--------------------"  << std::endl;
 }
 
+// Preorder traverse printing abstract syntax tree.
 void Formatter::printAST(int depth, const std::shared_ptr<SyntaxTreeNode>& root){
     for(int i = 0; i < depth; i++) std::cout << "  ";
     std::cout << "SyntaxUnitType : " << MapFromSyntaxUnitTypeToString[root->syntax_type]  << std::endl;
@@ -53,17 +57,17 @@ void Formatter::printAST(int depth, const std::shared_ptr<SyntaxTreeNode>& root)
     return;
 }
 
+// Preorder traverse printing formatted text.
 void Formatter::PrintNode(int& tabNum, const std::shared_ptr<SyntaxTreeNode>& root,
                           std::stringstream& output, int &i, 
                           bool& in_for_range){
     if(root -> syntax_type == SyntaxUnitType::Terminator){
-        switch (root -> token -> token_type) {          
+        switch (root -> token -> token_type) { 
+
             case TokenType::For :
                 in_for_range = true;
                 output << root->token->token_value << " ";
                 break;
-
-
 
             case TokenType::Lp :
                 if(in_for_range) in_for_range = false;

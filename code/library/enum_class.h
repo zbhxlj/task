@@ -4,6 +4,11 @@
 #include<unordered_map>
 #include<string>
 
+// This file contains global variables and constant enum type.
+// In order to avoid multiple definition of global variables,
+// using inline variable ( introduced in c++17 )
+
+// TokenType
 enum class TokenType 
 {
                 Nul,                            // Initial Type
@@ -61,6 +66,8 @@ enum class TokenType
                 Sharp,                          // #
                 };
 
+// State used in lexical analysis. 
+// Those who end in Ignored will be ignored because their only way out is State:End.
 enum class State{
     Begin,                                      // 0
     InIdentifier,                               // 1
@@ -96,6 +103,8 @@ enum class State{
     InCharIgnored,                              // 31
 };
 
+// Thosed who ends in _Quota is because they results from eliminating left recursive and 
+// left common factor.
 enum class SyntaxUnitType{  
     Program,                                    // S    程序             
     ExternalDefinitionSequence,                 // A    外部定义序列        
@@ -129,6 +138,7 @@ enum class SyntaxUnitType{
     Nul,                                        //      占位符
 };
 
+// These global variables is convenient for printing.
 inline std::unordered_map<TokenType, std::string>  MapFromTokenTypeToString = {
         {TokenType::Nul, "Nul"},
         {TokenType::Error, "Error"},

@@ -1,0 +1,2 @@
+int b;
+float c;

@@ -9,6 +9,7 @@
 #include "preprocess.h"
 #include "enum_class.h"
 
+
 struct Token{
 
     TokenType                                   token_type = TokenType::Nul;

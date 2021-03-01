@@ -59,7 +59,6 @@ void Preprocesser::Preprocess(){
                 string_begin = string_end;
                 while(*string_end != '\n') string_end++;
                 std::string macro_target(string_begin, string_end - string_begin);
-
                 macro_definitions.push_back(std::make_pair(macro_source, macro_target));
 
                 current_position = string_end;
