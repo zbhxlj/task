@@ -48,7 +48,9 @@ int Algorithm(float c, float b){  //函数定义
     }  // if语句
 
     if(a > b){
-        b = c;
+        if(b > c){
+            b = c;
+        }
     }
     else {
         c = b;
@@ -77,7 +79,7 @@ int Algorithm(float c, float b){  //函数定义
         
 
     while(a != 0) {
-        while(b = c) {
+        (b = c) {
             b = c;
         }
     } //while的嵌套

@@ -11,6 +11,7 @@ for
 return 
 break 
 continue
+switch 
 char
 int 
 long 

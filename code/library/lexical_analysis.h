@@ -36,6 +36,7 @@ struct LexicalAnalyzer {
     LexicalAnalyzer(const Preprocesser& preprocesser);
     void LexicalAnalyze();     
     void PrintTokenText();  
+    
     void UnknownTokenErrorf(const std::shared_ptr<Token>& token, 
                             const std::string& state, const char* current_position);
 };

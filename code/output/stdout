@@ -1,0 +1,447 @@
+0    Token   token_type:        Int                 token_value         int       
+1    Token   token_type:        Identifier          token_value         i         
+2    Token   token_type:        Comma               token_value         ,         
+3    Token   token_type:        Identifier          token_value         j         
+4    Token   token_type:        Semicolon           token_value         ;         
+5    Token   token_type:        Int                 token_value         int       
+6    Token   token_type:        Identifier          token_value         func      
+7    Token   token_type:        OpenBracket         token_value         (         
+8    Token   token_type:        Int                 token_value         int       
+9    Token   token_type:        Identifier          token_value         a         
+10   Token   token_type:        Comma               token_value         ,         
+11   Token   token_type:        Float               token_value         float     
+12   Token   token_type:        Identifier          token_value         b         
+13   Token   token_type:        CloseBracket        token_value         )         
+14   Token   token_type:        LeftParenthes       token_value         {         
+15   Token   token_type:        Int                 token_value         int       
+16   Token   token_type:        Identifier          token_value         m         
+17   Token   token_type:        Semicolon           token_value         ;         
+18   Token   token_type:        If                  token_value         if        
+19   Token   token_type:        OpenBracket         token_value         (         
+20   Token   token_type:        Identifier          token_value         a         
+21   Token   token_type:        Greate              token_value         >         
+22   Token   token_type:        Identifier          token_value         b         
+23   Token   token_type:        CloseBracket        token_value         )         
+24   Token   token_type:        LeftParenthes       token_value         {         
+25   Token   token_type:        Identifier          token_value         m         
+26   Token   token_type:        Assign              token_value         =         
+27   Token   token_type:        Identifier          token_value         b         
+28   Token   token_type:        Semicolon           token_value         ;         
+29   Token   token_type:        RightParenthes      token_value         }         
+30   Token   token_type:        Else                token_value         else      
+31   Token   token_type:        LeftParenthes       token_value         {         
+32   Token   token_type:        Identifier          token_value         m         
+33   Token   token_type:        Assign              token_value         =         
+34   Token   token_type:        Identifier          token_value         a         
+35   Token   token_type:        Semicolon           token_value         ;         
+36   Token   token_type:        RightParenthes      token_value         }         
+37   Token   token_type:        Return              token_value         return    
+38   Token   token_type:        Identifier          token_value         m         
+39   Token   token_type:        Semicolon           token_value         ;         
+40   Token   token_type:        RightParenthes      token_value         }         
+41   Token   token_type:        Float               token_value         float     
+42   Token   token_type:        Identifier          token_value         x         
+43   Token   token_type:        Comma               token_value         ,         
+44   Token   token_type:        Identifier          token_value         y         
+45   Token   token_type:        Semicolon           token_value         ;         
+46   Token   token_type:        End                 token_value         $         
+----------------------------------------------
+Compilation success !
+----------------------------------------------
+
+
+-----------------AST--------------------
+SyntaxUnitType : Program
+
+  SyntaxUnitType : ExternalDefinitionSequence
+
+    SyntaxUnitType : ExternalDefinition
+
+      SyntaxUnitType : TypeName
+
+        SyntaxUnitType : Terminator
+        TokenType : Int
+        token_value : int
+
+      SyntaxUnitType : Identifier
+
+        SyntaxUnitType : Terminator
+        TokenType : Identifier
+        token_value : i
+
+        SyntaxUnitType : Identifier__SingleQuota
+
+      SyntaxUnitType : ExternalDefinition_SingleQuota
+
+        SyntaxUnitType : VariableSequence_SingleQuota
+
+          SyntaxUnitType : Terminator
+          TokenType : Comma
+          token_value : ,
+
+          SyntaxUnitType : VariableSequence
+
+            SyntaxUnitType : Identifier
+
+              SyntaxUnitType : Terminator
+              TokenType : Identifier
+              token_value : j
+
+              SyntaxUnitType : Identifier__SingleQuota
+
+            SyntaxUnitType : VariableSequence_SingleQuota
+
+              SyntaxUnitType : Terminator
+              TokenType : Semicolon
+              token_value : ;
+
+    SyntaxUnitType : ExternalDefinition_SingleQuota
+
+      SyntaxUnitType : ExternalDefinitionSequence
+
+        SyntaxUnitType : ExternalDefinition
+
+          SyntaxUnitType : TypeName
+
+            SyntaxUnitType : Terminator
+            TokenType : Int
+            token_value : int
+
+          SyntaxUnitType : Identifier
+
+            SyntaxUnitType : Terminator
+            TokenType : Identifier
+            token_value : func
+
+            SyntaxUnitType : Identifier__SingleQuota
+
+          SyntaxUnitType : ExternalDefinition_SingleQuota
+
+            SyntaxUnitType : FunctionDefinition
+
+              SyntaxUnitType : Terminator
+              TokenType : OpenBracket
+              token_value : (
+
+              SyntaxUnitType : ParameterSequence
+
+                SyntaxUnitType : Parameter
+
+                  SyntaxUnitType : TypeName
+
+                    SyntaxUnitType : Terminator
+                    TokenType : Int
+                    token_value : int
+
+                  SyntaxUnitType : Identifier
+
+                    SyntaxUnitType : Terminator
+                    TokenType : Identifier
+                    token_value : a
+
+                    SyntaxUnitType : Identifier__SingleQuota
+
+                SyntaxUnitType : 
+
+                  SyntaxUnitType : Terminator
+                  TokenType : Comma
+                  token_value : ,
+
+                  SyntaxUnitType : ParameterSequence
+
+                    SyntaxUnitType : Parameter
+
+                      SyntaxUnitType : TypeName
+
+                        SyntaxUnitType : Terminator
+                        TokenType : Float
+                        token_value : float
+
+                      SyntaxUnitType : Identifier
+
+                        SyntaxUnitType : Terminator
+                        TokenType : Identifier
+                        token_value : b
+
+                        SyntaxUnitType : Identifier__SingleQuota
+
+                    SyntaxUnitType : 
+
+              SyntaxUnitType : Terminator
+              TokenType : CloseBracket
+              token_value : )
+
+              SyntaxUnitType : FunctionDefinition__SingleQuota
+
+                SyntaxUnitType : ComplexSentence
+
+                  SyntaxUnitType : Terminator
+                  TokenType : LeftParenthes
+                  token_value : {
+
+                  SyntaxUnitType : LocalVariableDefinitionSequence
+
+                    SyntaxUnitType : LocalVariableDefinition
+
+                      SyntaxUnitType : TypeName
+
+                        SyntaxUnitType : Terminator
+                        TokenType : Int
+                        token_value : int
+
+                      SyntaxUnitType : VariableSequence
+
+                        SyntaxUnitType : Identifier
+
+                          SyntaxUnitType : Terminator
+                          TokenType : Identifier
+                          token_value : m
+
+                          SyntaxUnitType : Identifier__SingleQuota
+
+                        SyntaxUnitType : VariableSequence_SingleQuota
+
+                          SyntaxUnitType : Terminator
+                          TokenType : Semicolon
+                          token_value : ;
+
+                    SyntaxUnitType : LocalVariableDefinitionSequence
+
+                  SyntaxUnitType : SentenceSequence
+
+                    SyntaxUnitType : Sentence
+
+                      SyntaxUnitType : Terminator
+                      TokenType : If
+                      token_value : if
+
+                      SyntaxUnitType : Terminator
+                      TokenType : OpenBracket
+                      token_value : (
+
+                      SyntaxUnitType : Expression
+
+                        SyntaxUnitType : Terminator
+                        TokenType : Identifier
+                        token_value : a
+
+                        SyntaxUnitType : Expression_DoubleQuota
+
+                        SyntaxUnitType : Expression_TripleQuota
+
+                          SyntaxUnitType : Expression_SingleQuota
+
+                            SyntaxUnitType : Terminator
+                            TokenType : Greate
+                            token_value : >
+
+                            SyntaxUnitType : Expression
+
+                              SyntaxUnitType : Terminator
+                              TokenType : Identifier
+                              token_value : b
+
+                              SyntaxUnitType : Expression_DoubleQuota
+
+                              SyntaxUnitType : Expression_TripleQuota
+
+                          SyntaxUnitType : Expression_TripleQuota
+
+                      SyntaxUnitType : Terminator
+                      TokenType : CloseBracket
+                      token_value : )
+
+                      SyntaxUnitType : ComplexSentence
+
+                        SyntaxUnitType : Terminator
+                        TokenType : LeftParenthes
+                        token_value : {
+
+                        SyntaxUnitType : LocalVariableDefinitionSequence
+
+                        SyntaxUnitType : SentenceSequence
+
+                          SyntaxUnitType : Sentence
+
+                            SyntaxUnitType : Expression
+
+                              SyntaxUnitType : Terminator
+                              TokenType : Identifier
+                              token_value : m
+
+                              SyntaxUnitType : Expression_DoubleQuota
+
+                                SyntaxUnitType : Terminator
+                                TokenType : Assign
+                                token_value : =
+
+                                SyntaxUnitType : Expression
+
+                                  SyntaxUnitType : Terminator
+                                  TokenType : Identifier
+                                  token_value : b
+
+                                  SyntaxUnitType : Expression_DoubleQuota
+
+                                  SyntaxUnitType : Expression_TripleQuota
+
+                              SyntaxUnitType : Expression_TripleQuota
+
+                            SyntaxUnitType : Terminator
+                            TokenType : Semicolon
+                            token_value : ;
+
+                          SyntaxUnitType : SentenceSequence
+
+                        SyntaxUnitType : Terminator
+                        TokenType : RightParenthes
+                        token_value : }
+
+                      SyntaxUnitType : Sentence_SingleQuota
+
+                        SyntaxUnitType : Terminator
+                        TokenType : Else
+                        token_value : else
+
+                        SyntaxUnitType : ComplexSentence
+
+                          SyntaxUnitType : Terminator
+                          TokenType : LeftParenthes
+                          token_value : {
+
+                          SyntaxUnitType : LocalVariableDefinitionSequence
+
+                          SyntaxUnitType : SentenceSequence
+
+                            SyntaxUnitType : Sentence
+
+                              SyntaxUnitType : Expression
+
+                                SyntaxUnitType : Terminator
+                                TokenType : Identifier
+                                token_value : m
+
+                                SyntaxUnitType : Expression_DoubleQuota
+
+                                  SyntaxUnitType : Terminator
+                                  TokenType : Assign
+                                  token_value : =
+
+                                  SyntaxUnitType : Expression
+
+                                    SyntaxUnitType : Terminator
+                                    TokenType : Identifier
+                                    token_value : a
+
+                                    SyntaxUnitType : Expression_DoubleQuota
+
+                                    SyntaxUnitType : Expression_TripleQuota
+
+                                SyntaxUnitType : Expression_TripleQuota
+
+                              SyntaxUnitType : Terminator
+                              TokenType : Semicolon
+                              token_value : ;
+
+                            SyntaxUnitType : SentenceSequence
+
+                          SyntaxUnitType : Terminator
+                          TokenType : RightParenthes
+                          token_value : }
+
+                    SyntaxUnitType : SentenceSequence
+
+                      SyntaxUnitType : Sentence
+
+                        SyntaxUnitType : Terminator
+                        TokenType : Return
+                        token_value : return
+
+                        SyntaxUnitType : Expression
+
+                          SyntaxUnitType : Terminator
+                          TokenType : Identifier
+                          token_value : m
+
+                          SyntaxUnitType : Expression_DoubleQuota
+
+                          SyntaxUnitType : Expression_TripleQuota
+
+                        SyntaxUnitType : Terminator
+                        TokenType : Semicolon
+                        token_value : ;
+
+                      SyntaxUnitType : SentenceSequence
+
+                  SyntaxUnitType : Terminator
+                  TokenType : RightParenthes
+                  token_value : }
+
+        SyntaxUnitType : ExternalDefinition_SingleQuota
+
+          SyntaxUnitType : ExternalDefinitionSequence
+
+            SyntaxUnitType : ExternalDefinition
+
+              SyntaxUnitType : TypeName
+
+                SyntaxUnitType : Terminator
+                TokenType : Float
+                token_value : float
+
+              SyntaxUnitType : Identifier
+
+                SyntaxUnitType : Terminator
+                TokenType : Identifier
+                token_value : x
+
+                SyntaxUnitType : Identifier__SingleQuota
+
+              SyntaxUnitType : ExternalDefinition_SingleQuota
+
+                SyntaxUnitType : VariableSequence_SingleQuota
+
+                  SyntaxUnitType : Terminator
+                  TokenType : Comma
+                  token_value : ,
+
+                  SyntaxUnitType : VariableSequence
+
+                    SyntaxUnitType : Identifier
+
+                      SyntaxUnitType : Terminator
+                      TokenType : Identifier
+                      token_value : y
+
+                      SyntaxUnitType : Identifier__SingleQuota
+
+                    SyntaxUnitType : VariableSequence_SingleQuota
+
+                      SyntaxUnitType : Terminator
+                      TokenType : Semicolon
+                      token_value : ;
+
+            SyntaxUnitType : ExternalDefinition_SingleQuota
+
+              SyntaxUnitType : Terminator
+              TokenType : End
+              token_value : $
+
+-----------------End--------------------
+
+
+-----------------FormattedText--------------------
+int i , j ;
+int func ( int a , float b ) {
+  int m ;
+  if ( a > b ) {
+    m = b ;
+   }
+  else {
+    m = a ;
+   }
+  return m ;
+ }
+float x , y ;
+$ -----------------End--------------------
+
