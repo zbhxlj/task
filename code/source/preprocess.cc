@@ -70,6 +70,7 @@ void Preprocesser::Preprocess(){
             }
         }
     MacroExpand();
+    *output_file_after_preprocess += '$';
 }
 
 void Preprocesser::IncludeFiles(const std::string& include_file, const std::shared_ptr<std::string>& output_file_after_preprocess){
