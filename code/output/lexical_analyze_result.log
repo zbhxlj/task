@@ -1,0 +1,808 @@
+0    Token   token_type:        Int                 token_value         int       
+1    Token   token_type:        Identifier          token_value         a         
+2    Token   token_type:        Semicolon           token_value         ;         
+3    Token   token_type:        Int                 token_value         int       
+4    Token   token_type:        Identifier          token_value         Func      
+5    Token   token_type:        OpenBracket         token_value         (         
+6    Token   token_type:        Float               token_value         float     
+7    Token   token_type:        Identifier          token_value         b         
+8    Token   token_type:        CloseBracket        token_value         )         
+9    Token   token_type:        Semicolon           token_value         ;         
+10   Token   token_type:        Int                 token_value         int       
+11   Token   token_type:        Identifier          token_value         Algorithm 
+12   Token   token_type:        OpenBracket         token_value         (         
+13   Token   token_type:        Float               token_value         float     
+14   Token   token_type:        Identifier          token_value         c         
+15   Token   token_type:        Comma               token_value         ,         
+16   Token   token_type:        Float               token_value         float     
+17   Token   token_type:        Identifier          token_value         b         
+18   Token   token_type:        CloseBracket        token_value         )         
+19   Token   token_type:        LeftParenthes       token_value         {         
+20   Token   token_type:        Int                 token_value         int       
+21   Token   token_type:        Identifier          token_value         c         
+22   Token   token_type:        Semicolon           token_value         ;         
+23   Token   token_type:        Identifier          token_value         c         
+24   Token   token_type:        Assign              token_value         =         
+25   Token   token_type:        Int_C               token_value         123       
+26   Token   token_type:        Semicolon           token_value         ;         
+27   Token   token_type:        Long                token_value         long      
+28   Token   token_type:        Identifier          token_value         d         
+29   Token   token_type:        Semicolon           token_value         ;         
+30   Token   token_type:        Identifier          token_value         d         
+31   Token   token_type:        Assign              token_value         =         
+32   Token   token_type:        Long_C              token_value         12L       
+33   Token   token_type:        Semicolon           token_value         ;         
+34   Token   token_type:        Float               token_value         float     
+35   Token   token_type:        Identifier          token_value         e         
+36   Token   token_type:        Semicolon           token_value         ;         
+37   Token   token_type:        Identifier          token_value         e         
+38   Token   token_type:        Assign              token_value         =         
+39   Token   token_type:        Float_C             token_value         3.563     
+40   Token   token_type:        Semicolon           token_value         ;         
+41   Token   token_type:        Char                token_value         char      
+42   Token   token_type:        Identifier          token_value         str       
+43   Token   token_type:        LeftArray           token_value         [         
+44   Token   token_type:        Int_C               token_value         9         
+45   Token   token_type:        RightArray          token_value         ]         
+46   Token   token_type:        Semicolon           token_value         ;         
+47   Token   token_type:        Identifier          token_value         str       
+48   Token   token_type:        Assign              token_value         =         
+49   Token   token_type:        String              token_value         "asd"     
+50   Token   token_type:        Semicolon           token_value         ;         
+51   Token   token_type:        Char                token_value         char      
+52   Token   token_type:        Identifier          token_value         ch        
+53   Token   token_type:        Semicolon           token_value         ;         
+54   Token   token_type:        Identifier          token_value         ch        
+55   Token   token_type:        Assign              token_value         =         
+56   Token   token_type:        Char_C              token_value         'c'       
+57   Token   token_type:        Semicolon           token_value         ;         
+58   Token   token_type:        Identifier          token_value         c         
+59   Token   token_type:        Assign              token_value         =         
+60   Token   token_type:        Identifier          token_value         a         
+61   Token   token_type:        Multiply            token_value         *         
+62   Token   token_type:        Identifier          token_value         b         
+63   Token   token_type:        Division            token_value         /         
+64   Token   token_type:        Identifier          token_value         a         
+65   Token   token_type:        Plus Mark           token_value         +         
+66   Token   token_type:        Identifier          token_value         b         
+67   Token   token_type:        Minus               token_value         -         
+68   Token   token_type:        Identifier          token_value         b         
+69   Token   token_type:        Semicolon           token_value         ;         
+70   Token   token_type:        Identifier          token_value         c         
+71   Token   token_type:        Assign              token_value         =         
+72   Token   token_type:        Identifier          token_value         a         
+73   Token   token_type:        Equal               token_value         ==        
+74   Token   token_type:        Identifier          token_value         b         
+75   Token   token_type:        Semicolon           token_value         ;         
+76   Token   token_type:        Identifier          token_value         a         
+77   Token   token_type:        NotEqual            token_value         !=        
+78   Token   token_type:        Identifier          token_value         b         
+79   Token   token_type:        Semicolon           token_value         ;         
+80   Token   token_type:        Identifier          token_value         a         
+81   Token   token_type:        GreaterEqual        token_value         >=        
+82   Token   token_type:        Identifier          token_value         b         
+83   Token   token_type:        Semicolon           token_value         ;         
+84   Token   token_type:        Identifier          token_value         a         
+85   Token   token_type:        LessOrEqual         token_value         <=        
+86   Token   token_type:        Identifier          token_value         b         
+87   Token   token_type:        Semicolon           token_value         ;         
+88   Token   token_type:        Identifier          token_value         a         
+89   Token   token_type:        Greate              token_value         >         
+90   Token   token_type:        Identifier          token_value         b         
+91   Token   token_type:        Semicolon           token_value         ;         
+92   Token   token_type:        Identifier          token_value         a         
+93   Token   token_type:        Less                token_value         <         
+94   Token   token_type:        Identifier          token_value         b         
+95   Token   token_type:        Semicolon           token_value         ;         
+96   Token   token_type:        Identifier          token_value         a         
+97   Token   token_type:        And                 token_value         &&        
+98   Token   token_type:        Identifier          token_value         b         
+99   Token   token_type:        Semicolon           token_value         ;         
+100  Token   token_type:        Identifier          token_value         a         
+101  Token   token_type:        Or                  token_value         ||        
+102  Token   token_type:        Identifier          token_value         b         
+103  Token   token_type:        Semicolon           token_value         ;         
+104  Token   token_type:        Identifier          token_value         a         
+105  Token   token_type:        Assign              token_value         =         
+106  Token   token_type:        Identifier          token_value         a         
+107  Token   token_type:        Or                  token_value         ||        
+108  Token   token_type:        Identifier          token_value         b         
+109  Token   token_type:        And                 token_value         &&        
+110  Token   token_type:        Identifier          token_value         a         
+111  Token   token_type:        Less                token_value         <         
+112  Token   token_type:        Identifier          token_value         a         
+113  Token   token_type:        Greate              token_value         >         
+114  Token   token_type:        Identifier          token_value         b         
+115  Token   token_type:        Less                token_value         <         
+116  Token   token_type:        Identifier          token_value         b         
+117  Token   token_type:        LessOrEqual         token_value         <=        
+118  Token   token_type:        Identifier          token_value         a         
+119  Token   token_type:        GreaterEqual        token_value         >=        
+120  Token   token_type:        Identifier          token_value         b         
+121  Token   token_type:        NotEqual            token_value         !=        
+122  Token   token_type:        Identifier          token_value         c         
+123  Token   token_type:        Plus Mark           token_value         +         
+124  Token   token_type:        Identifier          token_value         a         
+125  Token   token_type:        Minus               token_value         -         
+126  Token   token_type:        Identifier          token_value         b         
+127  Token   token_type:        Multiply            token_value         *         
+128  Token   token_type:        Identifier          token_value         c         
+129  Token   token_type:        Division            token_value         /         
+130  Token   token_type:        Identifier          token_value         d         
+131  Token   token_type:        Semicolon           token_value         ;         
+132  Token   token_type:        While               token_value         while     
+133  Token   token_type:        OpenBracket         token_value         (         
+134  Token   token_type:        Identifier          token_value         a         
+135  Token   token_type:        Greate              token_value         >         
+136  Token   token_type:        Identifier          token_value         b         
+137  Token   token_type:        CloseBracket        token_value         )         
+138  Token   token_type:        LeftParenthes       token_value         {         
+139  Token   token_type:        Identifier          token_value         a         
+140  Token   token_type:        Assign              token_value         =         
+141  Token   token_type:        Identifier          token_value         b         
+142  Token   token_type:        Semicolon           token_value         ;         
+143  Token   token_type:        RightParenthes      token_value         }         
+144  Token   token_type:        If                  token_value         if        
+145  Token   token_type:        OpenBracket         token_value         (         
+146  Token   token_type:        Identifier          token_value         a         
+147  Token   token_type:        Greate              token_value         >         
+148  Token   token_type:        Identifier          token_value         b         
+149  Token   token_type:        CloseBracket        token_value         )         
+150  Token   token_type:        LeftParenthes       token_value         {         
+151  Token   token_type:        Identifier          token_value         b         
+152  Token   token_type:        Assign              token_value         =         
+153  Token   token_type:        Identifier          token_value         c         
+154  Token   token_type:        Semicolon           token_value         ;         
+155  Token   token_type:        RightParenthes      token_value         }         
+156  Token   token_type:        If                  token_value         if        
+157  Token   token_type:        OpenBracket         token_value         (         
+158  Token   token_type:        Identifier          token_value         a         
+159  Token   token_type:        Greate              token_value         >         
+160  Token   token_type:        Identifier          token_value         b         
+161  Token   token_type:        CloseBracket        token_value         )         
+162  Token   token_type:        LeftParenthes       token_value         {         
+163  Token   token_type:        If                  token_value         if        
+164  Token   token_type:        OpenBracket         token_value         (         
+165  Token   token_type:        Identifier          token_value         b         
+166  Token   token_type:        Greate              token_value         >         
+167  Token   token_type:        Identifier          token_value         c         
+168  Token   token_type:        CloseBracket        token_value         )         
+169  Token   token_type:        LeftParenthes       token_value         {         
+170  Token   token_type:        Identifier          token_value         b         
+171  Token   token_type:        Assign              token_value         =         
+172  Token   token_type:        Identifier          token_value         c         
+173  Token   token_type:        Semicolon           token_value         ;         
+174  Token   token_type:        RightParenthes      token_value         }         
+175  Token   token_type:        RightParenthes      token_value         }         
+176  Token   token_type:        Else                token_value         else      
+177  Token   token_type:        LeftParenthes       token_value         {         
+178  Token   token_type:        Identifier          token_value         c         
+179  Token   token_type:        Assign              token_value         =         
+180  Token   token_type:        Identifier          token_value         b         
+181  Token   token_type:        Semicolon           token_value         ;         
+182  Token   token_type:        RightParenthes      token_value         }         
+183  Token   token_type:        For                 token_value         for       
+184  Token   token_type:        OpenBracket         token_value         (         
+185  Token   token_type:        Identifier          token_value         a         
+186  Token   token_type:        Assign              token_value         =         
+187  Token   token_type:        Int_C               token_value         0         
+188  Token   token_type:        Semicolon           token_value         ;         
+189  Token   token_type:        Identifier          token_value         a         
+190  Token   token_type:        Less                token_value         <         
+191  Token   token_type:        Int_C               token_value         8         
+192  Token   token_type:        Semicolon           token_value         ;         
+193  Token   token_type:        Identifier          token_value         a         
+194  Token   token_type:        Assign              token_value         =         
+195  Token   token_type:        Identifier          token_value         a         
+196  Token   token_type:        Plus Mark           token_value         +         
+197  Token   token_type:        Int_C               token_value         1         
+198  Token   token_type:        CloseBracket        token_value         )         
+199  Token   token_type:        LeftParenthes       token_value         {         
+200  Token   token_type:        Identifier          token_value         b         
+201  Token   token_type:        Assign              token_value         =         
+202  Token   token_type:        Identifier          token_value         b         
+203  Token   token_type:        Plus Mark           token_value         +         
+204  Token   token_type:        Int_C               token_value         1         
+205  Token   token_type:        Semicolon           token_value         ;         
+206  Token   token_type:        RightParenthes      token_value         }         
+207  Token   token_type:        Return              token_value         return    
+208  Token   token_type:        Int_C               token_value         1         
+209  Token   token_type:        Semicolon           token_value         ;         
+210  Token   token_type:        Break               token_value         break     
+211  Token   token_type:        Semicolon           token_value         ;         
+212  Token   token_type:        Continue            token_value         continue  
+213  Token   token_type:        Semicolon           token_value         ;         
+214  Token   token_type:        If                  token_value         if        
+215  Token   token_type:        OpenBracket         token_value         (         
+216  Token   token_type:        Identifier          token_value         a         
+217  Token   token_type:        Greate              token_value         >         
+218  Token   token_type:        Identifier          token_value         b         
+219  Token   token_type:        CloseBracket        token_value         )         
+220  Token   token_type:        LeftParenthes       token_value         {         
+221  Token   token_type:        If                  token_value         if        
+222  Token   token_type:        OpenBracket         token_value         (         
+223  Token   token_type:        Identifier          token_value         a         
+224  Token   token_type:        Greate              token_value         >         
+225  Token   token_type:        Identifier          token_value         b         
+226  Token   token_type:        CloseBracket        token_value         )         
+227  Token   token_type:        LeftParenthes       token_value         {         
+228  Token   token_type:        Identifier          token_value         b         
+229  Token   token_type:        Assign              token_value         =         
+230  Token   token_type:        Identifier          token_value         a         
+231  Token   token_type:        Semicolon           token_value         ;         
+232  Token   token_type:        RightParenthes      token_value         }         
+233  Token   token_type:        Else                token_value         else      
+234  Token   token_type:        LeftParenthes       token_value         {         
+235  Token   token_type:        Identifier          token_value         a         
+236  Token   token_type:        Assign              token_value         =         
+237  Token   token_type:        Identifier          token_value         b         
+238  Token   token_type:        Semicolon           token_value         ;         
+239  Token   token_type:        RightParenthes      token_value         }         
+240  Token   token_type:        RightParenthes      token_value         }         
+241  Token   token_type:        While               token_value         while     
+242  Token   token_type:        OpenBracket         token_value         (         
+243  Token   token_type:        Identifier          token_value         a         
+244  Token   token_type:        NotEqual            token_value         !=        
+245  Token   token_type:        Int_C               token_value         0         
+246  Token   token_type:        CloseBracket        token_value         )         
+247  Token   token_type:        LeftParenthes       token_value         {         
+248  Token   token_type:        While               token_value         while     
+249  Token   token_type:        OpenBracket         token_value         (         
+250  Token   token_type:        Identifier          token_value         b         
+251  Token   token_type:        Assign              token_value         =         
+252  Token   token_type:        Identifier          token_value         c         
+253  Token   token_type:        CloseBracket        token_value         )         
+254  Token   token_type:        LeftParenthes       token_value         {         
+255  Token   token_type:        Identifier          token_value         b         
+256  Token   token_type:        Assign              token_value         =         
+257  Token   token_type:        Identifier          token_value         c         
+258  Token   token_type:        Semicolon           token_value         ;         
+259  Token   token_type:        RightParenthes      token_value         }         
+260  Token   token_type:        RightParenthes      token_value         }         
+261  Token   token_type:        RightParenthes      token_value         }         
+262  Token   token_type:        Float               token_value         float     
+263  Token   token_type:        Identifier          token_value         x         
+264  Token   token_type:        Comma               token_value         ,         
+265  Token   token_type:        Identifier          token_value         y         
+266  Token   token_type:        Semicolon           token_value         ;         
+267  Token   token_type:        End                 token_value         $         
+Calling Parse                      Token:  int
+Calling Parse S                    Token:  int
+Calling Parse A                    Token:  int
+Calling Parse B                    Token:  int
+Calling Parse R                    Token:  int
+Calling Parse H                    Token:  a
+Calling Parse H_SingleQuota        Token:  ;
+Calling Parse B_SingleQuota        Token:  ;
+Calling Parse E_SingleQuota        Token:  ;
+Calling Parse A_SingleQuota        Token:  int
+Calling Parse A                    Token:  int
+Calling Parse B                    Token:  int
+Calling Parse R                    Token:  int
+Calling Parse H                    Token:  Func
+Calling Parse H_SingleQuota        Token:  (
+Calling Parse B_SingleQuota        Token:  (
+Calling Parse G                    Token:  (
+Calling Parse I                    Token:  float
+Calling Parse K                    Token:  float
+Calling Parse R                    Token:  float
+Calling Parse H                    Token:  b
+Calling Parse H_SingleQuota        Token:  )
+Calling Parse I_SingleQuota        Token:  )
+Calling Parse G_SingleQuota        Token:  ;
+Calling Parse A_SingleQuota        Token:  int
+Calling Parse A                    Token:  int
+Calling Parse B                    Token:  int
+Calling Parse R                    Token:  int
+Calling Parse H                    Token:  Algorithm
+Calling Parse H_SingleQuota        Token:  (
+Calling Parse B_SingleQuota        Token:  (
+Calling Parse G                    Token:  (
+Calling Parse I                    Token:  float
+Calling Parse K                    Token:  float
+Calling Parse R                    Token:  float
+Calling Parse H                    Token:  c
+Calling Parse H_SingleQuota        Token:  ,
+Calling Parse I_SingleQuota        Token:  ,
+Calling Parse I                    Token:  float
+Calling Parse K                    Token:  float
+Calling Parse R                    Token:  float
+Calling Parse H                    Token:  b
+Calling Parse H_SingleQuota        Token:  )
+Calling Parse I_SingleQuota        Token:  )
+Calling Parse G_SingleQuota        Token:  {
+Calling Parse J                    Token:  {
+Calling Parse L                    Token:  int
+Calling Parse N                    Token:  int
+Calling Parse R                    Token:  int
+Calling Parse E                    Token:  c
+Calling Parse H                    Token:  c
+Calling Parse H_SingleQuota        Token:  ;
+Calling Parse E_SingleQuota        Token:  ;
+Calling Parse L                    Token:  c
+Calling Parse M                    Token:  c
+Calling Parse O                    Token:  c
+Calling Parse P                    Token:  c
+Calling Parse P_DoubleQuota        Token:  =
+Calling Parse P                    Token:  123
+Calling Parse P_TripleQuota        Token:  ;
+Calling Parse P_TripleQuota        Token:  ;
+Calling Parse M                    Token:  long
+Calling Parse O                    Token:  long
+Calling Parse L                    Token:  long
+Calling Parse N                    Token:  long
+Calling Parse R                    Token:  long
+Calling Parse E                    Token:  d
+Calling Parse H                    Token:  d
+Calling Parse H_SingleQuota        Token:  ;
+Calling Parse E_SingleQuota        Token:  ;
+Calling Parse L                    Token:  d
+Calling Parse M                    Token:  d
+Calling Parse O                    Token:  d
+Calling Parse P                    Token:  d
+Calling Parse P_DoubleQuota        Token:  =
+Calling Parse P                    Token:  12L
+Calling Parse P_TripleQuota        Token:  ;
+Calling Parse P_TripleQuota        Token:  ;
+Calling Parse M                    Token:  float
+Calling Parse O                    Token:  float
+Calling Parse L                    Token:  float
+Calling Parse N                    Token:  float
+Calling Parse R                    Token:  float
+Calling Parse E                    Token:  e
+Calling Parse H                    Token:  e
+Calling Parse H_SingleQuota        Token:  ;
+Calling Parse E_SingleQuota        Token:  ;
+Calling Parse L                    Token:  e
+Calling Parse M                    Token:  e
+Calling Parse O                    Token:  e
+Calling Parse P                    Token:  e
+Calling Parse P_DoubleQuota        Token:  =
+Calling Parse P                    Token:  3.563
+Calling Parse P_TripleQuota        Token:  ;
+Calling Parse P_TripleQuota        Token:  ;
+Calling Parse M                    Token:  char
+Calling Parse O                    Token:  char
+Calling Parse L                    Token:  char
+Calling Parse N                    Token:  char
+Calling Parse R                    Token:  char
+Calling Parse E                    Token:  str
+Calling Parse H                    Token:  str
+Calling Parse H_SingleQuota        Token:  [
+Calling Parse E_SingleQuota        Token:  ;
+Calling Parse L                    Token:  str
+Calling Parse M                    Token:  str
+Calling Parse O                    Token:  str
+Calling Parse P                    Token:  str
+Calling Parse P_DoubleQuota        Token:  =
+Calling Parse P                    Token:  "asd"
+Calling Parse P_TripleQuota        Token:  ;
+Calling Parse M                    Token:  char
+Calling Parse O                    Token:  char
+Calling Parse L                    Token:  char
+Calling Parse N                    Token:  char
+Calling Parse R                    Token:  char
+Calling Parse E                    Token:  ch
+Calling Parse H                    Token:  ch
+Calling Parse H_SingleQuota        Token:  ;
+Calling Parse E_SingleQuota        Token:  ;
+Calling Parse L                    Token:  ch
+Calling Parse M                    Token:  ch
+Calling Parse O                    Token:  ch
+Calling Parse P                    Token:  ch
+Calling Parse P_DoubleQuota        Token:  =
+Calling Parse P                    Token:  'c'
+Calling Parse P_TripleQuota        Token:  ;
+Calling Parse P_TripleQuota        Token:  ;
+Calling Parse M                    Token:  c
+Calling Parse O                    Token:  c
+Calling Parse P                    Token:  c
+Calling Parse P_DoubleQuota        Token:  =
+Calling Parse P                    Token:  a
+Calling Parse P_DoubleQuota        Token:  *
+Calling Parse P_TripleQuota        Token:  *
+Calling Parse P_SingleQuota        Token:  *
+Calling Parse P                    Token:  b
+Calling Parse P_DoubleQuota        Token:  /
+Calling Parse P_TripleQuota        Token:  /
+Calling Parse P_SingleQuota        Token:  /
+Calling Parse P                    Token:  a
+Calling Parse P_DoubleQuota        Token:  +
+Calling Parse P_TripleQuota        Token:  +
+Calling Parse P_SingleQuota        Token:  +
+Calling Parse P                    Token:  b
+Calling Parse P_DoubleQuota        Token:  -
+Calling Parse P_TripleQuota        Token:  -
+Calling Parse P_SingleQuota        Token:  -
+Calling Parse P                    Token:  b
+Calling Parse P_DoubleQuota        Token:  ;
+Calling Parse P_TripleQuota        Token:  ;
+Calling Parse P_TripleQuota        Token:  ;
+Calling Parse P_TripleQuota        Token:  ;
+Calling Parse P_TripleQuota        Token:  ;
+Calling Parse P_TripleQuota        Token:  ;
+Calling Parse P_TripleQuota        Token:  ;
+Calling Parse M                    Token:  c
+Calling Parse O                    Token:  c
+Calling Parse P                    Token:  c
+Calling Parse P_DoubleQuota        Token:  =
+Calling Parse P                    Token:  a
+Calling Parse P_DoubleQuota        Token:  ==
+Calling Parse P_TripleQuota        Token:  ==
+Calling Parse P_SingleQuota        Token:  ==
+Calling Parse P                    Token:  b
+Calling Parse P_DoubleQuota        Token:  ;
+Calling Parse P_TripleQuota        Token:  ;
+Calling Parse P_TripleQuota        Token:  ;
+Calling Parse P_TripleQuota        Token:  ;
+Calling Parse M                    Token:  a
+Calling Parse O                    Token:  a
+Calling Parse P                    Token:  a
+Calling Parse P_DoubleQuota        Token:  !=
+Calling Parse P_TripleQuota        Token:  !=
+Calling Parse P_SingleQuota        Token:  !=
+Calling Parse P                    Token:  b
+Calling Parse P_DoubleQuota        Token:  ;
+Calling Parse P_TripleQuota        Token:  ;
+Calling Parse P_TripleQuota        Token:  ;
+Calling Parse M                    Token:  a
+Calling Parse O                    Token:  a
+Calling Parse P                    Token:  a
+Calling Parse P_DoubleQuota        Token:  >=
+Calling Parse P_TripleQuota        Token:  >=
+Calling Parse P_SingleQuota        Token:  >=
+Calling Parse P                    Token:  b
+Calling Parse P_DoubleQuota        Token:  ;
+Calling Parse P_TripleQuota        Token:  ;
+Calling Parse P_TripleQuota        Token:  ;
+Calling Parse M                    Token:  a
+Calling Parse O                    Token:  a
+Calling Parse P                    Token:  a
+Calling Parse P_DoubleQuota        Token:  <=
+Calling Parse P_TripleQuota        Token:  <=
+Calling Parse P_SingleQuota        Token:  <=
+Calling Parse P                    Token:  b
+Calling Parse P_DoubleQuota        Token:  ;
+Calling Parse P_TripleQuota        Token:  ;
+Calling Parse P_TripleQuota        Token:  ;
+Calling Parse M                    Token:  a
+Calling Parse O                    Token:  a
+Calling Parse P                    Token:  a
+Calling Parse P_DoubleQuota        Token:  >
+Calling Parse P_TripleQuota        Token:  >
+Calling Parse P_SingleQuota        Token:  >
+Calling Parse P                    Token:  b
+Calling Parse P_DoubleQuota        Token:  ;
+Calling Parse P_TripleQuota        Token:  ;
+Calling Parse P_TripleQuota        Token:  ;
+Calling Parse M                    Token:  a
+Calling Parse O                    Token:  a
+Calling Parse P                    Token:  a
+Calling Parse P_DoubleQuota        Token:  <
+Calling Parse P_TripleQuota        Token:  <
+Calling Parse P_SingleQuota        Token:  <
+Calling Parse P                    Token:  b
+Calling Parse P_DoubleQuota        Token:  ;
+Calling Parse P_TripleQuota        Token:  ;
+Calling Parse P_TripleQuota        Token:  ;
+Calling Parse M                    Token:  a
+Calling Parse O                    Token:  a
+Calling Parse P                    Token:  a
+Calling Parse P_DoubleQuota        Token:  &&
+Calling Parse P_TripleQuota        Token:  &&
+Calling Parse P_SingleQuota        Token:  &&
+Calling Parse P                    Token:  b
+Calling Parse P_DoubleQuota        Token:  ;
+Calling Parse P_TripleQuota        Token:  ;
+Calling Parse P_TripleQuota        Token:  ;
+Calling Parse M                    Token:  a
+Calling Parse O                    Token:  a
+Calling Parse P                    Token:  a
+Calling Parse P_DoubleQuota        Token:  ||
+Calling Parse P_TripleQuota        Token:  ||
+Calling Parse P_SingleQuota        Token:  ||
+Calling Parse P                    Token:  b
+Calling Parse P_DoubleQuota        Token:  ;
+Calling Parse P_TripleQuota        Token:  ;
+Calling Parse P_TripleQuota        Token:  ;
+Calling Parse M                    Token:  a
+Calling Parse O                    Token:  a
+Calling Parse P                    Token:  a
+Calling Parse P_DoubleQuota        Token:  =
+Calling Parse P                    Token:  a
+Calling Parse P_DoubleQuota        Token:  ||
+Calling Parse P_TripleQuota        Token:  ||
+Calling Parse P_SingleQuota        Token:  ||
+Calling Parse P                    Token:  b
+Calling Parse P_DoubleQuota        Token:  &&
+Calling Parse P_TripleQuota        Token:  &&
+Calling Parse P_SingleQuota        Token:  &&
+Calling Parse P                    Token:  a
+Calling Parse P_DoubleQuota        Token:  <
+Calling Parse P_TripleQuota        Token:  <
+Calling Parse P_SingleQuota        Token:  <
+Calling Parse P                    Token:  a
+Calling Parse P_DoubleQuota        Token:  >
+Calling Parse P_TripleQuota        Token:  >
+Calling Parse P_SingleQuota        Token:  >
+Calling Parse P                    Token:  b
+Calling Parse P_DoubleQuota        Token:  <
+Calling Parse P_TripleQuota        Token:  <
+Calling Parse P_SingleQuota        Token:  <
+Calling Parse P                    Token:  b
+Calling Parse P_DoubleQuota        Token:  <=
+Calling Parse P_TripleQuota        Token:  <=
+Calling Parse P_SingleQuota        Token:  <=
+Calling Parse P                    Token:  a
+Calling Parse P_DoubleQuota        Token:  >=
+Calling Parse P_TripleQuota        Token:  >=
+Calling Parse P_SingleQuota        Token:  >=
+Calling Parse P                    Token:  b
+Calling Parse P_DoubleQuota        Token:  !=
+Calling Parse P_TripleQuota        Token:  !=
+Calling Parse P_SingleQuota        Token:  !=
+Calling Parse P                    Token:  c
+Calling Parse P_DoubleQuota        Token:  +
+Calling Parse P_TripleQuota        Token:  +
+Calling Parse P_SingleQuota        Token:  +
+Calling Parse P                    Token:  a
+Calling Parse P_DoubleQuota        Token:  -
+Calling Parse P_TripleQuota        Token:  -
+Calling Parse P_SingleQuota        Token:  -
+Calling Parse P                    Token:  b
+Calling Parse P_DoubleQuota        Token:  *
+Calling Parse P_TripleQuota        Token:  *
+Calling Parse P_SingleQuota        Token:  *
+Calling Parse P                    Token:  c
+Calling Parse P_DoubleQuota        Token:  /
+Calling Parse P_TripleQuota        Token:  /
+Calling Parse P_SingleQuota        Token:  /
+Calling Parse P                    Token:  d
+Calling Parse P_DoubleQuota        Token:  ;
+Calling Parse P_TripleQuota        Token:  ;
+Calling Parse P_TripleQuota        Token:  ;
+Calling Parse P_TripleQuota        Token:  ;
+Calling Parse P_TripleQuota        Token:  ;
+Calling Parse P_TripleQuota        Token:  ;
+Calling Parse P_TripleQuota        Token:  ;
+Calling Parse P_TripleQuota        Token:  ;
+Calling Parse P_TripleQuota        Token:  ;
+Calling Parse P_TripleQuota        Token:  ;
+Calling Parse P_TripleQuota        Token:  ;
+Calling Parse P_TripleQuota        Token:  ;
+Calling Parse P_TripleQuota        Token:  ;
+Calling Parse P_TripleQuota        Token:  ;
+Calling Parse P_TripleQuota        Token:  ;
+Calling Parse M                    Token:  while
+Calling Parse O                    Token:  while
+Calling Parse P                    Token:  a
+Calling Parse P_DoubleQuota        Token:  >
+Calling Parse P_TripleQuota        Token:  >
+Calling Parse P_SingleQuota        Token:  >
+Calling Parse P                    Token:  b
+Calling Parse P_DoubleQuota        Token:  )
+Calling Parse P_TripleQuota        Token:  )
+Calling Parse P_TripleQuota        Token:  )
+Calling Parse J                    Token:  {
+Calling Parse L                    Token:  a
+Calling Parse M                    Token:  a
+Calling Parse O                    Token:  a
+Calling Parse P                    Token:  a
+Calling Parse P_DoubleQuota        Token:  =
+Calling Parse P                    Token:  b
+Calling Parse P_DoubleQuota        Token:  ;
+Calling Parse P_TripleQuota        Token:  ;
+Calling Parse P_TripleQuota        Token:  ;
+Calling Parse M                    Token:  }
+Calling Parse M                    Token:  if
+Calling Parse O                    Token:  if
+Calling Parse P                    Token:  a
+Calling Parse P_DoubleQuota        Token:  >
+Calling Parse P_TripleQuota        Token:  >
+Calling Parse P_SingleQuota        Token:  >
+Calling Parse P                    Token:  b
+Calling Parse P_DoubleQuota        Token:  )
+Calling Parse P_TripleQuota        Token:  )
+Calling Parse P_TripleQuota        Token:  )
+Calling Parse J                    Token:  {
+Calling Parse L                    Token:  b
+Calling Parse M                    Token:  b
+Calling Parse O                    Token:  b
+Calling Parse P                    Token:  b
+Calling Parse P_DoubleQuota        Token:  =
+Calling Parse P                    Token:  c
+Calling Parse P_DoubleQuota        Token:  ;
+Calling Parse P_TripleQuota        Token:  ;
+Calling Parse P_TripleQuota        Token:  ;
+Calling Parse M                    Token:  }
+Calling Parse O_SingleQuota        Token:  if
+Calling Parse M                    Token:  if
+Calling Parse O                    Token:  if
+Calling Parse P                    Token:  a
+Calling Parse P_DoubleQuota        Token:  >
+Calling Parse P_TripleQuota        Token:  >
+Calling Parse P_SingleQuota        Token:  >
+Calling Parse P                    Token:  b
+Calling Parse P_DoubleQuota        Token:  )
+Calling Parse P_TripleQuota        Token:  )
+Calling Parse P_TripleQuota        Token:  )
+Calling Parse J                    Token:  {
+Calling Parse L                    Token:  if
+Calling Parse M                    Token:  if
+Calling Parse O                    Token:  if
+Calling Parse P                    Token:  b
+Calling Parse P_DoubleQuota        Token:  >
+Calling Parse P_TripleQuota        Token:  >
+Calling Parse P_SingleQuota        Token:  >
+Calling Parse P                    Token:  c
+Calling Parse P_DoubleQuota        Token:  )
+Calling Parse P_TripleQuota        Token:  )
+Calling Parse P_TripleQuota        Token:  )
+Calling Parse J                    Token:  {
+Calling Parse L                    Token:  b
+Calling Parse M                    Token:  b
+Calling Parse O                    Token:  b
+Calling Parse P                    Token:  b
+Calling Parse P_DoubleQuota        Token:  =
+Calling Parse P                    Token:  c
+Calling Parse P_DoubleQuota        Token:  ;
+Calling Parse P_TripleQuota        Token:  ;
+Calling Parse P_TripleQuota        Token:  ;
+Calling Parse M                    Token:  }
+Calling Parse O_SingleQuota        Token:  }
+Calling Parse M                    Token:  }
+Calling Parse O_SingleQuota        Token:  else
+Calling Parse J                    Token:  {
+Calling Parse L                    Token:  c
+Calling Parse M                    Token:  c
+Calling Parse O                    Token:  c
+Calling Parse P                    Token:  c
+Calling Parse P_DoubleQuota        Token:  =
+Calling Parse P                    Token:  b
+Calling Parse P_DoubleQuota        Token:  ;
+Calling Parse P_TripleQuota        Token:  ;
+Calling Parse P_TripleQuota        Token:  ;
+Calling Parse M                    Token:  }
+Calling Parse M                    Token:  for
+Calling Parse O                    Token:  for
+Calling Parse P                    Token:  a
+Calling Parse P_DoubleQuota        Token:  =
+Calling Parse P                    Token:  0
+Calling Parse P_TripleQuota        Token:  ;
+Calling Parse P_TripleQuota        Token:  ;
+Calling Parse P                    Token:  a
+Calling Parse P_DoubleQuota        Token:  <
+Calling Parse P_TripleQuota        Token:  <
+Calling Parse P_SingleQuota        Token:  <
+Calling Parse P                    Token:  8
+Calling Parse P_TripleQuota        Token:  ;
+Calling Parse P_TripleQuota        Token:  ;
+Calling Parse P                    Token:  a
+Calling Parse P_DoubleQuota        Token:  =
+Calling Parse P                    Token:  a
+Calling Parse P_DoubleQuota        Token:  +
+Calling Parse P_TripleQuota        Token:  +
+Calling Parse P_SingleQuota        Token:  +
+Calling Parse P                    Token:  1
+Calling Parse P_TripleQuota        Token:  )
+Calling Parse P_TripleQuota        Token:  )
+Calling Parse P_TripleQuota        Token:  )
+Calling Parse J                    Token:  {
+Calling Parse L                    Token:  b
+Calling Parse M                    Token:  b
+Calling Parse O                    Token:  b
+Calling Parse P                    Token:  b
+Calling Parse P_DoubleQuota        Token:  =
+Calling Parse P                    Token:  b
+Calling Parse P_DoubleQuota        Token:  +
+Calling Parse P_TripleQuota        Token:  +
+Calling Parse P_SingleQuota        Token:  +
+Calling Parse P                    Token:  1
+Calling Parse P_TripleQuota        Token:  ;
+Calling Parse P_TripleQuota        Token:  ;
+Calling Parse P_TripleQuota        Token:  ;
+Calling Parse M                    Token:  }
+Calling Parse M                    Token:  return
+Calling Parse O                    Token:  return
+Calling Parse P                    Token:  1
+Calling Parse P_TripleQuota        Token:  ;
+Calling Parse M                    Token:  break
+Calling Parse O                    Token:  break
+Calling Parse M                    Token:  continue
+Calling Parse O                    Token:  continue
+Calling Parse M                    Token:  if
+Calling Parse O                    Token:  if
+Calling Parse P                    Token:  a
+Calling Parse P_DoubleQuota        Token:  >
+Calling Parse P_TripleQuota        Token:  >
+Calling Parse P_SingleQuota        Token:  >
+Calling Parse P                    Token:  b
+Calling Parse P_DoubleQuota        Token:  )
+Calling Parse P_TripleQuota        Token:  )
+Calling Parse P_TripleQuota        Token:  )
+Calling Parse J                    Token:  {
+Calling Parse L                    Token:  if
+Calling Parse M                    Token:  if
+Calling Parse O                    Token:  if
+Calling Parse P                    Token:  a
+Calling Parse P_DoubleQuota        Token:  >
+Calling Parse P_TripleQuota        Token:  >
+Calling Parse P_SingleQuota        Token:  >
+Calling Parse P                    Token:  b
+Calling Parse P_DoubleQuota        Token:  )
+Calling Parse P_TripleQuota        Token:  )
+Calling Parse P_TripleQuota        Token:  )
+Calling Parse J                    Token:  {
+Calling Parse L                    Token:  b
+Calling Parse M                    Token:  b
+Calling Parse O                    Token:  b
+Calling Parse P                    Token:  b
+Calling Parse P_DoubleQuota        Token:  =
+Calling Parse P                    Token:  a
+Calling Parse P_DoubleQuota        Token:  ;
+Calling Parse P_TripleQuota        Token:  ;
+Calling Parse P_TripleQuota        Token:  ;
+Calling Parse M                    Token:  }
+Calling Parse O_SingleQuota        Token:  else
+Calling Parse J                    Token:  {
+Calling Parse L                    Token:  a
+Calling Parse M                    Token:  a
+Calling Parse O                    Token:  a
+Calling Parse P                    Token:  a
+Calling Parse P_DoubleQuota        Token:  =
+Calling Parse P                    Token:  b
+Calling Parse P_DoubleQuota        Token:  ;
+Calling Parse P_TripleQuota        Token:  ;
+Calling Parse P_TripleQuota        Token:  ;
+Calling Parse M                    Token:  }
+Calling Parse M                    Token:  }
+Calling Parse O_SingleQuota        Token:  while
+Calling Parse M                    Token:  while
+Calling Parse O                    Token:  while
+Calling Parse P                    Token:  a
+Calling Parse P_DoubleQuota        Token:  !=
+Calling Parse P_TripleQuota        Token:  !=
+Calling Parse P_SingleQuota        Token:  !=
+Calling Parse P                    Token:  0
+Calling Parse P_TripleQuota        Token:  )
+Calling Parse P_TripleQuota        Token:  )
+Calling Parse J                    Token:  {
+Calling Parse L                    Token:  while
+Calling Parse M                    Token:  while
+Calling Parse O                    Token:  while
+Calling Parse P                    Token:  b
+Calling Parse P_DoubleQuota        Token:  =
+Calling Parse P                    Token:  c
+Calling Parse P_DoubleQuota        Token:  )
+Calling Parse P_TripleQuota        Token:  )
+Calling Parse P_TripleQuota        Token:  )
+Calling Parse J                    Token:  {
+Calling Parse L                    Token:  b
+Calling Parse M                    Token:  b
+Calling Parse O                    Token:  b
+Calling Parse P                    Token:  b
+Calling Parse P_DoubleQuota        Token:  =
+Calling Parse P                    Token:  c
+Calling Parse P_DoubleQuota        Token:  ;
+Calling Parse P_TripleQuota        Token:  ;
+Calling Parse P_TripleQuota        Token:  ;
+Calling Parse M                    Token:  }
+Calling Parse M                    Token:  }
+Calling Parse M                    Token:  }
+Calling Parse A_SingleQuota        Token:  float
+Calling Parse A                    Token:  float
+Calling Parse B                    Token:  float
+Calling Parse R                    Token:  float
+Calling Parse H                    Token:  x
+Calling Parse H_SingleQuota        Token:  ,
+Calling Parse B_SingleQuota        Token:  ,
+Calling Parse E_SingleQuota        Token:  ,
+Calling Parse E                    Token:  y
+Calling Parse H                    Token:  y
+Calling Parse H_SingleQuota        Token:  ;
+Calling Parse E_SingleQuota        Token:  ;
+Calling Parse A_SingleQuota        Token:  $
+----------------------------------------------
+Compilation success !
+----------------------------------------------
+
